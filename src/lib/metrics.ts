@@ -25,8 +25,10 @@ export interface SiteEntry {
   assemblyLevel: 'municipal' | 'prefectural';
   name: string;
   url: string;
-  repo: string;
+  urlAlt?: string;
+  repo?: string | null;
   operator?: string;
+  operatorX?: string;
   basedOn: 'fork' | 'independent';
   launchedOn?: string;
   addedOn: string;

@@ -43,8 +43,10 @@ interface SiteRow {
   assembly_level: SiteEntry['assemblyLevel'];
   name: string;
   url: string;
-  repo: string;
+  url_alt?: string;
+  repo?: string | null;
   operator?: string;
+  operator_x?: string;
   based_on: SiteEntry['basedOn'];
   launched_on?: string | Date;
   added_on: string | Date;
@@ -67,8 +69,10 @@ export function loadSites(yamlPath: string): SiteEntry[] {
     assemblyLevel: r.assembly_level,
     name: r.name,
     url: r.url,
-    repo: r.repo,
+    urlAlt: r.url_alt,
+    repo: r.repo ?? undefined,
     operator: r.operator,
+    operatorX: r.operator_x,
     basedOn: r.based_on,
     launchedOn: toDateString(r.launched_on),
     addedOn: toDateString(r.added_on),

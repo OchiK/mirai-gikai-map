@@ -15,11 +15,22 @@ const SiteEntrySchema = z
       .string()
       .url()
       .refine((val) => val.startsWith('https://'), 'url must use HTTPS'),
+    url_alt: z
+      .string()
+      .url()
+      .refine((val) => val.startsWith('https://'), 'url_alt must use HTTPS')
+      .optional(),
     repo: z
       .string()
       .url()
-      .refine((val) => val.startsWith('https://'), 'repo must use HTTPS'),
+      .refine((val) => val.startsWith('https://'), 'repo must use HTTPS')
+      .nullish(),
     operator: z.string().min(1, 'operator cannot be empty').optional(),
+    operator_x: z
+      .string()
+      .url()
+      .refine((val) => val.startsWith('https://'), 'operator_x must use HTTPS')
+      .optional(),
     based_on: z.enum(['fork', 'independent']),
     launched_on: z
       .union([

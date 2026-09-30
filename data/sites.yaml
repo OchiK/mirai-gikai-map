@@ -1,3 +1,69 @@
+# 非公式 みらい議会リンク集
+# Source: https://app.notion.com/p/9b7aaa9b88af4433a7788110674f08e6
+# Last synced: 2026-09-30
+
+# ── 都道府県 ─────────────────────────────────────────────────────────────────
+
+- id: kanagawa-pref
+  assembly_code5: "14000"
+  assembly_level: prefectural
+  name: みらい議会＠神奈川県
+  url: https://mirai-gikai-kanagawa-web.vercel.app/
+  repo: ~
+  based_on: fork
+  added_on: 2026-09-30
+  status: active
+  operator_x: https://x.com/GondowTakashi
+  notes: "Operator display name and launch date are not yet verified."
+
+- id: nara-pref
+  assembly_code5: "29000"
+  assembly_level: prefectural
+  name: みらい議会＠奈良県
+  url: https://mirai-gikai-nara-web.vercel.app/
+  repo: ~
+  based_on: fork
+  added_on: 2026-09-30
+  status: active
+  notes: "Operator display name and launch date are not yet verified."
+
+- id: fukuoka-pref
+  assembly_code5: "40000"
+  assembly_level: prefectural
+  name: みらい議会＠福岡県
+  url: https://mirai-gikai-fukuoka-pref-web.vercel.app/
+  repo: https://github.com/bakumon1107/mirai-gikai-fukuoka-pref
+  based_on: fork
+  added_on: 2026-09-30
+  status: active
+  operator_x: https://x.com/m_gikai_fukuoka
+  notes: "Operator display name and launch date are not yet verified."
+
+# ── 市区 ─────────────────────────────────────────────────────────────────────
+
+- id: tokorozawa-shi
+  assembly_code5: "11208"
+  assembly_level: municipal
+  name: みらい議会＠所沢市
+  url: https://mirai-gikai-tokorozawa.vercel.app/
+  repo: ~
+  based_on: fork
+  added_on: 2026-09-30
+  status: active
+  notes: "Operator display name and launch date are not yet verified."
+
+- id: chuo-ku
+  assembly_code5: "13102"
+  assembly_level: municipal
+  name: みらい議会＠中央区
+  url: https://mirai-gikai.yukihoz.tokyo/
+  repo: ~
+  based_on: fork
+  added_on: 2026-09-30
+  status: active
+  operator_x: https://x.com/ninofku
+  notes: "Operator display name and launch date are not yet verified."
+
 - id: shinjuku-ku
   assembly_code5: "13104"
   assembly_level: municipal
@@ -14,21 +80,83 @@
   assembly_level: municipal
   name: みらい議会＠世田谷区
   url: https://setagaya-mirai-gikai-web.vercel.app/
+  url_alt: https://civictech-setagaya.org/
   repo: https://github.com/ogukazu7627-sys/setagaya-mirai-gikai
+  based_on: fork
+  added_on: 2026-09-30
+  status: active
+  operator_x: https://x.com/DD_Setagaya
+  notes: "Two URLs found — civictech-setagaya.org may be the canonical domain. Verify."
+
+- id: ota-ku
+  assembly_code5: "13111"
+  assembly_level: municipal
+  name: みらい議会＠大田区
+  url: https://ota.aix.tokyo/
+  repo: ~
+  based_on: fork
+  added_on: 2026-09-30
+  status: active
+  operator_x: https://x.com/kunii_masa17608
+  notes: "Operator display name and launch date are not yet verified."
+
+- id: adachi-ku
+  assembly_code5: "13121"
+  assembly_level: municipal
+  name: みらい議会＠足立区
+  url: https://mirai-gikai-adachi-web.vercel.app/
+  repo: ~
   based_on: fork
   added_on: 2026-09-30
   status: active
   notes: "Operator display name and launch date are not yet verified."
 
-- id: fukuoka-pref
-  assembly_code5: "40000"
-  assembly_level: prefectural
-  name: みらい議会＠福岡県
-  url: https://mirai-gikai-fukuoka-pref-web.vercel.app/
-  repo: https://github.com/bakumon1107/mirai-gikai-fukuoka-pref
+- id: kawasaki-shi
+  assembly_code5: "14130"
+  assembly_level: municipal
+  name: みらい議会＠川崎市
+  url: https://mirai-gikai-kawasaki-web.vercel.app/
+  repo: ~
   based_on: fork
   added_on: 2026-09-30
   status: active
+  operator_x: https://x.com/GondowTakashi
+  notes: "Operator display name and launch date are not yet verified."
+
+- id: kusatsu-shi
+  assembly_code5: "25206"
+  assembly_level: municipal
+  name: みらい議会＠草津市
+  url: https://mirai-gikai-kusatsu.vercel.app/
+  repo: ~
+  based_on: fork
+  added_on: 2026-09-30
+  status: active
+  operator_x: https://x.com/YY_papa
+  notes: "Operator display name and launch date are not yet verified."
+
+- id: numazu-shi
+  assembly_code5: "22203"
+  assembly_level: municipal
+  name: みらい議会＠沼津市
+  url: https://mirai-numazu.com/
+  repo: ~
+  based_on: fork
+  added_on: 2026-09-30
+  status: active
+  operator_x: https://x.com/seiichi3141
+  notes: "Operator display name and launch date are not yet verified."
+
+- id: nagoya-shi
+  assembly_code5: "23100"
+  assembly_level: municipal
+  name: みらい議会＠名古屋市
+  url: https://mirai-gikai-nagoya.vercel.app/
+  repo: ~
+  based_on: fork
+  added_on: 2026-09-30
+  status: active
+  operator_x: https://x.com/ssuga620282
   notes: "Operator display name and launch date are not yet verified."
 
 - id: akitakata-shi
@@ -37,6 +165,89 @@
   name: みらい議会＠安芸高田市
   url: https://mirai-gikai-akitakata-city-web.vercel.app/
   repo: https://github.com/bakumon1107/mirai-gikai-akitakata-city
+  based_on: fork
+  added_on: 2026-09-30
+  status: active
+  operator_x: https://x.com/bakumon0907
+  notes: "Operator display name and launch date are not yet verified."
+
+- id: fukuoka-shi
+  assembly_code5: "40130"
+  assembly_level: municipal
+  name: みらい議会＠福岡市
+  url: https://mirai-gikai-fukuoka-city-web-6wib.vercel.app/
+  repo: ~
+  based_on: fork
+  added_on: 2026-09-30
+  status: active
+  operator_x: https://x.com/m_gikai_fukuoka
+  notes: "Operator display name and launch date are not yet verified."
+
+- id: tagawa-shi
+  assembly_code5: "40206"
+  assembly_level: municipal
+  name: みらい議会＠田川市
+  url: https://tagawa-gikai.jp/
+  repo: ~
+  based_on: fork
+  added_on: 2026-09-30
+  status: active
+  notes: "Operator display name and launch date are not yet verified."
+
+- id: fukutsu-shi
+  assembly_code5: "40224"
+  assembly_level: municipal
+  name: みらい議会＠福津市
+  url: https://mirai-gikai-fukutsu.jp/
+  repo: ~
+  based_on: fork
+  added_on: 2026-09-30
+  status: active
+  notes: "Operator display name and launch date are not yet verified."
+
+- id: oita-shi
+  assembly_code5: "44201"
+  assembly_level: municipal
+  name: みらい議会＠大分市
+  url: https://script.google.com/macros/s/AKfycbyizAr2Ula1osVJZV3OIMJy8fPO7A1wNGwW5nLTjrzSMbe5pYmTlemvqDDMLsLu7AUD/exec
+  repo: ~
+  based_on: fork
+  added_on: 2026-09-30
+  status: active
+  operator_x: https://x.com/shiopan_222
+  notes: "Hosted on Google Apps Script. Operator display name and launch date are not yet verified."
+
+- id: ishigaki-shi
+  assembly_code5: "47207"
+  assembly_level: municipal
+  name: みらい議会＠石垣市
+  url: https://ishigaki-gikai-app-web-coral.vercel.app/
+  repo: ~
+  based_on: fork
+  added_on: 2026-09-30
+  status: active
+  operator_x: https://x.com/AtsushiFukuzato
+  notes: "Operator display name and launch date are not yet verified."
+
+# ── 町村 ─────────────────────────────────────────────────────────────────────
+
+- id: hayama-machi
+  assembly_code5: "14301"
+  assembly_level: municipal
+  name: みらい議会＠葉山町
+  url: https://hayama-gikai-web.vercel.app/
+  repo: ~
+  based_on: fork
+  added_on: 2026-09-30
+  status: active
+  notes: "Operator display name and launch date are not yet verified."
+
+- id: hirokawa-machi-fukuoka
+  assembly_code5: "40544"
+  assembly_level: municipal
+  name: みらい議会＠広川町（福岡）
+  url: https://mirai-gikai-web-ashen.vercel.app/
+  repo: ~
   based_on: fork
   added_on: 2026-09-30
   status: active
