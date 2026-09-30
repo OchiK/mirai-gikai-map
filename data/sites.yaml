@@ -4,9 +4,40 @@
   name: みらい議会＠新宿区
   url: https://miraigikai-shinjuku-web.vercel.app/
   repo: https://github.com/OchiK/miraigikai-Shinjuku
-  operator: 新宿区民A
   based_on: fork
-  launched_on: 2026-06-01
   added_on: 2026-09-30
   status: active
-  notes: ""
+  notes: "Operator display name and launch date are not yet verified."
+
+- id: setagaya-ku
+  assembly_code5: "13112"
+  assembly_level: municipal
+  name: みらい議会＠世田谷区
+  url: https://setagaya-mirai-gikai-web.vercel.app/
+  repo: https://github.com/ogukazu7627-sys/setagaya-mirai-gikai
+  based_on: fork
+  added_on: 2026-09-30
+  status: active
+  notes: "Operator display name and launch date are not yet verified."
+
+- id: fukuoka-pref
+  assembly_code5: "40000"
+  assembly_level: prefectural
+  name: みらい議会＠福岡県
+  url: https://mirai-gikai-fukuoka-pref-web.vercel.app/
+  repo: https://github.com/bakumon1107/mirai-gikai-fukuoka-pref
+  based_on: fork
+  added_on: 2026-09-30
+  status: active
+  notes: "Operator display name and launch date are not yet verified."
+
+- id: akitakata-shi
+  assembly_code5: "34214"
+  assembly_level: municipal
+  name: みらい議会＠安芸高田市
+  url: https://mirai-gikai-akitakata-city-web.vercel.app/
+  repo: https://github.com/bakumon1107/mirai-gikai-akitakata-city
+  based_on: fork
+  added_on: 2026-09-30
+  status: active
+  notes: "Operator display name and launch date are not yet verified."
