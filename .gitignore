@@ -1,0 +1,21 @@
+# Build and dependencies
+node_modules/
+dist/
+.astro/
+
+# Environment
+.env
+.env.production
+.env.*.local
+
+# Logs and OS
+npm-debug.log*
+yarn-debug.log*
+yarn-error.log*
+pnpm-debug.log*
+.DS_Store
+Thumbs.db
+
+# Raw data sources (downloaded large files)
+data/raw/*
+!data/raw/README.md

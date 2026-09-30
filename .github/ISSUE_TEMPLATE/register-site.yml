@@ -1,0 +1,74 @@
+name: サイト掲載申請 (Register a Site)
+description: 新しく開設した「みらい議会」インスタンスの掲載を申請します
+title: '掲載申請: [自治体名]'
+labels: ['site-registration']
+body:
+  - type: markdown
+    attributes:
+      value: |
+        みらい議会インスタンスの掲載申請ありがとうございます。
+        以下の必須項目を入力してください。内容を確認の上、管理者が `data/sites.yaml` へ登録します。
+  - type: input
+    id: site_url
+    attributes:
+      label: サイトURL (Site URL)
+      description: 公開されているサイトのURL（HTTPS必須）を入力してください。
+      placeholder: https://miraigikai-example.vercel.app/
+    validations:
+      required: true
+  - type: input
+    id: repo_url
+    attributes:
+      label: リポジトリURL (Repository URL)
+      description: GitHubリポジトリのURLを入力してください。
+      placeholder: https://github.com/username/miraigikai-example
+    validations:
+      required: true
+  - type: input
+    id: assembly_name
+    attributes:
+      label: 対象自治体・議会名 (Assembly Name)
+      description: 都道府県名および市区町村名（例: 東京都新宿区、福岡県福岡市、福岡県議会）
+      placeholder: 東京都新宿区
+    validations:
+      required: true
+  - type: input
+    id: assembly_code5
+    attributes:
+      label: 全国地方公共団体コード (5桁)
+      description: わかる場合は5桁の自治体コードを入力してください（例: 13104）。都道府県議会の場合は末尾000（例: 13000）。
+      placeholder: '13104'
+    validations:
+      required: false
+  - type: input
+    id: operator
+    attributes:
+      label: 運営者表示名 (Operator Name)
+      description: サイト上に表示されている運営者名またはチーム名
+      placeholder: 新宿区民A
+    validations:
+      required: true
+  - type: input
+    id: launched_on
+    attributes:
+      label: 公開日・開設日 (Launch Date)
+      description: サイトの公開日（わかる範囲で YYYY-MM-DD 形式）
+      placeholder: '2026-06-01'
+    validations:
+      required: false
+  - type: checkboxes
+    id: criteria
+    attributes:
+      label: 掲載基準の確認 (Inclusion Criteria)
+      options:
+        - label: 対象の自治体議会（都道府県または市区町村）を扱っている
+          required: true
+        - label: 「みらい議会」をベースまたはモデルにしており、非公式である旨の明記がある
+          required: true
+        - label: 一般公開されており、サンプルの初期データではなく実際の議会データが反映されている
+          required: true
+  - type: textarea
+    id: notes
+    attributes:
+      label: 備考 (Notes)
+      description: その他特記事項があればご記入ください。

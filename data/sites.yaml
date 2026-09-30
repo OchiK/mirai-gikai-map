@@ -1,0 +1,12 @@
+- id: shinjuku-ku
+  assembly_code5: "13104"
+  assembly_level: municipal
+  name: みらい議会＠新宿区
+  url: https://miraigikai-shinjuku-web.vercel.app/
+  repo: https://github.com/OchiK/miraigikai-Shinjuku
+  operator: 新宿区民A
+  based_on: fork
+  launched_on: 2026-06-01
+  added_on: 2026-09-30
+  status: active
+  notes: ""

@@ -1,0 +1,136 @@
+---
+// src/pages/index.astro
+---
+
+<!doctype html>
+<html lang="ja">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>みらい議会マップ（非公式）</title>
+    <meta
+      name="description"
+      content="全国の自治体議会における「みらい議会」インスタンスの開設状況を可視化・集約する非公式ポータルサイト"
+    />
+    <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
+    <style>
+      :root {
+        --color-bg: #f8fafc;
+        --color-text: #0f172a;
+        --color-muted: #64748b;
+        --color-primary: #0284c7;
+        --color-border: #e2e8f0;
+        --color-card-bg: #ffffff;
+      }
+
+      @media (prefers-color-scheme: dark) {
+        :root {
+          --color-bg: #0b0f19;
+          --color-text: #f1f5f9;
+          --color-muted: #94a3b8;
+          --color-primary: #38bdf8;
+          --color-border: #1e293b;
+          --color-card-bg: #111827;
+        }
+      }
+
+      body {
+        margin: 0;
+        font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif;
+        background-color: var(--color-bg);
+        color: var(--color-text);
+        display: flex;
+        flex-direction: column;
+        min-height: 100vh;
+      }
+
+      header {
+        padding: 1.5rem 2rem;
+        border-bottom: 1px solid var(--color-border);
+      }
+
+      header h1 {
+        margin: 0;
+        font-size: 1.5rem;
+        font-weight: 700;
+        letter-spacing: -0.025em;
+      }
+
+      main {
+        flex: 1;
+        max-width: 960px;
+        width: 100%;
+        margin: 0 auto;
+        padding: 3rem 1.5rem;
+      }
+
+      .hero {
+        text-align: center;
+        margin-bottom: 3rem;
+      }
+
+      .hero h2 {
+        font-size: 2.25rem;
+        margin-bottom: 1rem;
+        letter-spacing: -0.03em;
+      }
+
+      .hero p {
+        color: var(--color-muted);
+        font-size: 1.125rem;
+        line-height: 1.6;
+        max-width: 600px;
+        margin: 0 auto;
+      }
+
+      .status-card {
+        background-color: var(--color-card-bg);
+        border: 1px solid var(--color-border);
+        border-radius: 12px;
+        padding: 2rem;
+        text-align: center;
+        box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.05);
+      }
+
+      footer {
+        padding: 2rem;
+        border-top: 1px solid var(--color-border);
+        text-align: center;
+        font-size: 0.875rem;
+        color: var(--color-muted);
+      }
+
+      .disclaimer {
+        margin-top: 0.5rem;
+        font-size: 0.8rem;
+        color: var(--color-muted);
+      }
+    </style>
+  </head>
+  <body>
+    <header>
+      <h1>みらい議会マップ</h1>
+    </header>
+
+    <main>
+      <section class="hero">
+        <h2>全国の「みらい議会」を可視化する</h2>
+        <p>
+          日本全国の地方議会（都道府県・市区町村）ごとに立ち上がった「みらい議会」インスタンスの普及状況やカバー率を可視化するポータルサイトです。
+        </p>
+      </section>
+
+      <section class="status-card">
+        <h3>プロジェクト準備中 (Phase 0: Setup Completed)</h3>
+        <p>現在、データ基盤およびインタラクティブ地図コンポーネントを準備中です。</p>
+      </section>
+    </main>
+
+    <footer>
+      <p>© 2026 みらい議会マップ（非公式プロジェクト）</p>
+      <p class="disclaimer">
+        ※当サイトは個人および有志による非公式ポータルサイトであり、チームみらい公式および各自治体議会とは一切関係ありません。
+      </p>
+    </footer>
+  </body>
+</html>
