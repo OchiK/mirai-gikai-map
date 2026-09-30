@@ -1,0 +1,82 @@
+---
+import Layout from '../layouts/Layout.astro';
+import { REGISTER_ISSUE_URL } from '../lib/site';
+---
+
+<Layout title="登録申請" description="みらい議会サイトの掲載基準と、登録申請の方法を説明します。">
+  <article class="prose">
+    <h1>登録申請</h1>
+    <p>
+      地方議会を対象にした「みらい議会」サイトを運営している方、または掲載されていないサイトをご存じの方は、GitHub の申請フォームからお知らせください。管理者が内容を確認したうえで掲載します。
+    </p>
+
+    <h2>掲載基準</h2>
+    <p>次の3つをすべて満たすサイトを掲載します。運営者や所属を問わず、基準を満たすサイトはすべて載せます。</p>
+    <ul>
+      <li>日本の地方議会（都道府県議会または市区町村議会）を1つ扱っている。</li>
+      <li>「みらい議会」をもとにしているか、はっきりと参考にしていて、非公式である旨を表示している。</li>
+      <li>一般に公開されていて、サンプルデータではなく実際の議会の情報を載せている。</li>
+    </ul>
+    <p>
+      特定の委員会や予算だけなど、一部のテーマに限ったサイトは掲載一覧には載せますが、カバー率には数えません。
+    </p>
+
+    <h2>申請に必要な情報</h2>
+    <ul>
+      <li>サイトの URL（https で始まるもの）</li>
+      <li>GitHub リポジトリの URL</li>
+      <li>対象の議会（都道府県・市区町村名）と、わかれば全国地方公共団体コード（5桁）</li>
+      <li>運営者の表示名（サイト上に表示している名前）</li>
+      <li>公開日（わかれば）</li>
+    </ul>
+
+    <p class="cta">
+      <a class="button" href={REGISTER_ISSUE_URL} target="_blank" rel="noopener">
+        GitHub で登録申請する<span aria-hidden="true"> ↗</span>
+      </a>
+    </p>
+    <p class="note">申請には GitHub のアカウントが必要です。</p>
+
+    <h2>掲載までの流れ</h2>
+    <ol>
+      <li>申請フォームから Issue を作成します。</li>
+      <li>管理者がサイトの表示、対象の議会、非公式表示の有無を確認します。</li>
+      <li>問題がなければ登録簿（<code>data/sites.yaml</code>）に追加し、サイトに反映します。</li>
+    </ol>
+    <p>
+      自動収集したサイトの候補も、必ず人が確認してから掲載します。掲載内容の修正・削除のご希望も Issue でお知らせください。
+    </p>
+  </article>
+</Layout>
+
+<style>
+  h1 {
+    font-size: 1.6rem;
+    margin-top: 0;
+  }
+
+  .cta {
+    margin: 1.5rem 0 0.5rem;
+  }
+
+  .button {
+    display: inline-flex;
+    align-items: center;
+    min-height: 48px;
+    padding: 0.6rem 1.4rem;
+    border-radius: 999px;
+    background: var(--color-accent);
+    color: var(--color-surface);
+    font-weight: 700;
+    text-decoration: none;
+  }
+
+  .button:hover {
+    text-decoration: underline;
+  }
+
+  .note {
+    font-size: 0.85rem;
+    color: var(--color-muted);
+  }
+</style>

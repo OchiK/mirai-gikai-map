@@ -1,0 +1,149 @@
+---
+import Layout from '../layouts/Layout.astro';
+import { loadMunicipalities, loadSites } from '../lib/data';
+import { calculateNationalMetrics, formatPopulation } from '../lib/metrics';
+import {
+  GEO_SOURCE_URL,
+  GLOBAL_MAP_JAPAN_URL,
+  REPO_URL,
+  STATUS_LABELS,
+  UPSTREAM_DIET_URL,
+} from '../lib/site';
+
+const national = calculateNationalMetrics(
+  loadSites('data/sites.yaml'),
+  loadMunicipalities('data/municipalities.csv'),
+);
+const totalMunicipal = formatPopulation(national.totalMunicipalitiesCount);
+---
+
+<Layout title="このサイトについて" description="みらい議会マップのカバー率の算出方法、データ出典、運営方針を説明します。">
+  <article class="prose">
+    <h1>このサイトについて</h1>
+    <p>
+      みらい議会マップは、全国の地方議会（都道府県議会・市区町村議会）ごとに立ち上がった「みらい議会」サイトを集め、どれだけの議会・人口をカバーしているかを示す非公式のポータルサイトです。有志が運営しており、チームみらい、および各地方議会の公式サービスではありません。
+    </p>
+    <p>
+      国会を対象とする<a href={UPSTREAM_DIET_URL} target="_blank" rel="noopener">みらい議会（国会版）</a>は地方議会ではないため、集計には含めていません。
+    </p>
+
+    <h2>カバー率の定義</h2>
+    <p>
+      掲載サイトのうち、議会の議案を全般的に扱い、状態が「{STATUS_LABELS.active}」または「{STATUS_LABELS.stale}」のものが1件以上ある議会を「カバー済み」とします。「{STATUS_LABELS.dead}」「{STATUS_LABELS.building}」のサイトと、特定の委員会・予算・テーマだけを扱うサイトは数えません。
+    </p>
+    <ol>
+      <li>
+        <strong>自治体数カバー率</strong>
+        <p class="formula">
+          都道府県内でカバー済みの市区町村議会の数 ÷ 都道府県内の市区町村議会の数<br />
+          全国：カバー済みの市区町村議会の数 ÷ {totalMunicipal}
+        </p>
+      </li>
+      <li>
+        <strong>人口カバー率</strong>
+        <p class="formula">
+          カバー済み市区町村の人口の合計 ÷ 都道府県の人口（市区町村人口の合計）<br />
+          全国：すべての市区町村について同じ計算
+        </p>
+        <p>
+          ランキングの既定の指標です。自治体数カバー率は市区町村の少ない都道府県ほど高くなりやすいため（鳥取県は19、北海道は179）、人口で重み付けした指標を優先しています。
+        </p>
+      </li>
+      <li>
+        <strong>都道府県議会</strong>
+        <p>
+          都道府県議会のサイトの有無を「あり／なし」で示します。上の2つの率には含めません。
+        </p>
+      </li>
+    </ol>
+    <p>
+      ランキングは人口カバー率の高い順で、同率の場合は自治体数カバー率、次に都道府県コードの順に並べます。1つの市区町村に複数のサイトがある場合、カバー率では1つとして数え、掲載一覧にはすべて載せます。
+    </p>
+
+    <h2>母数</h2>
+    <p>
+      市区町村議会は792市・743町・183村の計1,718に東京23区の特別区を加えた {totalMunicipal}
+      議会です。北方領土の6村は議会が機能していないため除いています。これとは別に、都道府県議会47を数えます。政令指定都市の行政区（札幌市中央区など）には議会がないため、市としてまとめて扱います。
+    </p>
+
+    <h2>データの出典</h2>
+    <table>
+      <thead>
+        <tr><th scope="col">データ</th><th scope="col">出典</th><th scope="col">基準日</th></tr>
+      </thead>
+      <tbody>
+        <tr>
+          <td>市区町村の一覧・コード</td>
+          <td>総務省「全国地方公共団体コード」</td>
+          <td>令和6年1月1日</td>
+        </tr>
+        <tr>
+          <td>人口</td>
+          <td>総務省「住民基本台帳に基づく人口、人口動態及び世帯数」（外国人住民を含む総計）</td>
+          <td>令和8年1月1日</td>
+        </tr>
+        <tr>
+          <td>都道府県の境界</td>
+          <td>
+            <a href={GLOBAL_MAP_JAPAN_URL} target="_blank" rel="noopener">地球地図日本（国土地理院）</a>。<a
+              href={GEO_SOURCE_URL}
+              target="_blank"
+              rel="noopener">dataofjapan/land</a
+            > が TopoJSON に変換したものを、さらに簡略化して使用しています。
+          </td>
+          <td>—</td>
+        </tr>
+        <tr>
+          <td>掲載サイト</td>
+          <td>当サイトのリポジトリで管理している登録簿（<code>data/sites.yaml</code>）</td>
+          <td>随時更新</td>
+        </tr>
+      </tbody>
+    </table>
+    <p>
+      現在の全国人口（市区町村の合計）は {formatPopulation(national.totalPopulation)} 人です。
+    </p>
+
+    <h2>更新について</h2>
+    <ul>
+      <li>掲載サイトは、登録申請の内容を管理者が確認したうえで追加します。自動では追加しません。</li>
+      <li>各サイトの稼働状況を毎日自動で確認し、状態（稼働中・更新停止・停止）に反映する仕組みを準備中です。</li>
+      <li>人口・自治体コードは、総務省の新しいデータが公表された時点で更新します。</li>
+    </ul>
+
+    <h2>しくみ</h2>
+    <p>
+      サイトは Astro で静的に生成しています。地図は MapLibre GL JS で描いており、背景地図（タイル）は使っていません。数値はすべてビルド時に登録簿と総務省データから計算しています。ソースコードとデータは
+      <a href={REPO_URL} target="_blank" rel="noopener">GitHub</a> で公開しています。
+    </p>
+
+    <h2>掲載情報の修正・削除</h2>
+    <p>
+      運営者名は各サイトに表示されているものだけを載せています。掲載内容の修正や削除のご希望は、<a
+        href={`${REPO_URL}/issues`}
+        target="_blank"
+        rel="noopener">GitHub の Issue</a
+      > でお知らせください。
+    </p>
+  </article>
+</Layout>
+
+<style>
+  h1 {
+    font-size: 1.6rem;
+    margin-top: 0;
+  }
+
+  ol {
+    padding-left: 1.4rem;
+  }
+
+  ol li {
+    margin-bottom: 1rem;
+  }
+
+  table {
+    display: block;
+    overflow-x: auto;
+  }
+</style>

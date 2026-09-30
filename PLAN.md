@@ -85,6 +85,7 @@ code5,code6,pref_code,pref_name,name,kind,parent_code5,population,population_ref
   launched_on: 2026-06-01         # placeholder; best known launch date, used by the timeline slider
   added_on: 2026-09-30            # date it entered this registry
   status: active                  # active | stale | dead | building (set by health check; building is manual)
+  counts_for_coverage: true       # false for committee-, budget-, or topic-only sites
   notes: ""
 ```
 
@@ -94,6 +95,7 @@ Rules enforced by `scripts/validate.ts` (Zod schema):
 - `url` is HTTPS and unique across entries.
 - `id` is unique.
 - `name` contains the municipality name from the master list, or the entry sets `notes` explaining why not.
+- `counts_for_coverage` defaults to `true`; set it to `false` for a site limited to a committee, budget, or other topic, and explain the exclusion in `notes`.
 
 ### `data/status.json` (written by the health check bot)
 

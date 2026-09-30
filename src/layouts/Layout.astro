@@ -1,0 +1,390 @@
+---
+import {
+  GEO_SOURCE_URL,
+  GLOBAL_MAP_JAPAN_URL,
+  REPO_URL,
+  SITE_TITLE,
+  UPSTREAM_DIET_URL,
+} from '../lib/site';
+
+interface Props {
+  title?: string;
+  description?: string;
+}
+
+const {
+  title,
+  description = '全国の地方議会で立ち上がった「みらい議会」サイトの開設状況とカバー率をまとめた非公式ポータルです。',
+} = Astro.props;
+
+const pageTitle = title ? `${title} | ${SITE_TITLE}（非公式）` : `${SITE_TITLE}（非公式）`;
+const currentPath = Astro.url.pathname.replace(/\/$/, '') || '/';
+
+const navItems = [
+  { href: '/', label: 'ホーム' },
+  { href: '/sites', label: '掲載一覧' },
+  { href: '/about', label: 'このサイトについて' },
+  { href: '/submit', label: '登録申請' },
+];
+---
+
+<!doctype html>
+<html lang="ja">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta name="color-scheme" content="light dark" />
+    <title>{pageTitle}</title>
+    <meta name="description" content={description} />
+    <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
+  </head>
+  <body>
+    <a class="skip-link" href="#main">本文へスキップ</a>
+    <header class="site-header">
+      <div class="container header-inner">
+        <a class="brand" href="/">
+          <span class="brand-name">{SITE_TITLE}</span>
+          <span class="brand-badge">非公式</span>
+        </a>
+        <nav aria-label="メインメニュー">
+          <ul class="nav-list">
+            {
+              navItems.map((item) => (
+                <li>
+                  <a href={item.href} aria-current={currentPath === item.href ? 'page' : undefined}>
+                    {item.label}
+                  </a>
+                </li>
+              ))
+            }
+          </ul>
+        </nav>
+      </div>
+    </header>
+
+    <main id="main" class="container">
+      <slot />
+    </main>
+
+    <footer class="site-footer">
+      <div class="container footer-inner">
+        <p class="disclaimer">
+          当サイトは有志が運営する非公式のポータルサイトです。チームみらい、および各地方議会の公式サービスではなく、これらの団体とは一切関係ありません。
+        </p>
+        <ul class="footer-links">
+          <li>
+            <a href={UPSTREAM_DIET_URL} rel="noopener" target="_blank">みらい議会（国会版）</a>
+          </li>
+          <li><a href={REPO_URL} rel="noopener" target="_blank">GitHub リポジトリ</a></li>
+          <li><a href="/about">データ出典・算出方法</a></li>
+        </ul>
+        <p class="attribution">
+          地図データ出典：<a href={GLOBAL_MAP_JAPAN_URL} rel="noopener" target="_blank"
+            >地球地図日本（国土地理院）</a
+          >（<a href={GEO_SOURCE_URL} rel="noopener" target="_blank">dataofjapan/land</a> により変換）
+        </p>
+        <p class="copyright">© 2026 みらい議会マップ（非公式）</p>
+      </div>
+    </footer>
+  </body>
+</html>
+
+<style is:global>
+  :root {
+    color-scheme: light dark;
+    --color-bg: #f8fafc;
+    --color-surface: #ffffff;
+    --color-surface-muted: #f1f5f9;
+    --color-text: #0f172a;
+    --color-muted: #475569;
+    --color-border: #e2e8f0;
+    --color-accent: #3730a3;
+    --color-accent-soft: #e0e7ff;
+    --color-focus: #4f46e5;
+    --color-ok-bg: #dcfce7;
+    --color-ok-text: #166534;
+    --color-warn-bg: #fef3c7;
+    --color-warn-text: #92400e;
+    --color-info-bg: #e0e7ff;
+    --color-info-text: #3730a3;
+    --color-bad-bg: #fee2e2;
+    --color-bad-text: #991b1b;
+    --color-neutral-bg: #e2e8f0;
+    --color-neutral-text: #334155;
+    --radius: 12px;
+    --shadow: 0 1px 2px rgb(15 23 42 / 0.06), 0 4px 12px rgb(15 23 42 / 0.04);
+    --font-sans:
+      'Hiragino Sans', 'Hiragino Kaku Gothic ProN', 'Noto Sans JP', 'Yu Gothic UI', Meiryo,
+      system-ui, sans-serif;
+    --font-num: ui-monospace, 'SF Mono', 'Menlo', 'Consolas', monospace;
+  }
+
+  @media (prefers-color-scheme: dark) {
+    :root {
+      --color-bg: #0b1120;
+      --color-surface: #111827;
+      --color-surface-muted: #1e293b;
+      --color-text: #f1f5f9;
+      --color-muted: #94a3b8;
+      --color-border: #1e293b;
+      --color-accent: #a5b4fc;
+      --color-accent-soft: #312e81;
+      --color-focus: #818cf8;
+      --color-ok-bg: #14532d;
+      --color-ok-text: #bbf7d0;
+      --color-warn-bg: #78350f;
+      --color-warn-text: #fde68a;
+      --color-info-bg: #312e81;
+      --color-info-text: #c7d2fe;
+      --color-bad-bg: #7f1d1d;
+      --color-bad-text: #fecaca;
+      --color-neutral-bg: #334155;
+      --color-neutral-text: #e2e8f0;
+      --shadow: none;
+    }
+  }
+
+  *,
+  *::before,
+  *::after {
+    box-sizing: border-box;
+  }
+
+  html {
+    -webkit-text-size-adjust: 100%;
+  }
+
+  body {
+    margin: 0;
+    min-height: 100vh;
+    display: flex;
+    flex-direction: column;
+    background: var(--color-bg);
+    color: var(--color-text);
+    font-family: var(--font-sans);
+    line-height: 1.7;
+    font-feature-settings: 'palt';
+  }
+
+  a {
+    color: var(--color-accent);
+    text-underline-offset: 0.2em;
+  }
+
+  :focus-visible {
+    outline: 3px solid var(--color-focus);
+    outline-offset: 2px;
+  }
+
+  h1,
+  h2,
+  h3 {
+    line-height: 1.35;
+    letter-spacing: 0.01em;
+  }
+
+  .container {
+    width: 100%;
+    max-width: 1080px;
+    margin: 0 auto;
+    padding: 0 16px;
+  }
+
+  main {
+    flex: 1;
+    padding-top: 2rem;
+    padding-bottom: 3rem;
+  }
+
+  .skip-link {
+    position: absolute;
+    left: -9999px;
+  }
+
+  .skip-link:focus {
+    left: 16px;
+    top: 8px;
+    z-index: 10;
+    padding: 0.5rem 1rem;
+    background: var(--color-surface);
+  }
+
+  .site-header {
+    border-bottom: 1px solid var(--color-border);
+    background: var(--color-surface);
+  }
+
+  .header-inner {
+    display: flex;
+    flex-wrap: wrap;
+    align-items: center;
+    justify-content: space-between;
+    gap: 0.5rem 1.5rem;
+    padding-top: 0.75rem;
+    padding-bottom: 0.75rem;
+  }
+
+  .brand {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.5rem;
+    color: var(--color-text);
+    text-decoration: none;
+  }
+
+  .brand-name {
+    font-size: 1.25rem;
+    font-weight: 700;
+  }
+
+  .brand-badge {
+    font-size: 0.75rem;
+    font-weight: 600;
+    padding: 0.1rem 0.5rem;
+    border-radius: 999px;
+    border: 1px solid var(--color-border);
+    color: var(--color-muted);
+  }
+
+  .nav-list {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 0.25rem;
+    margin: 0;
+    padding: 0;
+    list-style: none;
+  }
+
+  .nav-list a {
+    display: inline-block;
+    padding: 0.5rem 0.75rem;
+    min-height: 44px;
+    border-radius: 8px;
+    color: var(--color-muted);
+    text-decoration: none;
+    font-size: 0.9rem;
+  }
+
+  .nav-list a:hover {
+    background: var(--color-surface-muted);
+    color: var(--color-text);
+  }
+
+  .nav-list a[aria-current='page'] {
+    color: var(--color-accent);
+    font-weight: 700;
+  }
+
+  .site-footer {
+    border-top: 1px solid var(--color-border);
+    background: var(--color-surface);
+    color: var(--color-muted);
+    font-size: 0.85rem;
+  }
+
+  .footer-inner {
+    padding-top: 1.5rem;
+    padding-bottom: 2rem;
+  }
+
+  .footer-inner p {
+    margin: 0 0 0.75rem;
+  }
+
+  .disclaimer {
+    color: var(--color-text);
+  }
+
+  .footer-links {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 0.5rem 1.25rem;
+    margin: 0 0 0.75rem;
+    padding: 0;
+    list-style: none;
+  }
+
+  .section-title {
+    font-size: 1.25rem;
+    margin: 2.5rem 0 1rem;
+  }
+
+  .card {
+    background: var(--color-surface);
+    border: 1px solid var(--color-border);
+    border-radius: var(--radius);
+    box-shadow: var(--shadow);
+  }
+
+  .badge {
+    display: inline-block;
+    padding: 0.1rem 0.55rem;
+    border-radius: 999px;
+    font-size: 0.75rem;
+    font-weight: 600;
+    white-space: nowrap;
+  }
+
+  .badge-active,
+  .badge-yes {
+    background: var(--color-ok-bg);
+    color: var(--color-ok-text);
+  }
+
+  .badge-stale {
+    background: var(--color-warn-bg);
+    color: var(--color-warn-text);
+  }
+
+  .badge-building,
+  .badge-prefectural {
+    background: var(--color-info-bg);
+    color: var(--color-info-text);
+  }
+
+  .badge-dead {
+    background: var(--color-bad-bg);
+    color: var(--color-bad-text);
+  }
+
+  .badge-no,
+  .badge-municipal {
+    background: var(--color-neutral-bg);
+    color: var(--color-neutral-text);
+  }
+
+  .num {
+    font-variant-numeric: tabular-nums;
+  }
+
+  .prose h2 {
+    font-size: 1.2rem;
+    margin: 2rem 0 0.75rem;
+  }
+
+  .prose p,
+  .prose li {
+    max-width: 70ch;
+  }
+
+  .prose table {
+    border-collapse: collapse;
+    margin: 1rem 0;
+    font-size: 0.9rem;
+  }
+
+  .prose th,
+  .prose td {
+    border: 1px solid var(--color-border);
+    padding: 0.4rem 0.75rem;
+    text-align: left;
+    vertical-align: top;
+  }
+
+  .prose .formula {
+    padding: 0.75rem 1rem;
+    background: var(--color-surface-muted);
+    border-radius: 8px;
+    overflow-x: auto;
+  }
+</style>

@@ -1,0 +1,185 @@
+---
+import { type PrefectureMetrics, formatPercent } from '../lib/metrics';
+
+interface Props {
+  prefectures: PrefectureMetrics[];
+}
+
+const { prefectures } = Astro.props;
+const rows = [...prefectures].sort((a, b) => a.rank - b.rank);
+---
+
+<div class="ranking card" data-ranking>
+  <table>
+    <caption class="visually-hidden">
+      都道府県別カバー率ランキング（見出しのボタンで並べ替え）
+    </caption>
+    <thead>
+      <tr>
+        <th scope="col" aria-sort="ascending" data-sort-key="rank">
+          <button type="button" data-default-dir="asc">順位</button>
+        </th>
+        <th scope="col">都道府県</th>
+        <th scope="col" aria-sort="none" data-sort-key="pop">
+          <button type="button" data-default-dir="desc">人口カバー率</button>
+        </th>
+        <th scope="col" class="col-optional" aria-sort="none" data-sort-key="muni">
+          <button type="button" data-default-dir="desc">自治体数カバー率</button>
+        </th>
+        <th scope="col" class="col-optional">都道府県議会</th>
+      </tr>
+    </thead>
+    <tbody>
+      {
+        rows.map((p) => (
+          <tr
+            data-rank={p.rank}
+            data-pop={p.populationCoverageRate}
+            data-muni={p.municipalCoverageRate}
+          >
+            <td class="num rank">{p.rank}</td>
+            <th scope="row" class="pref-name">
+              {p.prefName}
+            </th>
+            <td class="num">{formatPercent(p.populationCoverageRate)}</td>
+            <td class="num col-optional">
+              {p.coveredMunicipalitiesCount} / {p.totalMunicipalitiesCount}
+              <span class="muted">（{formatPercent(p.municipalCoverageRate)}）</span>
+            </td>
+            <td class="col-optional">
+              {p.hasPrefecturalAssembly ? (
+                <span class="badge badge-yes">あり</span>
+              ) : (
+                <span class="badge badge-no">なし</span>
+              )}
+            </td>
+          </tr>
+        ))
+      }
+    </tbody>
+  </table>
+</div>
+
+<script>
+  type SortKey = 'rank' | 'pop' | 'muni';
+  type Dir = 'asc' | 'desc';
+
+  // Sorts rows by the values metrics.ts already produced (stored in data-* attributes).
+  for (const root of document.querySelectorAll<HTMLElement>('[data-ranking]')) {
+    const tbody = root.querySelector('tbody');
+    const headers = [...root.querySelectorAll<HTMLTableCellElement>('th[data-sort-key]')];
+    if (!tbody) continue;
+
+    const value = (row: HTMLTableRowElement, key: SortKey): number => Number(row.dataset[key]);
+
+    for (const th of headers) {
+      const button = th.querySelector('button');
+      const key = th.dataset.sortKey as SortKey;
+      button?.addEventListener('click', () => {
+        const current = th.getAttribute('aria-sort');
+        const defaultDir = (button.dataset.defaultDir ?? 'asc') as Dir;
+        let dir: Dir = defaultDir;
+        if (current === 'ascending') dir = 'desc';
+        else if (current === 'descending') dir = 'asc';
+        const sign = dir === 'asc' ? 1 : -1;
+
+        const rows = [...tbody.querySelectorAll<HTMLTableRowElement>('tr')];
+        rows.sort(
+          (a, b) => sign * (value(a, key) - value(b, key)) || value(a, 'rank') - value(b, 'rank'),
+        );
+        tbody.append(...rows);
+
+        for (const other of headers) other.setAttribute('aria-sort', 'none');
+        th.setAttribute('aria-sort', dir === 'asc' ? 'ascending' : 'descending');
+      });
+    }
+  }
+</script>
+
+<style>
+  .ranking {
+    overflow-x: auto;
+  }
+
+  table {
+    width: 100%;
+    border-collapse: collapse;
+    font-size: 0.9rem;
+  }
+
+  th,
+  td {
+    padding: 0.55rem 0.75rem;
+    border-bottom: 1px solid var(--color-border);
+    text-align: left;
+    white-space: nowrap;
+  }
+
+  tbody tr:last-child > * {
+    border-bottom: none;
+  }
+
+  thead th {
+    font-size: 0.8rem;
+    color: var(--color-muted);
+    background: var(--color-surface-muted);
+  }
+
+  thead button {
+    all: unset;
+    cursor: pointer;
+    font-weight: 700;
+    min-height: 32px;
+    display: inline-flex;
+    align-items: center;
+    gap: 0.25rem;
+  }
+
+  thead button:focus-visible {
+    outline: 3px solid var(--color-focus);
+    outline-offset: 2px;
+  }
+
+  thead button::after {
+    content: '↕';
+    opacity: 0.4;
+  }
+
+  th[aria-sort='ascending'] button::after {
+    content: '▲';
+    opacity: 1;
+  }
+
+  th[aria-sort='descending'] button::after {
+    content: '▼';
+    opacity: 1;
+  }
+
+  .pref-name {
+    font-weight: 600;
+  }
+
+  .rank {
+    width: 4em;
+  }
+
+  .muted {
+    color: var(--color-muted);
+  }
+
+  /* Mobile: rank, name and population coverage only. */
+  @media (max-width: 639px) {
+    .col-optional {
+      display: none;
+    }
+  }
+
+  .visually-hidden {
+    position: absolute;
+    width: 1px;
+    height: 1px;
+    overflow: hidden;
+    clip: rect(0 0 0 0);
+    white-space: nowrap;
+  }
+</style>

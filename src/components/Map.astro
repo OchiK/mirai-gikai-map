@@ -1,0 +1,431 @@
+---
+import { type PrefectureMetrics, formatPercent, formatPopulation } from '../lib/metrics';
+
+interface Props {
+  prefectures: PrefectureMetrics[];
+}
+
+const { prefectures } = Astro.props;
+
+// Everything the client needs, already computed and formatted by metrics.ts.
+const mapData = prefectures.map((p) => ({
+  prefCode: p.prefCode,
+  prefName: p.prefName,
+  rank: p.rank,
+  pop: p.populationCoverageRate,
+  muni: p.municipalCoverageRate,
+  popLabel: formatPercent(p.populationCoverageRate),
+  popDetail: `${formatPopulation(p.coveredPopulation)} / ${formatPopulation(p.totalPopulation)} 人`,
+  muniLabel: `${p.coveredMunicipalitiesCount} / ${p.totalMunicipalitiesCount}（${formatPercent(p.municipalCoverageRate)}）`,
+  hasPref: p.hasPrefecturalAssembly,
+}));
+
+// Color stops per metric: [rate, color]. Rates above the last stop use the last color.
+const RAMP = ['#fde68a', '#fbbf24', '#f97316', '#db2777', '#7e22ce'];
+const STOPS = {
+  pop: [0, 0.05, 0.1, 0.2, 0.4],
+  muni: [0, 0.02, 0.05, 0.1, 0.2],
+};
+const legend = {
+  pop: STOPS.pop.map((s) => formatPercent(s, 0)),
+  muni: STOPS.muni.map((s) => formatPercent(s, 0)),
+};
+const config = { data: mapData, ramp: RAMP, stops: STOPS, legend };
+---
+
+<section class="map-section card" aria-labelledby="map-heading" data-map-root>
+  <div class="map-toolbar">
+    <h2 id="map-heading" class="map-heading">都道府県別カバー率</h2>
+    <div class="segmented" role="group" aria-label="表示する指標">
+      <button type="button" data-metric="pop" aria-pressed="true">人口カバー率</button>
+      <button type="button" data-metric="muni" aria-pressed="false">自治体数カバー率</button>
+    </div>
+  </div>
+
+  <div class="map-frame">
+    <div class="map-canvas" data-map-canvas>
+    </div>
+    <div class="map-tooltip" data-map-tooltip hidden></div>
+    <div class="jump-buttons" role="group" aria-label="地図の表示範囲">
+      <button type="button" data-jump="all">全国</button>
+      <button type="button" data-jump="okinawa">沖縄</button>
+      <button type="button" data-jump="ogasawara">小笠原</button>
+    </div>
+  </div>
+
+  <div class="legend">
+    <span class="legend-item"><span class="swatch swatch-zero"></span>0%（未開設）</span>
+    <span class="legend-ramp">
+      {RAMP.map((c) => <span class="swatch" style={`background:${c}`} />)}
+    </span>
+    <span class="legend-labels num" data-legend-labels>
+      濃いほど高い（{legend.pop.at(-1)}以上は最も濃い色）
+    </span>
+  </div>
+  <noscript><p>地図の表示には JavaScript が必要です。下のランキング表もご覧ください。</p></noscript>
+
+  <script type="application/json" data-map-config set:html={JSON.stringify(config)} />
+</section>
+
+<script>
+  import maplibregl from 'maplibre-gl';
+  import 'maplibre-gl/dist/maplibre-gl.css';
+  import { feature } from 'topojson-client';
+  import type { GeometryCollection, Topology } from 'topojson-specification';
+
+  type MetricKey = 'pop' | 'muni';
+  interface PrefDatum {
+    prefCode: string;
+    prefName: string;
+    rank: number;
+    pop: number;
+    muni: number;
+    popLabel: string;
+    popDetail: string;
+    muniLabel: string;
+    hasPref: boolean;
+  }
+  interface GeoProps {
+    pref_code: string;
+    code5: string;
+    name: string;
+  }
+  interface MapConfig {
+    data: PrefDatum[];
+    ramp: string[];
+    stops: Record<MetricKey, number[]>;
+    legend: Record<MetricKey, string[]>;
+  }
+
+  const BOUNDS: Record<string, [[number, number], [number, number]]> = {
+    all: [
+      [127.0, 26.0],
+      [146.0, 46.0],
+    ],
+    okinawa: [
+      [122.9, 24.0],
+      [131.4, 27.9],
+    ],
+    ogasawara: [
+      [141.0, 24.2],
+      [142.4, 27.8],
+    ],
+  };
+
+  const THEME = {
+    light: { bg: '#f8fafc', zero: '#e2e8f0', line: '#ffffff', hover: '#0f172a' },
+    dark: { bg: '#0b1120', zero: '#334155', line: '#0b1120', hover: '#f8fafc' },
+  };
+
+  const root = document.querySelector<HTMLElement>('[data-map-root]');
+  const container = root?.querySelector<HTMLElement>('[data-map-canvas]');
+  const tooltip = root?.querySelector<HTMLElement>('[data-map-tooltip]');
+  const configEl = root?.querySelector('[data-map-config]');
+
+  if (root && container && tooltip && configEl?.textContent) {
+    const config = JSON.parse(configEl.textContent) as MapConfig;
+    const byCode = new Map(config.data.map((d) => [d.prefCode, d]));
+    const darkQuery = window.matchMedia('(prefers-color-scheme: dark)');
+    const theme = () => (darkQuery.matches ? THEME.dark : THEME.light);
+    let metric: MetricKey = 'pop';
+
+    const fillColor = (key: MetricKey, zero: string): maplibregl.ExpressionSpecification => {
+      const stops = config.stops[key].flatMap((s, i) => [s, config.ramp[i]]);
+      return [
+        'case',
+        ['<=', ['get', key], 0],
+        zero,
+        ['interpolate', ['linear'], ['get', key], ...stops],
+      ] as maplibregl.ExpressionSpecification;
+    };
+
+    const map = new maplibregl.Map({
+      container,
+      style: {
+        version: 8,
+        sources: {},
+        layers: [{ id: 'background', type: 'background', paint: { 'background-color': theme().bg } }],
+      },
+      bounds: BOUNDS.all,
+      fitBoundsOptions: { padding: 8 },
+      dragRotate: false,
+      pitchWithRotate: false,
+      cooperativeGestures: true,
+      attributionControl: { compact: true },
+      minZoom: 3,
+      maxZoom: 9,
+    });
+    map.touchZoomRotate.disableRotation();
+    map
+      .getCanvas()
+      .setAttribute(
+        'aria-label',
+        '都道府県別カバー率の地図。同じ内容は下のランキング表で確認できます。',
+      );
+    map.addControl(new maplibregl.NavigationControl({ showCompass: false }), 'top-right');
+
+    const hideTooltip = () => {
+      tooltip.hidden = true;
+    };
+
+    const showTooltip = (d: PrefDatum, x: number, y: number) => {
+      tooltip.replaceChildren();
+      const title = document.createElement('strong');
+      title.textContent = `${d.prefName}（${d.rank}位）`;
+      const lines = [
+        `人口カバー率：${d.popLabel}`,
+        `（${d.popDetail}）`,
+        `自治体数：${d.muniLabel}`,
+        `都道府県議会：${d.hasPref ? 'あり' : 'なし'}`,
+      ];
+      tooltip.append(title);
+      for (const text of lines) {
+        const line = document.createElement('span');
+        line.textContent = text;
+        tooltip.append(line);
+      }
+      tooltip.hidden = false;
+      const frame = container.getBoundingClientRect();
+      const left = Math.min(x + 12, frame.width - tooltip.offsetWidth - 8);
+      const top = Math.min(y + 12, frame.height - tooltip.offsetHeight - 8);
+      tooltip.style.left = `${Math.max(8, left)}px`;
+      tooltip.style.top = `${Math.max(8, top)}px`;
+    };
+
+    map.on('load', async () => {
+      const res = await fetch('/geo/prefectures.topojson');
+      const topo = (await res.json()) as Topology<{ prefectures: GeometryCollection<GeoProps> }>;
+      const shapes = feature(topo, topo.objects.prefectures);
+      const geojson = {
+        ...shapes,
+        features: shapes.features.map((f) => {
+          const d = byCode.get(f.properties.pref_code);
+          return { ...f, properties: { ...f.properties, pop: d?.pop ?? 0, muni: d?.muni ?? 0 } };
+        }),
+      };
+
+      map.addSource('prefectures', {
+        type: 'geojson',
+        data: geojson,
+        promoteId: 'pref_code',
+        attribution:
+          '<a href="https://www.gsi.go.jp/kankyochiri/gm_jpn.html" target="_blank" rel="noopener">地球地図日本</a>',
+      });
+      map.addLayer({
+        id: 'pref-fill',
+        type: 'fill',
+        source: 'prefectures',
+        paint: { 'fill-color': fillColor(metric, theme().zero) },
+      });
+      map.addLayer({
+        id: 'pref-line',
+        type: 'line',
+        source: 'prefectures',
+        paint: { 'line-color': theme().line, 'line-width': 0.8 },
+      });
+      map.addLayer({
+        id: 'pref-hover',
+        type: 'line',
+        source: 'prefectures',
+        paint: {
+          'line-color': theme().hover,
+          'line-width': ['case', ['boolean', ['feature-state', 'hover'], false], 2, 0],
+        },
+      });
+
+      let hoveredId: string | number | undefined;
+      const setHover = (id: string | number | undefined) => {
+        if (hoveredId !== undefined) {
+          map.setFeatureState({ source: 'prefectures', id: hoveredId }, { hover: false });
+        }
+        hoveredId = id;
+        if (id !== undefined) map.setFeatureState({ source: 'prefectures', id }, { hover: true });
+      };
+
+      const onPointer = (e: maplibregl.MapLayerMouseEvent) => {
+        const f = e.features?.[0];
+        const d = f ? byCode.get(String(f.properties?.pref_code)) : undefined;
+        if (!f || !d) return;
+        map.getCanvas().style.cursor = 'pointer';
+        setHover(f.id);
+        showTooltip(d, e.point.x, e.point.y);
+      };
+      map.on('mousemove', 'pref-fill', onPointer);
+      map.on('click', 'pref-fill', onPointer);
+      map.on('mouseleave', 'pref-fill', () => {
+        map.getCanvas().style.cursor = '';
+        setHover(undefined);
+        hideTooltip();
+      });
+      map.on('movestart', hideTooltip);
+    });
+
+    const applyTheme = () => {
+      const t = theme();
+      map.setPaintProperty('background', 'background-color', t.bg);
+      if (!map.getLayer('pref-fill')) return;
+      map.setPaintProperty('pref-fill', 'fill-color', fillColor(metric, t.zero));
+      map.setPaintProperty('pref-line', 'line-color', t.line);
+      map.setPaintProperty('pref-hover', 'line-color', t.hover);
+    };
+    darkQuery.addEventListener('change', applyTheme);
+
+    const legendLabels = root.querySelector<HTMLElement>('[data-legend-labels]');
+    const metricButtons = [...root.querySelectorAll<HTMLButtonElement>('[data-metric]')];
+    for (const button of metricButtons) {
+      button.addEventListener('click', () => {
+        metric = button.dataset.metric as MetricKey;
+        for (const b of metricButtons) b.setAttribute('aria-pressed', String(b === button));
+        if (legendLabels) legendLabels.textContent = `濃いほど高い（${config.legend[metric].at(-1)}以上は最も濃い色）`;
+        hideTooltip();
+        applyTheme();
+      });
+    }
+
+    for (const button of root.querySelectorAll<HTMLButtonElement>('[data-jump]')) {
+      button.addEventListener('click', () => {
+        const bounds = BOUNDS[button.dataset.jump ?? 'all'];
+        if (bounds) map.fitBounds(bounds, { padding: 8 });
+      });
+    }
+  }
+</script>
+
+<style>
+  .map-section {
+    padding: 1rem;
+  }
+
+  .map-toolbar {
+    display: flex;
+    flex-wrap: wrap;
+    align-items: center;
+    justify-content: space-between;
+    gap: 0.75rem;
+    margin-bottom: 0.75rem;
+  }
+
+  .map-heading {
+    margin: 0;
+    font-size: 1.1rem;
+  }
+
+  .segmented {
+    display: inline-flex;
+    border: 1px solid var(--color-border);
+    border-radius: 999px;
+    padding: 3px;
+    background: var(--color-surface-muted);
+  }
+
+  .segmented button,
+  .jump-buttons button {
+    font: inherit;
+    font-size: 0.85rem;
+    min-height: 36px;
+    padding: 0.25rem 0.9rem;
+    border: none;
+    border-radius: 999px;
+    background: transparent;
+    color: var(--color-text);
+    cursor: pointer;
+  }
+
+  .segmented button[aria-pressed='true'] {
+    background: var(--color-accent);
+    color: var(--color-surface);
+    font-weight: 700;
+  }
+
+  .map-frame {
+    position: relative;
+  }
+
+  .map-canvas {
+    width: 100%;
+    height: min(70vh, 560px);
+    min-height: 360px;
+    border-radius: 8px;
+    overflow: hidden;
+  }
+
+  .jump-buttons {
+    position: absolute;
+    left: 8px;
+    top: 8px;
+    display: flex;
+    gap: 6px;
+  }
+
+  .jump-buttons button {
+    background: var(--color-surface);
+    border: 1px solid var(--color-border);
+    box-shadow: var(--shadow);
+  }
+
+  .jump-buttons button:hover,
+  .segmented button:hover {
+    text-decoration: underline;
+  }
+
+  .map-tooltip {
+    position: absolute;
+    z-index: 2;
+    display: flex;
+    flex-direction: column;
+    gap: 0.1rem;
+    min-width: 12rem;
+    padding: 0.6rem 0.8rem;
+    font-size: 0.8rem;
+    line-height: 1.5;
+    background: var(--color-surface);
+    color: var(--color-text);
+    border: 1px solid var(--color-border);
+    border-radius: 8px;
+    box-shadow: 0 4px 16px rgb(15 23 42 / 0.18);
+    pointer-events: none;
+  }
+
+  .map-tooltip[hidden] {
+    display: none;
+  }
+
+  .legend {
+    display: flex;
+    flex-wrap: wrap;
+    align-items: center;
+    gap: 0.5rem 1rem;
+    margin-top: 0.75rem;
+    font-size: 0.8rem;
+    color: var(--color-muted);
+  }
+
+  .legend-item,
+  .legend-ramp {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.35rem;
+  }
+
+  .legend-ramp {
+    gap: 0;
+  }
+
+  .swatch {
+    display: inline-block;
+    width: 1.5rem;
+    height: 0.8rem;
+  }
+
+  .swatch-zero {
+    width: 1rem;
+    background: #e2e8f0;
+    border: 1px solid var(--color-border);
+  }
+
+  @media (prefers-color-scheme: dark) {
+    .swatch-zero {
+      background: #334155;
+    }
+  }
+</style>

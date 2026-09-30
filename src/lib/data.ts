@@ -51,6 +51,7 @@ interface SiteRow {
   launched_on?: string | Date;
   added_on: string | Date;
   status: SiteEntry['status'];
+  counts_for_coverage?: boolean;
   notes?: string;
 }
 
@@ -77,6 +78,7 @@ export function loadSites(yamlPath: string): SiteEntry[] {
     launchedOn: toDateString(r.launched_on),
     addedOn: toDateString(r.added_on),
     status: r.status,
+    countsForCoverage: r.counts_for_coverage ?? true,
     notes: r.notes,
   }));
 }

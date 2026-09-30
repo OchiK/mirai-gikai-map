@@ -56,6 +56,16 @@ body:
       placeholder: '2026-06-01'
     validations:
       required: false
+  - type: dropdown
+    id: coverage_scope
+    attributes:
+      label: 掲載内容の範囲 (Coverage Scope)
+      description: カバー率には、議会の議案を全般的に扱うサイトだけを算入します。委員会や予算など一部のテーマに限るサイトも掲載一覧には掲載できます。
+      options:
+        - 議会の議案を全般的に扱っている
+        - 特定の委員会・予算・テーマだけを扱っている
+    validations:
+      required: true
   - type: checkboxes
     id: criteria
     attributes:

@@ -1,0 +1,241 @@
+---
+import SiteCard from '../components/SiteCard.astro';
+import Layout from '../layouts/Layout.astro';
+import { loadMunicipalities, loadSites } from '../lib/data';
+import { LEVEL_LABELS, STATUS_LABELS } from '../lib/site';
+
+const sites = loadSites('data/sites.yaml');
+const municipalities = loadMunicipalities('data/municipalities.csv');
+const assemblies = new Map(municipalities.map((m) => [m.code5, m]));
+
+// Prefectural assembly first within each prefecture, then by code.
+const entries = [...sites]
+  .sort(
+    (a, b) =>
+      a.assemblyCode5.slice(0, 2).localeCompare(b.assemblyCode5.slice(0, 2)) ||
+      (a.assemblyLevel === b.assemblyLevel ? 0 : a.assemblyLevel === 'prefectural' ? -1 : 1) ||
+      a.assemblyCode5.localeCompare(b.assemblyCode5) ||
+      a.id.localeCompare(b.id),
+  )
+  .map((site) => {
+    const assembly = assemblies.get(site.assemblyCode5);
+    const searchText = [site.name, assembly?.name, assembly?.prefName, site.operator]
+      .filter(Boolean)
+      .join(' ')
+      .toLowerCase();
+    return { site, assembly, searchText };
+  });
+
+const levelFilters = [
+  { value: 'all', label: 'すべて' },
+  { value: 'prefectural', label: LEVEL_LABELS.prefectural },
+  { value: 'municipal', label: LEVEL_LABELS.municipal },
+];
+const statusFilters = [
+  { value: 'all', label: 'すべて' },
+  { value: 'active', label: STATUS_LABELS.active },
+  { value: 'stale', label: STATUS_LABELS.stale },
+  { value: 'building', label: STATUS_LABELS.building },
+];
+---
+
+<Layout title="掲載一覧" description="登録済みのみらい議会サイトの一覧です。議会名・自治体名で検索できます。">
+  <h1>掲載一覧</h1>
+  <p class="lead">
+    登録済みのみらい議会サイト {sites.length} 件です。議会名・自治体名で検索したり、種別や状態で絞り込んだりできます。
+  </p>
+
+  <div class="filters card" data-directory-filters>
+    <label class="search">
+      <span class="filter-label">検索</span>
+      <input
+        type="search"
+        name="q"
+        placeholder="例：新宿区、福岡"
+        autocomplete="off"
+        data-filter-search
+      />
+    </label>
+
+    <div class="filter-group" role="group" aria-labelledby="level-label">
+      <span class="filter-label" id="level-label">議会の種別</span>
+      <div class="chips">
+        {
+          levelFilters.map((f, i) => (
+            <button type="button" data-filter-level={f.value} aria-pressed={i === 0 ? 'true' : 'false'}>
+              {f.label}
+            </button>
+          ))
+        }
+      </div>
+    </div>
+
+    <div class="filter-group" role="group" aria-labelledby="status-label">
+      <span class="filter-label" id="status-label">状態</span>
+      <div class="chips">
+        {
+          statusFilters.map((f, i) => (
+            <button type="button" data-filter-status={f.value} aria-pressed={i === 0 ? 'true' : 'false'}>
+              {f.label}
+            </button>
+          ))
+        }
+      </div>
+    </div>
+  </div>
+
+  <p class="result-count" aria-live="polite" data-result-count>{sites.length} 件を表示中</p>
+
+  <ul class="site-grid" data-site-list>
+    {
+      entries.map(({ site, assembly, searchText }) => (
+        <li data-level={site.assemblyLevel} data-status={site.status} data-search={searchText}>
+          <SiteCard site={site} assembly={assembly} />
+        </li>
+      ))
+    }
+  </ul>
+  <p class="empty" data-empty hidden>条件に合うサイトはありません。</p>
+
+  <p class="submit-hint">
+    掲載されていないサイトをご存じの方は<a href="/submit">登録申請</a>からお知らせください。
+  </p>
+</Layout>
+
+<script>
+  const search = document.querySelector<HTMLInputElement>('[data-filter-search]');
+  const items = [...document.querySelectorAll<HTMLLIElement>('[data-site-list] > li')];
+  const count = document.querySelector<HTMLElement>('[data-result-count]');
+  const empty = document.querySelector<HTMLElement>('[data-empty]');
+  const levelButtons = [...document.querySelectorAll<HTMLButtonElement>('[data-filter-level]')];
+  const statusButtons = [...document.querySelectorAll<HTMLButtonElement>('[data-filter-status]')];
+
+  let level = 'all';
+  let status = 'all';
+
+  const apply = () => {
+    const terms = (search?.value ?? '').toLowerCase().split(/[\s　]+/).filter(Boolean);
+    let shown = 0;
+    for (const item of items) {
+      const text = item.dataset.search ?? '';
+      const visible =
+        (level === 'all' || item.dataset.level === level) &&
+        (status === 'all' || item.dataset.status === status) &&
+        terms.every((t) => text.includes(t));
+      item.hidden = !visible;
+      if (visible) shown += 1;
+    }
+    if (count) count.textContent = `${shown} 件を表示中`;
+    if (empty) empty.hidden = shown > 0;
+  };
+
+  const bindChips = (buttons: HTMLButtonElement[], key: 'filterLevel' | 'filterStatus') => {
+    for (const button of buttons) {
+      button.addEventListener('click', () => {
+        const value = button.dataset[key] ?? 'all';
+        if (key === 'filterLevel') level = value;
+        else status = value;
+        for (const b of buttons) b.setAttribute('aria-pressed', String(b === button));
+        apply();
+      });
+    }
+  };
+
+  bindChips(levelButtons, 'filterLevel');
+  bindChips(statusButtons, 'filterStatus');
+  search?.addEventListener('input', apply);
+  apply();
+</script>
+
+<style>
+  h1 {
+    margin: 0 0 0.5rem;
+    font-size: 1.6rem;
+  }
+
+  .lead {
+    margin: 0 0 1.25rem;
+    color: var(--color-muted);
+  }
+
+  .filters {
+    display: grid;
+    gap: 0.9rem;
+    padding: 1rem;
+  }
+
+  .filter-label {
+    display: block;
+    margin-bottom: 0.3rem;
+    font-size: 0.8rem;
+    font-weight: 700;
+    color: var(--color-muted);
+  }
+
+  .search input {
+    width: 100%;
+    min-height: 44px;
+    padding: 0.5rem 0.75rem;
+    font: inherit;
+    font-size: 1rem;
+    color: var(--color-text);
+    background: var(--color-bg);
+    border: 1px solid var(--color-muted);
+    border-radius: 8px;
+  }
+
+  .chips {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 0.4rem;
+  }
+
+  .chips button {
+    min-height: 40px;
+    padding: 0.3rem 0.9rem;
+    font: inherit;
+    font-size: 0.85rem;
+    color: var(--color-text);
+    background: var(--color-surface);
+    border: 1px solid var(--color-border);
+    border-radius: 999px;
+    cursor: pointer;
+  }
+
+  .chips button[aria-pressed='true'] {
+    color: var(--color-surface);
+    background: var(--color-accent);
+    border-color: var(--color-accent);
+    font-weight: 700;
+  }
+
+  .result-count {
+    margin: 1rem 0 0.75rem;
+    font-size: 0.85rem;
+    color: var(--color-muted);
+  }
+
+  .site-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(260px, 1fr));
+    gap: 12px;
+    margin: 0;
+    padding: 0;
+    list-style: none;
+  }
+
+  .site-grid li[hidden] {
+    display: none;
+  }
+
+  .empty {
+    padding: 2rem 0;
+    text-align: center;
+    color: var(--color-muted);
+  }
+
+  .submit-hint {
+    margin-top: 2rem;
+    font-size: 0.9rem;
+  }
+</style>

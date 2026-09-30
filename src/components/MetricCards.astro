@@ -1,0 +1,90 @@
+---
+import { type NationalMetrics, formatPercent, formatPopulation } from '../lib/metrics';
+
+interface Props {
+  metrics: NationalMetrics;
+}
+
+const { metrics: m } = Astro.props;
+
+const cards = [
+  {
+    label: '市区町村議会のカバー数',
+    value: `${formatPopulation(m.coveredMunicipalitiesCount)} / ${formatPopulation(m.totalMunicipalitiesCount)}`,
+    sub: formatPercent(m.municipalCoverageRate),
+    note: '市区町村議会（特別区を含む）のうち、みらい議会がある議会の数',
+  },
+  {
+    label: '人口カバー率',
+    value: formatPercent(m.populationCoverageRate),
+    sub: `${formatPopulation(m.coveredPopulation)} / ${formatPopulation(m.totalPopulation)} 人`,
+    note: 'みらい議会がある市区町村に住む人の割合',
+  },
+  {
+    label: '都道府県議会',
+    value: `${m.coveredPrefecturalAssembliesCount} / ${m.totalPrefecturalAssembliesCount}`,
+    sub: '都道府県',
+    note: 'みらい議会がある都道府県議会の数',
+  },
+];
+---
+
+<ul class="metric-cards">
+  {
+    cards.map((c) => (
+      <li class="card metric-card">
+        <p class="metric-label">{c.label}</p>
+        <p class="metric-value num">{c.value}</p>
+        <p class="metric-sub num">{c.sub}</p>
+        <p class="metric-note">{c.note}</p>
+      </li>
+    ))
+  }
+</ul>
+
+<style>
+  .metric-cards {
+    display: grid;
+    grid-template-columns: 1fr;
+    gap: 12px;
+    margin: 0;
+    padding: 0;
+    list-style: none;
+  }
+
+  @media (min-width: 720px) {
+    .metric-cards {
+      grid-template-columns: repeat(3, 1fr);
+    }
+  }
+
+  .metric-card {
+    padding: 1rem 1.25rem;
+  }
+
+  .metric-card p {
+    margin: 0;
+  }
+
+  .metric-label {
+    font-size: 0.85rem;
+    font-weight: 600;
+    color: var(--color-muted);
+  }
+
+  .metric-value {
+    font-size: 2rem;
+    font-weight: 700;
+    line-height: 1.3;
+  }
+
+  .metric-sub {
+    font-size: 0.95rem;
+  }
+
+  .metric-note {
+    margin-top: 0.5rem !important;
+    font-size: 0.8rem;
+    color: var(--color-muted);
+  }
+</style>

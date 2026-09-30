@@ -43,6 +43,7 @@ const SiteEntrySchema = z
       z.date().transform((d) => d.toISOString().slice(0, 10)),
     ]),
     status: z.enum(['active', 'stale', 'dead', 'building']),
+    counts_for_coverage: z.boolean().optional().default(true),
     notes: z.string().optional().default(''),
   })
   .superRefine((site, ctx) => {
@@ -51,6 +52,13 @@ const SiteEntrySchema = z
         code: z.ZodIssueCode.custom,
         path: ['notes'],
         message: 'notes must explain why operator or launched_on is unverified',
+      });
+    }
+    if (!site.counts_for_coverage && !site.notes.trim()) {
+      ctx.addIssue({
+        code: z.ZodIssueCode.custom,
+        path: ['notes'],
+        message: 'notes must explain why the site does not count for coverage',
       });
     }
   });

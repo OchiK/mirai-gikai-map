@@ -33,6 +33,7 @@ export interface SiteEntry {
   launchedOn?: string;
   addedOn: string;
   status: SiteStatus;
+  countsForCoverage: boolean;
   notes?: string;
 }
 
@@ -40,7 +41,7 @@ export const TOTAL_MUNICIPALITIES_NATIONAL = 1741;
 export const TOTAL_PREFECTURES_NATIONAL = 47;
 
 /**
- * An assembly is considered covered when at least one registry entry
+ * An assembly is considered covered when at least one coverage-eligible registry entry
  * points to it with status 'active' or 'stale' (not 'dead', not 'building').
  */
 export function isCoveredStatus(status: SiteStatus): boolean {
@@ -85,7 +86,7 @@ export function computeRate(numerator: number, denominator: number): number {
 export function getCoveredAssemblyCodes(sites: SiteEntry[]): Set<string> {
   const covered = new Set<string>();
   for (const site of sites) {
-    if (isCoveredStatus(site.status)) {
+    if (site.countsForCoverage && isCoveredStatus(site.status)) {
       covered.add(site.assemblyCode5);
     }
   }
@@ -107,7 +108,11 @@ function getCoveredMunicipalCodes(sites: SiteEntry[]): Set<string> {
 function getCoveredPrefectureCodes(sites: SiteEntry[]): Set<string> {
   const covered = new Set<string>();
   for (const site of sites) {
-    if (site.assemblyLevel === 'prefectural' && isCoveredStatus(site.status)) {
+    if (
+      site.assemblyLevel === 'prefectural' &&
+      site.countsForCoverage &&
+      isCoveredStatus(site.status)
+    ) {
       covered.add(site.assemblyCode5.slice(0, 2));
     }
   }

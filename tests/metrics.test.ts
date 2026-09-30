@@ -35,6 +35,7 @@ const site = (
   assemblyCode5: string,
   status: SiteEntry['status'] = 'active',
   assemblyLevel: SiteEntry['assemblyLevel'] = 'municipal',
+  countsForCoverage = true,
 ): SiteEntry => ({
   id,
   assemblyCode5,
@@ -47,6 +48,7 @@ const site = (
   launchedOn: '2026-06-01',
   addedOn: '2026-09-30',
   status,
+  countsForCoverage,
 });
 
 // Prefecture 01: 3 municipalities (100/200/700). Prefecture 02: 2 (500/500). Prefecture 03: 1 (300).
@@ -139,6 +141,19 @@ describe('calculateNationalMetrics', () => {
     expect(m.coveredPrefecturalAssembliesCount).toBe(1);
   });
 
+  it('excludes active sites marked as ineligible for coverage', () => {
+    const m = calculateNationalMetrics(
+      [
+        site('municipal-topic', '01001', 'active', 'municipal', false),
+        site('pref-topic', '02000', 'active', 'prefectural', false),
+      ],
+      MUNIS,
+    );
+    expect(m.coveredMunicipalitiesCount).toBe(0);
+    expect(m.coveredPopulation).toBe(0);
+    expect(m.coveredPrefecturalAssembliesCount).toBe(0);
+  });
+
   it('does not let prefecture rows leak into municipal math', () => {
     // A municipal-level site pointing at a prefecture code must not cover anything.
     const m = calculateNationalMetrics([site('x', '01000')], MUNIS);
@@ -221,6 +236,16 @@ describe('calculatePrefectureMetrics', () => {
       MUNIS,
     );
     expect(result.find((p) => p.prefCode === '01')?.coveredMunicipalitiesCount).toBe(1);
+  });
+
+  it('keeps an ineligible active site out of prefecture metrics', () => {
+    const result = calculatePrefectureMetrics(
+      [site('topic-only', '01001', 'active', 'municipal', false)],
+      MUNIS,
+    );
+    const p01 = result.find((p) => p.prefCode === '01');
+    expect(p01?.coveredMunicipalitiesCount).toBe(0);
+    expect(p01?.coveredPopulation).toBe(0);
   });
 });
 

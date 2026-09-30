@@ -1,0 +1,103 @@
+---
+import type { Municipality, SiteEntry } from '../lib/metrics';
+import { LEVEL_LABELS, STATUS_LABELS } from '../lib/site';
+
+interface Props {
+  site: SiteEntry;
+  assembly?: Municipality;
+}
+
+const { site, assembly } = Astro.props;
+const location = assembly
+  ? assembly.kind === 'prefecture'
+    ? assembly.prefName
+    : `${assembly.prefName} ${assembly.name}`
+  : site.assemblyCode5;
+const displayUrl = site.url.replace(/^https:\/\//, '').replace(/\/$/, '');
+---
+
+<article class="card site-card">
+  <div class="site-badges">
+    <span class={`badge badge-${site.assemblyLevel}`}>{LEVEL_LABELS[site.assemblyLevel]}</span>
+    <span class={`badge badge-${site.status}`}>{STATUS_LABELS[site.status]}</span>
+  </div>
+  <h3 class="site-name">{site.name}</h3>
+  <p class="site-location">{location}</p>
+  <ul class="site-links">
+    <li>
+      <a href={site.url} target="_blank" rel="noopener">
+        {displayUrl}<span aria-hidden="true"> ↗</span><span class="sr-only">（外部サイト）</span>
+      </a>
+    </li>
+    {
+      site.repo && (
+        <li>
+          <a href={site.repo} target="_blank" rel="noopener">
+            リポジトリ<span aria-hidden="true"> ↗</span>
+          </a>
+        </li>
+      )
+    }
+    {
+      (site.operator || site.operatorX) && (
+        <li class="site-operator">
+          運営：
+          {site.operator && <span>{site.operator}</span>}
+          {site.operatorX && (
+            <a href={site.operatorX} target="_blank" rel="noopener">
+              {site.operator ? '（X）' : `@${site.operatorX.split('/').pop()}`}
+            </a>
+          )}
+        </li>
+      )
+    }
+  </ul>
+</article>
+
+<style>
+  .site-card {
+    display: flex;
+    flex-direction: column;
+    gap: 0.25rem;
+    padding: 1rem 1.1rem;
+    height: 100%;
+  }
+
+  .site-badges {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 0.35rem;
+  }
+
+  .site-name {
+    margin: 0.25rem 0 0;
+    font-size: 1rem;
+  }
+
+  .site-location {
+    margin: 0;
+    font-size: 0.85rem;
+    color: var(--color-muted);
+  }
+
+  .site-links {
+    margin: 0.5rem 0 0;
+    padding: 0;
+    list-style: none;
+    font-size: 0.85rem;
+    overflow-wrap: anywhere;
+  }
+
+  .site-operator {
+    color: var(--color-muted);
+  }
+
+  .sr-only {
+    position: absolute;
+    width: 1px;
+    height: 1px;
+    overflow: hidden;
+    clip: rect(0 0 0 0);
+    white-space: nowrap;
+  }
+</style>
