@@ -1,0 +1,4 @@
+User-agent: *
+Allow: /
+
+Sitemap: https://mirai-gikai-map-mr2w.vercel.app/sitemap-index.xml

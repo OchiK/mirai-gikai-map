@@ -20,6 +20,7 @@
     "build:geo:municipalities": "tsx scripts/build-municipalities-geo.ts"
   },
   "dependencies": {
+    "@astrojs/sitemap": "^3.7.4",
     "astro": "^5.4.0",
     "maplibre-gl": "^5.1.0",
     "topojson-client": "^3.1.0",
