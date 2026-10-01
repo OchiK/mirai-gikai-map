@@ -14,7 +14,7 @@ import type { SiteStatus } from '../src/lib/metrics';
 export const DEAD_FAILURE_THRESHOLD = 3;
 export const STALE_DAYS = 120;
 const HTTP_TIMEOUT_MS = 15_000;
-const USER_AGENT = 'MiraiGikaiMapBot/1.0 (+https://mirai-gikai-map-mr2w.vercel.app/)';
+const USER_AGENT = 'MiraiGikaiMapBot/1.0 (+https://mirai-gikai-map.vercel.app/)';
 const DAY_MS = 24 * 60 * 60 * 1000;
 
 export type StatusFile = Record<string, SiteStatusRecordRow>;

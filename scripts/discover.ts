@@ -23,7 +23,7 @@ const SELF_REPO_FALLBACK = 'OchiK/mirai-gikai-map';
 const MAX_FORK_DEPTH = 3;
 const GITHUB_TIMEOUT_MS = 15_000;
 const GITHUB_MAX_ATTEMPTS = 3;
-const USER_AGENT = 'MiraiGikaiMapBot/1.0 (+https://mirai-gikai-map-mr2w.vercel.app/)';
+const USER_AGENT = 'MiraiGikaiMapBot/1.0 (+https://mirai-gikai-map.vercel.app/)';
 const IGNORED_URL_HOSTS = [
   'github.com',
   'raw.githubusercontent.com',

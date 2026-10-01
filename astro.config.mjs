@@ -6,6 +6,6 @@ export default defineConfig({
   output: 'static',
   site: process.env.VERCEL_PROJECT_PRODUCTION_URL
     ? `https://${process.env.VERCEL_PROJECT_PRODUCTION_URL}`
-    : 'https://mirai-gikai-map-mr2w.vercel.app',
+    : 'https://mirai-gikai-map.vercel.app',
   integrations: [sitemap()],
 });

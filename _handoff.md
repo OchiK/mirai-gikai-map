@@ -27,11 +27,11 @@ Build, verify, automate, and deploy an unofficial civic-tech portal (みらい�
 
 ## 4. Pending Blockers & Known Issues
 - None. Full test suite (162 tests), Biome linter, TypeScript check, and static build pass cleanly with 0 errors.
-- Production is live and verified on Vercel at `https://mirai-gikai-map-mr2w.vercel.app/`.
+- Production is live and verified on Vercel at `https://mirai-gikai-map.vercel.app/`.
 - Site ownership is verified on Google Search Console with `sitemap-index.xml` active.
 - Phase 5 optional extras (OGP social preview cards, public JSON API `/api/coverage.json`) remain available for future sessions if desired.
 
 ## 5. Next Step Prompt
 
 > **Prompt for Next Agent:**
-> "Read `_handoff.md` and `PLAN.md` to re-hydrate context. The core project (Phases 0 through 4) is 100% complete and deployed live at https://mirai-gikai-map-mr2w.vercel.app/. If continuing, consult Section 10 of PLAN.md to implement Phase 5 optional extras (dynamic OGP image card generation for social sharing, or public JSON API endpoints at `/api/coverage.json` and `/api/sites.json`)."
+> "Read `_handoff.md` and `PLAN.md` to re-hydrate context. The core project (Phases 0 through 4) is 100% complete and deployed live at https://mirai-gikai-map.vercel.app/. If continuing, consult Section 10 of PLAN.md to implement Phase 5 optional extras (dynamic OGP image card generation for social sharing, or public JSON API endpoints at `/api/coverage.json` and `/api/sites.json`)."
