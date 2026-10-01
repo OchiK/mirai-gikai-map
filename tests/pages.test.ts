@@ -6,13 +6,17 @@ import type { GeometryCollection, Topology } from 'topojson-specification';
 import { beforeAll, describe, expect, it } from 'vitest';
 import { loadMunicipalities, loadSites } from '../src/lib/data';
 import { calculatePrefectureMetrics, formatPercent, formatPopulation } from '../src/lib/metrics';
+import IndexPage from '../src/pages/index.astro';
 import PrefPage, { getStaticPaths } from '../src/pages/pref/[code].astro';
+import SitesPage from '../src/pages/sites.astro';
 
 const municipalities = loadMunicipalities('data/municipalities.csv');
 const sites = loadSites('data/sites.yaml');
 const prefectures = calculatePrefectureMetrics(sites, municipalities);
 // astro check types .astro imports with a `never` props signature; the container needs the factory type.
 const prefPage = PrefPage as unknown as AstroComponentFactory;
+const indexPage = IndexPage as unknown as AstroComponentFactory;
+const sitesPage = SitesPage as unknown as AstroComponentFactory;
 const prefCodes = prefectures.map((p) => p.prefCode).sort();
 
 interface MuniProps {
@@ -92,4 +96,32 @@ describe('/pref/[code] routes', () => {
       expect(html).toContain('非公式のポータルサイト');
     },
   );
+});
+
+describe('SEO and search metadata', () => {
+  let container: AstroContainer;
+
+  beforeAll(async () => {
+    container = await AstroContainer.create();
+  });
+
+  it('renders home page with "まとめ" in title, meta description, and keywords', async () => {
+    const html = await container.renderToString(indexPage);
+    expect(html).toContain(
+      '<title>みらい議会マップ | 全国の地方議会サイト一覧・まとめ（非公式）</title>',
+    );
+    expect(html).toContain('content="みらい議会, みらい議会 まとめ, みらい議会 一覧');
+    expect(html).not.toContain(
+      'name="keywords" content="みらい議会, みらい議会 まとめ, みらい議会 一覧, 地方議会, 議会AI, チームみらい',
+    );
+    expect(html).toMatch(/<h1[^>]*>全国の「みらい議会」マップ・まとめ<\/h1>/);
+    expect(html).toContain('alternateName');
+    expect(html).toContain('みらい議会まとめ');
+  });
+
+  it('renders sites directory with "掲載一覧・まとめ" in title and h1', async () => {
+    const html = await container.renderToString(sitesPage);
+    expect(html).toContain('<title>掲載一覧・まとめ | みらい議会マップ（非公式）</title>');
+    expect(html).toMatch(/<h1[^>]*>掲載一覧・まとめ<\/h1>/);
+  });
 });

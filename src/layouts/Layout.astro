@@ -17,11 +17,17 @@ interface Props {
 
 const {
   title,
-  description = '全国の地方議会で立ち上がった「みらい議会」サイトの開設状況とカバー率をまとめた非公式ポータルです。',
+  description = '全国の地方議会ごとに立ち上がった「みらい議会」サイトの開設状況やリンクをまとめた非公式ポータルです。全国・都道府県別の人口カバー率ランキングや開設サイト一覧をまとめています。',
 } = Astro.props;
 
-const pageTitle = title ? `${title} | ${SITE_TITLE}（非公式）` : `${SITE_TITLE}（非公式）`;
+const pageTitle = title
+  ? `${title} | ${SITE_TITLE}（非公式）`
+  : `${SITE_TITLE} | 全国の地方議会サイト一覧・まとめ（非公式）`;
 const currentPath = Astro.url.pathname.replace(/\/$/, '') || '/';
+const siteUrl = Astro.site
+  ? Astro.site.toString().replace(/\/$/, '')
+  : 'https://mirai-gikai-map.vercel.app';
+const canonicalUrl = new URL(Astro.url.pathname, siteUrl).href;
 
 const navItems = [
   { href: '/', label: 'ホーム' },
@@ -29,6 +35,21 @@ const navItems = [
   { href: '/about', label: 'このサイトについて' },
   { href: '/submit', label: '登録申請' },
 ];
+
+const structuredData = {
+  '@context': 'https://schema.org',
+  '@type': 'WebSite',
+  name: SITE_TITLE,
+  alternateName: [
+    'みらい議会まとめ',
+    'みらい議会 一覧',
+    'みらい議会ポータル',
+    '全国みらい議会まとめ',
+    '地方版みらい議会まとめ',
+  ],
+  url: siteUrl,
+  description: description,
+};
 ---
 
 <!doctype html>
@@ -39,8 +60,30 @@ const navItems = [
     <meta name="color-scheme" content="light dark" />
     <title>{pageTitle}</title>
     <meta name="description" content={description} />
+    <meta
+      name="keywords"
+      content="みらい議会, みらい議会 まとめ, みらい議会 一覧, 地方議会, 議会AI, カバー率, 自治体, シビックテック"
+    />
+    <link rel="canonical" href={canonicalUrl} />
+
+    <!-- Open Graph / Facebook -->
+    <meta property="og:type" content="website" />
+    <meta property="og:url" content={canonicalUrl} />
+    <meta property="og:title" content={pageTitle} />
+    <meta property="og:description" content={description} />
+    <meta property="og:site_name" content={SITE_TITLE} />
+    <meta property="og:locale" content="ja_JP" />
+
+    <!-- Twitter -->
+    <meta name="twitter:card" content="summary" />
+    <meta name="twitter:url" content={canonicalUrl} />
+    <meta name="twitter:title" content={pageTitle} />
+    <meta name="twitter:description" content={description} />
+
     <meta name="google-site-verification" content="ZWBAdiv-s3vO9lgW4elAD490nEeuwrwbYZvV9MrDOwY" />
     <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
+
+    <script type="application/ld+json" set:html={JSON.stringify(structuredData)} />
   </head>
   <body>
     <a class="skip-link" href="#main">本文へスキップ</a>

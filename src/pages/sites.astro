@@ -39,10 +39,13 @@ const statusFilters = [
 ];
 ---
 
-<Layout title="掲載一覧" description="登録済みのみらい議会サイトの一覧です。議会名・自治体名で検索できます。">
-  <h1>掲載一覧</h1>
+<Layout
+  title="掲載一覧・まとめ"
+  description="全国の地方議会で立ち上がった「みらい議会」サイトの掲載一覧・まとめです。議会名・自治体名での検索や、稼働状況による絞り込みができます。"
+>
+  <h1>掲載一覧・まとめ</h1>
   <p class="lead">
-    登録済みのみらい議会サイト {sites.length} 件です。議会名・自治体名で検索したり、種別や状態で絞り込んだりできます。
+    全国で開設・登録された地方版「みらい議会」サイトの一覧・まとめ（{sites.length}件）です。議会名・自治体名で検索したり、種別や状態で絞り込んだりできます。
   </p>
 
   <div class="filters card" data-directory-filters>
@@ -114,7 +117,8 @@ const statusFilters = [
   let status = 'all';
 
   const apply = () => {
-    const terms = (search?.value ?? '').toLowerCase().split(/[\s　]+/).filter(Boolean);
+    const rawTerms = (search?.value ?? '').toLowerCase().split(/[\s　]+/).filter(Boolean);
+    const terms = rawTerms.filter((t) => t !== 'まとめ');
     let shown = 0;
     for (const item of items) {
       const text = item.dataset.search ?? '';
