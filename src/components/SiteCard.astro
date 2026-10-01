@@ -8,11 +8,9 @@ interface Props {
 }
 
 const { site, assembly } = Astro.props;
-const location = assembly
-  ? assembly.kind === 'prefecture'
-    ? assembly.prefName
-    : `${assembly.prefName} ${assembly.name}`
-  : site.assemblyCode5;
+const prefCode = site.assemblyCode5.slice(0, 2);
+const prefName = assembly?.prefName;
+const municipalityName = assembly && assembly.kind !== 'prefecture' ? assembly.name : undefined;
 const displayUrl = site.url.replace(/^https:\/\//, '').replace(/\/$/, '');
 ---
 
@@ -22,7 +20,20 @@ const displayUrl = site.url.replace(/^https:\/\//, '').replace(/\/$/, '');
     <span class={`badge badge-${site.status}`}>{STATUS_LABELS[site.status]}</span>
   </div>
   <h3 class="site-name">{site.name}</h3>
-  <p class="site-location">{location}</p>
+  <p class="site-location">
+    {
+      prefName ? (
+        <>
+          <a class="pref-link" href={`/pref/${prefCode}`}>
+            {prefName}
+          </a>
+          {municipalityName && ` ${municipalityName}`}
+        </>
+      ) : (
+        site.assemblyCode5
+      )
+    }
+  </p>
   <ul class="site-links">
     <li>
       <a href={site.url} target="_blank" rel="noopener">

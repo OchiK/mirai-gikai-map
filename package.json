@@ -16,7 +16,8 @@
     "test": "vitest run",
     "build:data": "tsx scripts/build-municipalities.ts",
     "validate": "tsx scripts/validate.ts",
-    "build:geo": "tsx scripts/build-geo.ts"
+    "build:geo": "tsx scripts/build-geo.ts",
+    "build:geo:municipalities": "tsx scripts/build-municipalities-geo.ts"
   },
   "dependencies": {
     "astro": "^5.4.0",

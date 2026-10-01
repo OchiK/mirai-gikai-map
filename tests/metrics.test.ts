@@ -6,6 +6,7 @@ import {
   TOTAL_MUNICIPALITIES_NATIONAL,
   TOTAL_PREFECTURES_NATIONAL,
   calculateNationalMetrics,
+  calculatePrefectureDetail,
   calculatePrefectureMetrics,
   computeRate,
   formatPercent,
@@ -246,6 +247,56 @@ describe('calculatePrefectureMetrics', () => {
     const p01 = result.find((p) => p.prefCode === '01');
     expect(p01?.coveredMunicipalitiesCount).toBe(0);
     expect(p01?.coveredPopulation).toBe(0);
+  });
+});
+
+describe('calculatePrefectureDetail', () => {
+  it('returns undefined for an unknown prefecture', () => {
+    expect(calculatePrefectureDetail('99', [], MUNIS)).toBeUndefined();
+  });
+
+  it('splits municipalities into covered and uncovered using the shared coverage rules', () => {
+    const detail = calculatePrefectureDetail(
+      '01',
+      [
+        site('a', '01003'),
+        site('b', '01003', 'stale'),
+        site('c', '01001', 'building'),
+        site('d', '01002', 'active', 'municipal', false),
+        site('e', '02001'),
+      ],
+      MUNIS,
+    );
+    expect(detail?.covered.map((r) => r.municipality.code5)).toEqual(['01003']);
+    expect(detail?.uncovered.map((r) => r.municipality.code5)).toEqual(['01001', '01002']);
+    expect(detail?.covered[0]?.sites.map((s) => s.id)).toEqual(['a', 'b']);
+    // Non-covering sites are still listed for their municipality.
+    expect(detail?.uncovered[0]?.sites.map((s) => s.id)).toEqual(['c']);
+    expect(detail?.sites.map((s) => s.id)).toEqual(['a', 'b', 'c', 'd']);
+    expect(detail?.municipalities).toHaveLength(3);
+  });
+
+  it('matches calculatePrefectureMetrics for counts and rank', () => {
+    const sites = [site('a', '01003'), site('b', '02001')];
+    const detail = calculatePrefectureDetail('02', sites, MUNIS);
+    const metrics = calculatePrefectureMetrics(sites, MUNIS).find((p) => p.prefCode === '02');
+    expect(detail?.metrics).toEqual(metrics);
+    expect(detail?.covered.length).toBe(metrics?.coveredMunicipalitiesCount);
+  });
+
+  it('lists only active/stale eligible prefectural sites as the prefectural assembly', () => {
+    const detail = calculatePrefectureDetail(
+      '01',
+      [
+        site('p1', '01000', 'active', 'prefectural'),
+        site('p2', '01000', 'dead', 'prefectural'),
+        site('p3', '01000', 'active', 'prefectural', false),
+      ],
+      MUNIS,
+    );
+    expect(detail?.prefecturalSites.map((s) => s.id)).toEqual(['p1']);
+    expect(detail?.metrics.hasPrefecturalAssembly).toBe(true);
+    expect(detail?.covered).toHaveLength(0);
   });
 });
 

@@ -202,6 +202,65 @@ export function calculatePrefectureMetrics(
   return result;
 }
 
+export interface MunicipalityCoverage {
+  municipality: Municipality;
+  /** Every registered site for this assembly, regardless of status. */
+  sites: SiteEntry[];
+  covered: boolean;
+}
+
+export interface PrefectureDetail {
+  metrics: PrefectureMetrics;
+  /** Coverage-eligible active/stale sites for the prefectural assembly. */
+  prefecturalSites: SiteEntry[];
+  /** All municipalities in code order. */
+  municipalities: MunicipalityCoverage[];
+  covered: MunicipalityCoverage[];
+  uncovered: MunicipalityCoverage[];
+  /** Every registered site in the prefecture (both levels), regardless of status. */
+  sites: SiteEntry[];
+}
+
+/**
+ * Municipality-level coverage for one prefecture page. Uses the same coverage rules and
+ * ranking as calculatePrefectureMetrics. Returns undefined for an unknown prefecture code.
+ */
+export function calculatePrefectureDetail(
+  prefCode: string,
+  sites: SiteEntry[],
+  municipalities: Municipality[],
+): PrefectureDetail | undefined {
+  const metrics = calculatePrefectureMetrics(sites, municipalities).find(
+    (p) => p.prefCode === prefCode,
+  );
+  if (!metrics) return undefined;
+
+  const coveredCodes = getCoveredMunicipalCodes(sites);
+  const prefSites = sites.filter((s) => s.assemblyCode5.slice(0, 2) === prefCode);
+  const munis = onlyMunicipal(municipalities)
+    .filter((m) => m.prefCode === prefCode)
+    .sort((a, b) => a.code5.localeCompare(b.code5));
+
+  const rows = munis.map((municipality) => ({
+    municipality,
+    sites: prefSites.filter(
+      (s) => s.assemblyLevel === 'municipal' && s.assemblyCode5 === municipality.code5,
+    ),
+    covered: coveredCodes.has(municipality.code5),
+  }));
+
+  return {
+    metrics,
+    prefecturalSites: prefSites.filter(
+      (s) => s.assemblyLevel === 'prefectural' && s.countsForCoverage && isCoveredStatus(s.status),
+    ),
+    municipalities: rows,
+    covered: rows.filter((r) => r.covered),
+    uncovered: rows.filter((r) => !r.covered),
+    sites: prefSites,
+  };
+}
+
 /** 0.1234 -> "12.3%" */
 export function formatPercent(rate: number, digits = 1): string {
   return `${(rate * 100).toFixed(digits)}%`;

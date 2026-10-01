@@ -1,0 +1,418 @@
+---
+import MunicipalityMap, { type MunicipalityMapDatum } from '../../components/MunicipalityMap.astro';
+import SiteCard from '../../components/SiteCard.astro';
+import Layout from '../../layouts/Layout.astro';
+import { loadMunicipalities, loadSites } from '../../lib/data';
+import {
+  TOTAL_PREFECTURES_NATIONAL,
+  calculatePrefectureDetail,
+  formatPercent,
+  formatPopulation,
+} from '../../lib/metrics';
+import { ISLAND_VIEWS, REGISTER_ISSUE_URL, STATUS_LABELS, UPSTREAM_REPO_URL } from '../../lib/site';
+
+export function getStaticPaths() {
+  return loadMunicipalities('data/municipalities.csv')
+    .filter((m) => m.kind === 'prefecture')
+    .map((m) => ({ params: { code: m.prefCode } }));
+}
+
+const { code } = Astro.params;
+const sites = loadSites('data/sites.yaml');
+const municipalities = loadMunicipalities('data/municipalities.csv');
+const detail = calculatePrefectureDetail(code, sites, municipalities);
+if (!detail) throw new Error(`Unknown prefecture code: ${code}`);
+
+const { metrics: m, prefecturalSites, covered, uncovered } = detail;
+const assemblies = new Map(municipalities.map((x) => [x.code5, x]));
+const ctaHref = `/submit?pref=${code}`;
+
+// Prefectural assembly first, then municipalities in code order.
+const siteEntries = [...detail.sites].sort(
+  (a, b) =>
+    (a.assemblyLevel === b.assemblyLevel ? 0 : a.assemblyLevel === 'prefectural' ? -1 : 1) ||
+    a.assemblyCode5.localeCompare(b.assemblyCode5) ||
+    a.id.localeCompare(b.id),
+);
+
+const mapData: MunicipalityMapDatum[] = detail.municipalities.map((row) => ({
+  code5: row.municipality.code5,
+  name: row.municipality.name,
+  population: formatPopulation(row.municipality.population),
+  covered: row.covered,
+  sites: row.sites.map((s) => ({ name: s.name, url: s.url, status: STATUS_LABELS[s.status] })),
+}));
+---
+
+<Layout
+  title={m.prefName}
+  description={`${m.prefName}の「みらい議会」開設状況です。人口カバー率 ${formatPercent(m.populationCoverageRate)}、${m.coveredMunicipalitiesCount} / ${m.totalMunicipalitiesCount} 自治体。`}
+>
+  <nav aria-label="パンくずリスト" class="breadcrumbs">
+    <ol>
+      <li><a href="/">ホーム</a></li>
+      <li aria-current="page">{m.prefName}</li>
+    </ol>
+  </nav>
+
+  <header class="pref-header">
+    <h1>{m.prefName}</h1>
+    <span class="rank-badge num" data-rank>
+      全国 <strong>{m.rank}</strong> 位 / {TOTAL_PREFECTURES_NATIONAL}
+    </span>
+  </header>
+
+  <ul class="pref-metrics">
+    <li class="card metric-card">
+      <p class="metric-label">人口カバー率</p>
+      <p class="metric-value num" data-pop-rate>{formatPercent(m.populationCoverageRate)}</p>
+      <meter class="metric-bar" min="0" max="1" value={m.populationCoverageRate} aria-label="人口カバー率"
+      ></meter>
+      <p class="metric-sub num">
+        {formatPopulation(m.coveredPopulation)} / {formatPopulation(m.totalPopulation)} 人
+      </p>
+    </li>
+    <li class="card metric-card">
+      <p class="metric-label">自治体数カバー率</p>
+      <p class="metric-value num" data-muni-count>
+        {m.coveredMunicipalitiesCount} / {m.totalMunicipalitiesCount} 自治体
+      </p>
+      <meter class="metric-bar" min="0" max="1" value={m.municipalCoverageRate} aria-label="自治体数カバー率"
+      ></meter>
+      <p class="metric-sub num">{formatPercent(m.municipalCoverageRate)}</p>
+    </li>
+    <li class="card metric-card">
+      <p class="metric-label">{m.prefName}議会</p>
+      {
+        m.hasPrefecturalAssembly ? (
+          <>
+            <p class="metric-value">
+              <span class="badge badge-yes">開設済</span>
+            </p>
+            <ul class="pref-site-links">
+              {prefecturalSites.map((s) => (
+                <li>
+                  <a href={s.url} target="_blank" rel="noopener">
+                    {s.name}
+                    <span aria-hidden="true"> ↗</span>
+                  </a>
+                  <span class="pref-site-url">{s.url.replace(/^https:\/\//, '').replace(/\/$/, '')}</span>
+                  {(s.operator || s.operatorX) && (
+                    <span class="pref-site-operator">
+                      運営：
+                      {s.operator ??
+                        (s.operatorX && (
+                          <a href={s.operatorX} target="_blank" rel="noopener">
+                            @{s.operatorX.split('/').pop()}
+                          </a>
+                        ))}
+                    </span>
+                  )}
+                </li>
+              ))}
+            </ul>
+          </>
+        ) : (
+          <>
+            <p class="metric-value">
+              <span class="badge badge-no">未開設</span>
+            </p>
+            <p class="metric-sub">都道府県議会版は未開設です。</p>
+            <p class="metric-sub">
+              <a href={ctaHref}>{m.prefName}議会版をはじめる →</a>
+            </p>
+          </>
+        )
+      }
+    </li>
+  </ul>
+
+  <div class="map-wrap">
+    <MunicipalityMap
+      prefCode={code}
+      prefName={m.prefName}
+      data={mapData}
+      views={ISLAND_VIEWS[code]}
+      ctaHref={ctaHref}
+    />
+  </div>
+
+  <h2 class="section-title" id="sites">{m.prefName}の掲載サイト</h2>
+  {
+    siteEntries.length > 0 ? (
+      <ul class="site-grid" data-site-list>
+        {siteEntries.map((site) => (
+          <li>
+            <SiteCard site={site} assembly={assemblies.get(site.assemblyCode5)} />
+          </li>
+        ))}
+      </ul>
+    ) : (
+      <p class="empty">{m.prefName}のサイトはまだ登録されていません。</p>
+    )
+  }
+
+  <h2 class="section-title" id="covered">みらい議会がある市区町村（{covered.length}）</h2>
+  {
+    covered.length > 0 ? (
+      <ul class="muni-list" data-covered-list>
+        {covered.map((row) => (
+          <li>
+            <span class="muni-name">
+              {row.municipality.name}
+              {row.sites.map((s) => (
+                <a class="muni-site" href={s.url} target="_blank" rel="noopener">
+                  {s.name}
+                  <span aria-hidden="true"> ↗</span>
+                </a>
+              ))}
+            </span>
+            <span class="muni-pop num">{formatPopulation(row.municipality.population)} 人</span>
+          </li>
+        ))}
+      </ul>
+    ) : (
+      <p class="empty">まだありません。</p>
+    )
+  }
+
+  <h2 class="section-title" id="uncovered">まだない市区町村</h2>
+  <details class="card uncovered">
+    <summary>
+      {uncovered.length} 市区町村の一覧を表示
+    </summary>
+    <ul class="muni-list" data-uncovered-list>
+      {
+        uncovered.map((row) => (
+          <li>
+            <span class="muni-name">{row.municipality.name}</span>
+            <span class="muni-pop num">{formatPopulation(row.municipality.population)} 人</span>
+          </li>
+        ))
+      }
+    </ul>
+  </details>
+
+  <aside class="card cta" aria-labelledby="cta-heading">
+    <h2 id="cta-heading">あなたの街のみらい議会を立ち上げよう</h2>
+    <p>
+      みらい議会はオープンソースです。本家リポジトリをフォークして、お住まいの市区町村議会版をはじめられます。公開したら登録申請からお知らせください。
+    </p>
+    <p class="cta-links">
+      <a class="button" href={ctaHref}>登録申請の方法を見る</a>
+      <a href={UPSTREAM_REPO_URL} target="_blank" rel="noopener">
+        本家リポジトリ（GitHub）<span aria-hidden="true"> ↗</span>
+      </a>
+      <a href={REGISTER_ISSUE_URL} target="_blank" rel="noopener">
+        申請フォーム<span aria-hidden="true"> ↗</span>
+      </a>
+    </p>
+  </aside>
+</Layout>
+
+<style>
+  .breadcrumbs ol {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 0.4rem;
+    margin: 0 0 1rem;
+    padding: 0;
+    list-style: none;
+    font-size: 0.85rem;
+    color: var(--color-muted);
+  }
+
+  .breadcrumbs li + li::before {
+    content: '›';
+    margin-right: 0.4rem;
+  }
+
+  .pref-header {
+    display: flex;
+    flex-wrap: wrap;
+    align-items: baseline;
+    gap: 0.5rem 1rem;
+    margin-bottom: 1rem;
+  }
+
+  .pref-header h1 {
+    margin: 0;
+    font-size: clamp(1.5rem, 4vw, 2.1rem);
+  }
+
+  .rank-badge {
+    padding: 0.15rem 0.75rem;
+    border-radius: 999px;
+    background: var(--color-accent-soft);
+    color: var(--color-text);
+    font-size: 0.9rem;
+  }
+
+  .pref-metrics {
+    display: grid;
+    grid-template-columns: 1fr;
+    gap: 12px;
+    margin: 0;
+    padding: 0;
+    list-style: none;
+  }
+
+  @media (min-width: 720px) {
+    .pref-metrics {
+      grid-template-columns: repeat(3, 1fr);
+    }
+  }
+
+  .metric-card {
+    padding: 1rem 1.25rem;
+  }
+
+  .metric-card p {
+    margin: 0;
+  }
+
+  .metric-label {
+    font-size: 0.85rem;
+    font-weight: 600;
+    color: var(--color-muted);
+  }
+
+  .metric-value {
+    font-size: 1.75rem;
+    font-weight: 700;
+    line-height: 1.3;
+  }
+
+  .metric-value .badge {
+    font-size: 1rem;
+  }
+
+  .metric-sub {
+    font-size: 0.95rem;
+  }
+
+  .metric-bar {
+    display: block;
+    width: 100%;
+    height: 0.6rem;
+    margin: 0.35rem 0 0.25rem;
+  }
+
+  .pref-site-links li {
+    display: flex;
+    flex-direction: column;
+  }
+
+  .pref-site-url,
+  .pref-site-operator {
+    font-size: 0.8rem;
+    color: var(--color-muted);
+    overflow-wrap: anywhere;
+  }
+
+  .pref-site-links {
+    margin: 0.4rem 0 0;
+    padding: 0;
+    list-style: none;
+    font-size: 0.9rem;
+  }
+
+  .map-wrap {
+    margin-top: 1.5rem;
+  }
+
+  .site-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(260px, 1fr));
+    gap: 12px;
+    margin: 0;
+    padding: 0;
+    list-style: none;
+  }
+
+  .muni-list {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
+    gap: 0.25rem 1rem;
+    margin: 0;
+    padding: 0;
+    list-style: none;
+    font-size: 0.9rem;
+  }
+
+  .muni-list li {
+    display: flex;
+    justify-content: space-between;
+    gap: 0.5rem;
+    padding: 0.3rem 0;
+    border-bottom: 1px solid var(--color-border);
+  }
+
+  .muni-site {
+    display: block;
+    font-size: 0.8rem;
+  }
+
+  .muni-pop {
+    color: var(--color-muted);
+  }
+
+  .uncovered {
+    padding: 0.75rem 1rem;
+  }
+
+  .uncovered summary {
+    min-height: 44px;
+    display: flex;
+    align-items: center;
+    cursor: pointer;
+    font-weight: 600;
+  }
+
+  .uncovered[open] summary {
+    margin-bottom: 0.5rem;
+  }
+
+  .empty {
+    color: var(--color-muted);
+  }
+
+  .cta {
+    margin-top: 2rem;
+    padding: 1.25rem 1.5rem;
+    border-color: var(--color-accent);
+  }
+
+  .cta h2 {
+    margin: 0 0 0.5rem;
+    font-size: 1.15rem;
+  }
+
+  .cta p {
+    margin: 0 0 0.75rem;
+    max-width: 70ch;
+  }
+
+  .cta-links {
+    display: flex;
+    flex-wrap: wrap;
+    align-items: center;
+    gap: 0.75rem 1.25rem;
+  }
+
+  .button {
+    display: inline-flex;
+    align-items: center;
+    min-height: 48px;
+    padding: 0.6rem 1.4rem;
+    border-radius: 999px;
+    background: var(--color-accent);
+    color: var(--color-surface);
+    font-weight: 700;
+    text-decoration: none;
+  }
+
+  .button:hover {
+    text-decoration: underline;
+  }
+</style>

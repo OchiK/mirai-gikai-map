@@ -160,7 +160,7 @@ const config = { data: mapData, ramp: RAMP, stops: STOPS, legend };
       .getCanvas()
       .setAttribute(
         'aria-label',
-        '都道府県別カバー率の地図。同じ内容は下のランキング表で確認できます。',
+        '都道府県別カバー率の地図。都道府県をクリックすると詳細ページを開きます。同じ内容は下のランキング表で確認できます。',
       );
     map.addControl(new maplibregl.NavigationControl({ showCompass: false }), 'top-right');
 
@@ -251,7 +251,11 @@ const config = { data: mapData, ramp: RAMP, stops: STOPS, legend };
         showTooltip(d, e.point.x, e.point.y);
       };
       map.on('mousemove', 'pref-fill', onPointer);
-      map.on('click', 'pref-fill', onPointer);
+      // Click or tap opens the prefecture page.
+      map.on('click', 'pref-fill', (e) => {
+        const code = e.features?.[0]?.properties?.pref_code;
+        if (code && byCode.has(String(code))) window.location.href = `/pref/${code}`;
+      });
       map.on('mouseleave', 'pref-fill', () => {
         map.getCanvas().style.cursor = '';
         setHover(undefined);

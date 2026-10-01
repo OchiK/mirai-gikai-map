@@ -5,6 +5,9 @@ import { calculateNationalMetrics, formatPopulation } from '../lib/metrics';
 import {
   GEO_SOURCE_URL,
   GLOBAL_MAP_JAPAN_URL,
+  MUNICIPALITY_GEO_SOURCE_URL,
+  N03_TERMS_URL,
+  N03_URL,
   REPO_URL,
   STATUS_LABELS,
   UPSTREAM_DIET_URL,
@@ -94,12 +97,30 @@ const totalMunicipal = formatPopulation(national.totalMunicipalitiesCount);
           <td>—</td>
         </tr>
         <tr>
+          <td>市区町村の境界</td>
+          <td>
+            <a href={N03_URL} target="_blank" rel="noopener">国土数値情報（行政区域データ）（国土交通省）</a>。<a
+              href={MUNICIPALITY_GEO_SOURCE_URL}
+              target="_blank"
+              rel="noopener">smartnews-smri/japan-topography</a
+            > が TopoJSON に変換したものを使用し、政令指定都市の行政区を市単位にまとめています。
+          </td>
+          <td>令和3年1月1日（加工元の取得日：2021年9月28日）</td>
+        </tr>
+        <tr>
           <td>掲載サイト</td>
           <td>当サイトのリポジトリで管理している登録簿（<code>data/sites.yaml</code>）</td>
           <td>随時更新</td>
         </tr>
       </tbody>
     </table>
+    <p class="note">
+      市区町村境界は簡略化・加工済みのデータです。位置や時点の誤差、欠落を含む可能性があり、測量、ナビゲーション、各種証明など高い精度を要する用途を想定したものではありません。詳細は<a
+        href={N03_TERMS_URL}
+        target="_blank"
+        rel="noopener">国土数値情報の利用規約</a
+      >をご確認ください。
+    </p>
     <p>
       現在の全国人口（市区町村の合計）は {formatPopulation(national.totalPopulation)} 人です。
     </p>

@@ -1,11 +1,20 @@
 ---
 import Layout from '../layouts/Layout.astro';
+import { loadMunicipalities } from '../lib/data';
 import { REGISTER_ISSUE_URL } from '../lib/site';
+
+// Prefecture names for the ?pref= context that /pref/[code] links pass in.
+const prefNames = Object.fromEntries(
+  loadMunicipalities('data/municipalities.csv')
+    .filter((m) => m.kind === 'prefecture')
+    .map((m) => [m.prefCode, m.name]),
+);
 ---
 
 <Layout title="登録申請" description="みらい議会サイトの掲載基準と、登録申請の方法を説明します。">
   <article class="prose">
     <h1>登録申請</h1>
+    <p class="pref-context card" data-pref-context hidden></p>
     <p>
       地方議会を対象にした「みらい議会」サイトを運営している方、または掲載されていないサイトをご存じの方は、GitHub の申請フォームからお知らせください。管理者が内容を確認したうえで掲載します。
     </p>
@@ -31,7 +40,7 @@ import { REGISTER_ISSUE_URL } from '../lib/site';
     </ul>
 
     <p class="cta">
-      <a class="button" href={REGISTER_ISSUE_URL} target="_blank" rel="noopener">
+      <a class="button" href={REGISTER_ISSUE_URL} target="_blank" rel="noopener" data-register-link>
         GitHub で登録申請する<span aria-hidden="true"> ↗</span>
       </a>
     </p>
@@ -47,7 +56,27 @@ import { REGISTER_ISSUE_URL } from '../lib/site';
       自動収集したサイトの候補も、必ず人が確認してから掲載します。掲載内容の修正・削除のご希望も Issue でお知らせください。
     </p>
   </article>
+  <script type="application/json" data-pref-names set:html={JSON.stringify(prefNames)} />
 </Layout>
+
+<script>
+  // Shows which prefecture the visitor came from and carries it into the issue title.
+  const names = JSON.parse(
+    document.querySelector('[data-pref-names]')?.textContent ?? '{}',
+  ) as Record<string, string>;
+  const prefName = names[new URLSearchParams(window.location.search).get('pref') ?? ''];
+  const context = document.querySelector<HTMLElement>('[data-pref-context]');
+  const link = document.querySelector<HTMLAnchorElement>('[data-register-link]');
+  if (prefName && context) {
+    context.textContent = `対象：${prefName}。${prefName}内の議会のサイトを申請する場合は、フォームにも議会名をご記入ください。`;
+    context.hidden = false;
+    if (link) {
+      const url = new URL(link.href);
+      url.searchParams.set('title', `[登録申請] ${prefName}`);
+      link.href = url.toString();
+    }
+  }
+</script>
 
 <style>
   h1 {
@@ -73,6 +102,15 @@ import { REGISTER_ISSUE_URL } from '../lib/site';
 
   .button:hover {
     text-decoration: underline;
+  }
+
+  .pref-context {
+    padding: 0.75rem 1rem;
+    font-weight: 600;
+  }
+
+  .pref-context[hidden] {
+    display: none;
   }
 
   .note {

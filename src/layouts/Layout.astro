@@ -2,6 +2,9 @@
 import {
   GEO_SOURCE_URL,
   GLOBAL_MAP_JAPAN_URL,
+  MUNICIPALITY_GEO_SOURCE_URL,
+  N03_TERMS_URL,
+  N03_URL,
   REPO_URL,
   SITE_TITLE,
   UPSTREAM_DIET_URL,
@@ -81,7 +84,20 @@ const navItems = [
         <p class="attribution">
           地図データ出典：<a href={GLOBAL_MAP_JAPAN_URL} rel="noopener" target="_blank"
             >地球地図日本（国土地理院）</a
-          >（<a href={GEO_SOURCE_URL} rel="noopener" target="_blank">dataofjapan/land</a> により変換）
+          >（<a href={GEO_SOURCE_URL} rel="noopener" target="_blank">dataofjapan/land</a> により変換）、<a
+            href={N03_URL}
+            rel="noopener"
+            target="_blank">国土数値情報（行政区域データ）（国土交通省）</a
+          >（<a href={MUNICIPALITY_GEO_SOURCE_URL} rel="noopener" target="_blank"
+            >smartnews-smri/japan-topography</a
+          > により変換）を加工して作成
+        </p>
+        <p class="attribution">
+          市区町村境界は、2021年9月28日に取得されたデータを簡略化・加工したものです。位置や時点の誤差、欠落を含む可能性があり、測量、ナビゲーション、各種証明など高い精度を要する用途を想定したものではありません。<a
+            href={N03_TERMS_URL}
+            rel="noopener"
+            target="_blank">利用条件と適用限界</a
+          >もご確認ください。
         </p>
         <p class="copyright">© 2026 みらい議会マップ（非公式）</p>
       </div>

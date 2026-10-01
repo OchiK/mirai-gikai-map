@@ -1,0 +1,459 @@
+---
+import { N03_URL } from '../lib/site';
+
+export interface MunicipalityMapDatum {
+  code5: string;
+  name: string;
+  population: string;
+  covered: boolean;
+  sites: { name: string; url: string; status: string }[];
+}
+
+export interface IslandView {
+  label: string;
+  bounds: [[number, number], [number, number]];
+}
+
+interface Props {
+  prefCode: string;
+  prefName: string;
+  data: MunicipalityMapDatum[];
+  /** Jump buttons for distant islands. The first entry is the initial view. */
+  views?: IslandView[];
+  ctaHref: string;
+}
+
+const { prefCode, prefName, data, views = [], ctaHref } = Astro.props;
+const config = { prefCode, data, views, ctaHref, attribution: N03_URL };
+---
+
+<section class="muni-map card" aria-labelledby="muni-map-heading" data-muni-map-root>
+  <h2 id="muni-map-heading" class="muni-map-heading">{prefName}の市区町村</h2>
+
+  <div class="map-frame">
+    <div class="map-canvas" data-muni-map-canvas></div>
+    <div class="map-tooltip" data-muni-map-tooltip hidden></div>
+    {
+      views.length > 0 && (
+        <div class="jump-buttons" role="group" aria-label="地図の表示範囲">
+          {views.map((v, i) => (
+            <button type="button" data-view={i}>
+              {v.label}
+            </button>
+          ))}
+          <button type="button" data-view="all">
+            全域
+          </button>
+        </div>
+      )
+    }
+  </div>
+
+  <div class="legend">
+    <span class="legend-item"><span class="swatch swatch-covered"></span>みらい議会あり</span>
+    <span class="legend-item"><span class="swatch swatch-uncovered"></span>まだない</span>
+    <span class="legend-hint">市区町村をタップ・クリックすると詳細が表示されます。</span>
+  </div>
+  <noscript><p>地図の表示には JavaScript が必要です。下の一覧もご覧ください。</p></noscript>
+
+  <script type="application/json" data-muni-map-config set:html={JSON.stringify(config)} />
+</section>
+
+<script>
+  import maplibregl from 'maplibre-gl';
+  import 'maplibre-gl/dist/maplibre-gl.css';
+  import { feature } from 'topojson-client';
+  import type { GeometryCollection, Topology } from 'topojson-specification';
+
+  interface Datum {
+    code5: string;
+    name: string;
+    population: string;
+    covered: boolean;
+    sites: { name: string; url: string; status: string }[];
+  }
+  type Bounds = [[number, number], [number, number]];
+  interface MapConfig {
+    prefCode: string;
+    data: Datum[];
+    views: { label: string; bounds: Bounds }[];
+    ctaHref: string;
+    attribution: string;
+  }
+
+  const THEME = {
+    light: {
+      bg: '#f8fafc',
+      covered: '#4f46e5',
+      uncovered: '#f1f5f9',
+      line: '#94a3b8',
+      hover: '#0f172a',
+    },
+    dark: {
+      bg: '#0b1120',
+      covered: '#818cf8',
+      uncovered: '#1e293b',
+      line: '#64748b',
+      hover: '#f8fafc',
+    },
+  };
+
+  const root = document.querySelector<HTMLElement>('[data-muni-map-root]');
+  const container = root?.querySelector<HTMLElement>('[data-muni-map-canvas]');
+  const tooltip = root?.querySelector<HTMLElement>('[data-muni-map-tooltip]');
+  const configEl = root?.querySelector('[data-muni-map-config]');
+
+  if (root && container && tooltip && configEl?.textContent) {
+    const config = JSON.parse(configEl.textContent) as MapConfig;
+    const byCode = new Map(config.data.map((d) => [d.code5, d]));
+    const darkQuery = window.matchMedia('(prefers-color-scheme: dark)');
+    const theme = () => (darkQuery.matches ? THEME.dark : THEME.light);
+
+    const map = new maplibregl.Map({
+      container,
+      style: {
+        version: 8,
+        sources: {},
+        layers: [{ id: 'background', type: 'background', paint: { 'background-color': theme().bg } }],
+      },
+      center: [137, 37],
+      zoom: 4,
+      dragRotate: false,
+      pitchWithRotate: false,
+      cooperativeGestures: true,
+      attributionControl: { compact: true },
+      minZoom: 3,
+      maxZoom: 13,
+    });
+    map.touchZoomRotate.disableRotation();
+    map
+      .getCanvas()
+      .setAttribute('aria-label', '市区町村ごとの開設状況の地図。同じ内容は下の一覧で確認できます。');
+    map.addControl(new maplibregl.NavigationControl({ showCompass: false }), 'top-right');
+
+    const statusLine = (d: Datum) => (d.covered ? 'みらい議会：あり' : 'みらい議会：まだありません');
+
+    const hideTooltip = () => {
+      tooltip.hidden = true;
+    };
+
+    const showTooltip = (d: Datum, x: number, y: number) => {
+      tooltip.replaceChildren();
+      const title = document.createElement('strong');
+      title.textContent = d.name;
+      tooltip.append(title);
+      for (const text of [`人口：${d.population} 人`, statusLine(d)]) {
+        const line = document.createElement('span');
+        line.textContent = text;
+        tooltip.append(line);
+      }
+      tooltip.hidden = false;
+      const frame = container.getBoundingClientRect();
+      const left = Math.min(x + 12, frame.width - tooltip.offsetWidth - 8);
+      const top = Math.min(y + 12, frame.height - tooltip.offsetHeight - 8);
+      tooltip.style.left = `${Math.max(8, left)}px`;
+      tooltip.style.top = `${Math.max(8, top)}px`;
+    };
+
+    // Popup content is built with DOM APIs so names and URLs are never parsed as HTML.
+    const popupContent = (d: Datum): HTMLElement => {
+      const el = document.createElement('div');
+      el.className = 'muni-popup';
+      const title = document.createElement('strong');
+      title.textContent = d.name;
+      const pop = document.createElement('span');
+      pop.textContent = `人口：${d.population} 人`;
+      el.append(title, pop);
+      if (d.sites.length > 0) {
+        const list = document.createElement('ul');
+        for (const s of d.sites) {
+          const li = document.createElement('li');
+          const a = document.createElement('a');
+          a.href = s.url;
+          a.target = '_blank';
+          a.rel = 'noopener';
+          a.textContent = s.name;
+          li.append(a, `（${s.status}）`);
+          list.append(li);
+        }
+        el.append(list);
+      }
+      if (!d.covered) {
+        const cta = document.createElement('a');
+        cta.href = config.ctaHref;
+        cta.textContent = 'この街でみらい議会をはじめる →';
+        el.append(cta);
+      }
+      return el;
+    };
+
+    const popup = new maplibregl.Popup({ closeButton: true, maxWidth: '280px' });
+
+    const fullBounds = (features: GeoJSON.Feature[]): Bounds => {
+      let [minX, minY, maxX, maxY] = [180, 90, -180, -90];
+      const visit = (c: unknown): void => {
+        if (Array.isArray(c) && typeof c[0] === 'number') {
+          const [x, y] = c as [number, number];
+          minX = Math.min(minX, x);
+          minY = Math.min(minY, y);
+          maxX = Math.max(maxX, x);
+          maxY = Math.max(maxY, y);
+        } else if (Array.isArray(c)) {
+          for (const child of c) visit(child);
+        }
+      };
+      for (const f of features) {
+        if (f.geometry && 'coordinates' in f.geometry) visit(f.geometry.coordinates);
+      }
+      return [
+        [minX, minY],
+        [maxX, maxY],
+      ];
+    };
+
+    map.on('load', async () => {
+      const res = await fetch(`/geo/municipalities/${config.prefCode}.topojson`);
+      const topo = (await res.json()) as Topology<{
+        municipalities: GeometryCollection<{ code5: string; name: string }>;
+      }>;
+      const shapes = feature(topo, topo.objects.municipalities);
+      const geojson = {
+        ...shapes,
+        features: shapes.features.map((f) => ({
+          ...f,
+          properties: { ...f.properties, covered: byCode.get(f.properties.code5)?.covered ?? false },
+        })),
+      };
+
+      const allBounds = fullBounds(geojson.features);
+      const views = config.views;
+      map.fitBounds(views[0]?.bounds ?? allBounds, { padding: 16, animate: false });
+
+      map.addSource('municipalities', {
+        type: 'geojson',
+        data: geojson,
+        promoteId: 'code5',
+        attribution: `<a href="${config.attribution}" target="_blank" rel="noopener">国土数値情報（行政区域）</a>を加工`,
+      });
+      map.addLayer({
+        id: 'muni-fill',
+        type: 'fill',
+        source: 'municipalities',
+        paint: {
+          'fill-color': ['case', ['get', 'covered'], theme().covered, theme().uncovered],
+        },
+      });
+      map.addLayer({
+        id: 'muni-line',
+        type: 'line',
+        source: 'municipalities',
+        paint: { 'line-color': theme().line, 'line-width': 0.8 },
+      });
+      map.addLayer({
+        id: 'muni-hover',
+        type: 'line',
+        source: 'municipalities',
+        paint: {
+          'line-color': theme().hover,
+          'line-width': ['case', ['boolean', ['feature-state', 'hover'], false], 2, 0],
+        },
+      });
+
+      let hoveredId: string | number | undefined;
+      const setHover = (id: string | number | undefined) => {
+        if (hoveredId !== undefined) {
+          map.setFeatureState({ source: 'municipalities', id: hoveredId }, { hover: false });
+        }
+        hoveredId = id;
+        if (id !== undefined) map.setFeatureState({ source: 'municipalities', id }, { hover: true });
+      };
+
+      const datumAt = (e: maplibregl.MapLayerMouseEvent) => {
+        const f = e.features?.[0];
+        const d = f ? byCode.get(String(f.properties?.code5)) : undefined;
+        return f && d ? { f, d } : undefined;
+      };
+
+      map.on('mousemove', 'muni-fill', (e) => {
+        const hit = datumAt(e);
+        if (!hit) return;
+        map.getCanvas().style.cursor = 'pointer';
+        setHover(hit.f.id);
+        if (!popup.isOpen()) showTooltip(hit.d, e.point.x, e.point.y);
+      });
+      map.on('mouseleave', 'muni-fill', () => {
+        map.getCanvas().style.cursor = '';
+        setHover(undefined);
+        hideTooltip();
+      });
+      map.on('click', 'muni-fill', (e) => {
+        const hit = datumAt(e);
+        if (!hit) return;
+        hideTooltip();
+        setHover(hit.f.id);
+        popup.setLngLat(e.lngLat).setDOMContent(popupContent(hit.d)).addTo(map);
+      });
+      map.on('movestart', hideTooltip);
+
+      for (const button of root.querySelectorAll<HTMLButtonElement>('[data-view]')) {
+        button.addEventListener('click', () => {
+          const key = button.dataset.view;
+          const bounds = key === 'all' ? allBounds : views[Number(key)]?.bounds;
+          popup.remove();
+          if (bounds) map.fitBounds(bounds, { padding: 16 });
+        });
+      }
+    });
+
+    darkQuery.addEventListener('change', () => {
+      const t = theme();
+      map.setPaintProperty('background', 'background-color', t.bg);
+      if (!map.getLayer('muni-fill')) return;
+      map.setPaintProperty('muni-fill', 'fill-color', [
+        'case',
+        ['get', 'covered'],
+        t.covered,
+        t.uncovered,
+      ]);
+      map.setPaintProperty('muni-line', 'line-color', t.line);
+      map.setPaintProperty('muni-hover', 'line-color', t.hover);
+    });
+  }
+</script>
+
+<style>
+  .muni-map {
+    padding: 1rem;
+  }
+
+  .muni-map-heading {
+    margin: 0 0 0.75rem;
+    font-size: 1.1rem;
+  }
+
+  .map-frame {
+    position: relative;
+  }
+
+  .map-canvas {
+    width: 100%;
+    height: min(70vh, 560px);
+    min-height: 360px;
+    border-radius: 8px;
+    overflow: hidden;
+  }
+
+  .jump-buttons {
+    position: absolute;
+    left: 8px;
+    top: 8px;
+    display: flex;
+    flex-wrap: wrap;
+    gap: 6px;
+    max-width: calc(100% - 60px);
+  }
+
+  .jump-buttons button {
+    font: inherit;
+    font-size: 0.85rem;
+    min-height: 36px;
+    padding: 0.25rem 0.9rem;
+    border: 1px solid var(--color-border);
+    border-radius: 999px;
+    background: var(--color-surface);
+    color: var(--color-text);
+    box-shadow: var(--shadow);
+    cursor: pointer;
+  }
+
+  .jump-buttons button:hover {
+    text-decoration: underline;
+  }
+
+  .map-tooltip {
+    position: absolute;
+    z-index: 2;
+    display: flex;
+    flex-direction: column;
+    gap: 0.1rem;
+    min-width: 10rem;
+    padding: 0.6rem 0.8rem;
+    font-size: 0.8rem;
+    line-height: 1.5;
+    background: var(--color-surface);
+    color: var(--color-text);
+    border: 1px solid var(--color-border);
+    border-radius: 8px;
+    box-shadow: 0 4px 16px rgb(15 23 42 / 0.18);
+    pointer-events: none;
+  }
+
+  .map-tooltip[hidden] {
+    display: none;
+  }
+
+  .muni-map :global(.maplibregl-popup-content) {
+    background: var(--color-surface);
+    color: var(--color-text);
+    border-radius: 8px;
+    font-size: 0.85rem;
+    line-height: 1.6;
+  }
+
+  .muni-map :global(.muni-popup) {
+    display: flex;
+    flex-direction: column;
+    gap: 0.2rem;
+    padding-right: 1rem;
+  }
+
+  .muni-map :global(.muni-popup ul) {
+    margin: 0.2rem 0;
+    padding-left: 1.1rem;
+  }
+
+  .legend {
+    display: flex;
+    flex-wrap: wrap;
+    align-items: center;
+    gap: 0.5rem 1rem;
+    margin-top: 0.75rem;
+    font-size: 0.8rem;
+    color: var(--color-muted);
+  }
+
+  .legend-item {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.35rem;
+  }
+
+  .swatch {
+    display: inline-block;
+    width: 1.25rem;
+    height: 0.8rem;
+    border: 1px solid #94a3b8;
+  }
+
+  .swatch-covered {
+    background: #4f46e5;
+  }
+
+  .swatch-uncovered {
+    background: #f1f5f9;
+  }
+
+  @media (prefers-color-scheme: dark) {
+    .swatch {
+      border-color: #64748b;
+    }
+
+    .swatch-covered {
+      background: #818cf8;
+    }
+
+    .swatch-uncovered {
+      background: #1e293b;
+    }
+  }
+</style>

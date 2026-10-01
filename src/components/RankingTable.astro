@@ -39,7 +39,7 @@ const rows = [...prefectures].sort((a, b) => a.rank - b.rank);
           >
             <td class="num rank">{p.rank}</td>
             <th scope="row" class="pref-name">
-              {p.prefName}
+              <a href={`/pref/${p.prefCode}`}>{p.prefName}</a>
             </th>
             <td class="num">{formatPercent(p.populationCoverageRate)}</td>
             <td class="num col-optional">
