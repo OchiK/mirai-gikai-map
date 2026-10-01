@@ -1,0 +1,59 @@
+name: Health Check
+
+on:
+  schedule:
+    # Every Sunday 21:00 UTC = Monday 06:00 JST
+    - cron: '0 21 * * 0'
+  workflow_dispatch:
+
+permissions:
+  contents: write
+
+concurrency:
+  group: data-bot
+  cancel-in-progress: false
+
+jobs:
+  healthcheck:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v4
+
+      - name: Setup pnpm
+        uses: pnpm/action-setup@v4
+        with:
+          version: 10
+
+      - name: Setup Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: 22
+          cache: 'pnpm'
+
+      - name: Install dependencies
+        run: pnpm install --frozen-lockfile
+
+      - name: Run health check
+        run: pnpm healthcheck
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+
+      # JSON.stringify output can differ from Biome's JSON style (e.g. short arrays),
+      # so normalize it to keep `pnpm lint` passing in CI.
+      - name: Format bot output
+        run: pnpm exec biome format --write data/status.json
+
+      - name: Commit status changes
+        run: |
+          if git diff --quiet -- data/status.json; then
+            echo "No status changes."
+            exit 0
+          fi
+          git config user.name 'github-actions[bot]'
+          git config user.email '41898282+github-actions[bot]@users.noreply.github.com'
+          git add data/status.json
+          git commit -m 'chore(status): update site health check results'
+          git pull --rebase origin main
+          git push origin HEAD:main

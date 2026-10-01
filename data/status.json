@@ -1,1 +1,170 @@
-{}
+{
+  "kanagawa-pref": {
+    "http": 200,
+    "last_checked": "2026-10-01T01:32:43.495Z",
+    "last_ok": "2026-10-01T01:32:43.495Z",
+    "consecutive_failures": 0,
+    "repo_pushed_at": null,
+    "status": "active"
+  },
+  "nara-pref": {
+    "http": 200,
+    "last_checked": "2026-10-01T01:32:43.495Z",
+    "last_ok": "2026-10-01T01:32:43.495Z",
+    "consecutive_failures": 0,
+    "repo_pushed_at": null,
+    "status": "active"
+  },
+  "fukuoka-pref": {
+    "http": 200,
+    "last_checked": "2026-10-01T01:32:43.495Z",
+    "last_ok": "2026-10-01T01:32:43.495Z",
+    "consecutive_failures": 0,
+    "repo_pushed_at": "2026-09-30T15:31:31Z",
+    "status": "active"
+  },
+  "tokorozawa-shi": {
+    "http": 200,
+    "last_checked": "2026-10-01T01:32:43.495Z",
+    "last_ok": "2026-10-01T01:32:43.495Z",
+    "consecutive_failures": 0,
+    "repo_pushed_at": null,
+    "status": "active"
+  },
+  "chuo-ku": {
+    "http": 200,
+    "last_checked": "2026-10-01T01:32:43.495Z",
+    "last_ok": "2026-10-01T01:32:43.495Z",
+    "consecutive_failures": 0,
+    "repo_pushed_at": null,
+    "status": "active"
+  },
+  "shinjuku-ku": {
+    "http": 200,
+    "last_checked": "2026-10-01T01:32:43.495Z",
+    "last_ok": "2026-10-01T01:32:43.495Z",
+    "consecutive_failures": 0,
+    "repo_pushed_at": "2026-09-30T02:47:48Z",
+    "status": "active"
+  },
+  "setagaya-ku": {
+    "http": 200,
+    "last_checked": "2026-10-01T01:32:43.495Z",
+    "last_ok": "2026-10-01T01:32:43.495Z",
+    "consecutive_failures": 0,
+    "repo_pushed_at": "2026-09-26T00:02:15Z",
+    "status": "active"
+  },
+  "ota-ku": {
+    "http": 200,
+    "last_checked": "2026-10-01T01:32:43.495Z",
+    "last_ok": "2026-10-01T01:32:43.495Z",
+    "consecutive_failures": 0,
+    "repo_pushed_at": null,
+    "status": "active"
+  },
+  "adachi-ku": {
+    "http": 200,
+    "last_checked": "2026-10-01T01:32:43.495Z",
+    "last_ok": "2026-10-01T01:32:43.495Z",
+    "consecutive_failures": 0,
+    "repo_pushed_at": null,
+    "status": "active"
+  },
+  "kawasaki-shi": {
+    "http": 200,
+    "last_checked": "2026-10-01T01:32:43.495Z",
+    "last_ok": "2026-10-01T01:32:43.495Z",
+    "consecutive_failures": 0,
+    "repo_pushed_at": null,
+    "status": "active"
+  },
+  "kusatsu-shi": {
+    "http": 200,
+    "last_checked": "2026-10-01T01:32:43.495Z",
+    "last_ok": "2026-10-01T01:32:43.495Z",
+    "consecutive_failures": 0,
+    "repo_pushed_at": null,
+    "status": "active"
+  },
+  "numazu-shi": {
+    "http": 200,
+    "last_checked": "2026-10-01T01:32:43.495Z",
+    "last_ok": "2026-10-01T01:32:43.495Z",
+    "consecutive_failures": 0,
+    "repo_pushed_at": null,
+    "status": "active"
+  },
+  "nagoya-shi": {
+    "http": 200,
+    "last_checked": "2026-10-01T01:32:43.495Z",
+    "last_ok": "2026-10-01T01:32:43.495Z",
+    "consecutive_failures": 0,
+    "repo_pushed_at": null,
+    "status": "active"
+  },
+  "akitakata-shi": {
+    "http": 200,
+    "last_checked": "2026-10-01T01:32:43.495Z",
+    "last_ok": "2026-10-01T01:32:43.495Z",
+    "consecutive_failures": 0,
+    "repo_pushed_at": "2026-09-19T05:54:28Z",
+    "status": "active"
+  },
+  "fukuoka-shi": {
+    "http": 200,
+    "last_checked": "2026-10-01T01:32:43.495Z",
+    "last_ok": "2026-10-01T01:32:43.495Z",
+    "consecutive_failures": 0,
+    "repo_pushed_at": null,
+    "status": "active"
+  },
+  "tagawa-shi": {
+    "http": 200,
+    "last_checked": "2026-10-01T01:32:43.495Z",
+    "last_ok": "2026-10-01T01:32:43.495Z",
+    "consecutive_failures": 0,
+    "repo_pushed_at": null,
+    "status": "active"
+  },
+  "fukutsu-shi": {
+    "http": 200,
+    "last_checked": "2026-10-01T01:32:43.495Z",
+    "last_ok": "2026-10-01T01:32:43.495Z",
+    "consecutive_failures": 0,
+    "repo_pushed_at": null,
+    "status": "active"
+  },
+  "oita-shi": {
+    "http": 200,
+    "last_checked": "2026-10-01T01:32:43.495Z",
+    "last_ok": "2026-10-01T01:32:43.495Z",
+    "consecutive_failures": 0,
+    "repo_pushed_at": null,
+    "status": "active"
+  },
+  "ishigaki-shi": {
+    "http": 200,
+    "last_checked": "2026-10-01T01:32:43.495Z",
+    "last_ok": "2026-10-01T01:32:43.495Z",
+    "consecutive_failures": 0,
+    "repo_pushed_at": null,
+    "status": "active"
+  },
+  "hayama-machi": {
+    "http": 200,
+    "last_checked": "2026-10-01T01:32:43.495Z",
+    "last_ok": "2026-10-01T01:32:43.495Z",
+    "consecutive_failures": 0,
+    "repo_pushed_at": null,
+    "status": "active"
+  },
+  "hirokawa-machi-fukuoka": {
+    "http": 200,
+    "last_checked": "2026-10-01T01:32:43.495Z",
+    "last_ok": "2026-10-01T01:32:43.495Z",
+    "consecutive_failures": 0,
+    "repo_pushed_at": null,
+    "status": "active"
+  }
+}

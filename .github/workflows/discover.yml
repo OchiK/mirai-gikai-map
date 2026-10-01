@@ -1,0 +1,62 @@
+name: Discovery
+
+on:
+  schedule:
+    # Every Saturday 15:00 UTC = Sunday 00:00 JST
+    - cron: '0 15 * * 6'
+  workflow_dispatch:
+
+permissions:
+  contents: write
+  issues: write
+
+concurrency:
+  group: data-bot
+  cancel-in-progress: false
+
+jobs:
+  discover:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v4
+
+      - name: Setup pnpm
+        uses: pnpm/action-setup@v4
+        with:
+          version: 10
+
+      - name: Setup Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: 22
+          cache: 'pnpm'
+
+      - name: Install dependencies
+        run: pnpm install --frozen-lockfile
+
+      # The script itself opens or updates the discovery issue via the gh CLI.
+      - name: Run discovery crawl
+        run: pnpm discover
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+          GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+
+      # JSON.stringify output can differ from Biome's JSON style (e.g. short arrays),
+      # so normalize it to keep `pnpm lint` passing in CI.
+      - name: Format bot output
+        run: pnpm exec biome format --write data/candidates.json
+
+      - name: Commit candidate changes
+        run: |
+          if git diff --quiet -- data/candidates.json; then
+            echo "No new candidates."
+            exit 0
+          fi
+          git config user.name 'github-actions[bot]'
+          git config user.email '41898282+github-actions[bot]@users.noreply.github.com'
+          git add data/candidates.json
+          git commit -m 'chore(discovery): record new site candidates'
+          git pull --rebase origin main
+          git push origin HEAD:main
