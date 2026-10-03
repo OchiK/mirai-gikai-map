@@ -1,4 +1,453 @@
 {
-  "candidates": [],
+  "candidates": [
+    {
+      "repo": "Takahashi130/mirai-gikai-shinjuku",
+      "name": null,
+      "url": null,
+      "detected_at": "2026-10-03T18:34:55.278Z",
+      "stars": 0,
+      "pushed_at": "2026-10-01T11:14:04Z"
+    },
+    {
+      "repo": "CatPersonOptimist/mirai-gikai",
+      "name": null,
+      "url": null,
+      "detected_at": "2026-10-03T18:34:55.278Z",
+      "stars": 0,
+      "pushed_at": "2026-09-25T06:10:44Z"
+    },
+    {
+      "repo": "kotaesaki/mirai-gikai",
+      "name": null,
+      "url": null,
+      "detected_at": "2026-10-03T18:34:55.278Z",
+      "stars": 0,
+      "pushed_at": "2026-09-26T03:03:11Z"
+    },
+    {
+      "repo": "tahashika0712/mirai-gikai-edogawa",
+      "name": null,
+      "url": null,
+      "detected_at": "2026-10-03T18:34:55.278Z",
+      "stars": 0,
+      "pushed_at": "2026-09-15T08:36:12Z"
+    },
+    {
+      "repo": "calico-blanket/nishinomiya-gikai",
+      "name": null,
+      "url": null,
+      "detected_at": "2026-10-03T18:34:55.278Z",
+      "stars": 0,
+      "pushed_at": "2026-09-15T14:41:06Z"
+    },
+    {
+      "repo": "subayasutaka/mirai-gikai-anjo",
+      "name": null,
+      "url": null,
+      "detected_at": "2026-10-03T18:34:55.278Z",
+      "stars": 0,
+      "pushed_at": "2026-10-01T13:23:47Z"
+    },
+    {
+      "repo": "takase-del/mirai-gikai-minamiuonuma",
+      "name": null,
+      "url": null,
+      "detected_at": "2026-10-03T18:34:55.278Z",
+      "stars": 0,
+      "pushed_at": "2026-09-10T23:35:48Z"
+    },
+    {
+      "repo": "miuradaiki-kouenkai/hayama-gikai",
+      "name": "葉山町",
+      "url": null,
+      "detected_at": "2026-10-03T18:34:55.278Z",
+      "stars": 0,
+      "pushed_at": "2026-09-17T03:09:55Z"
+    },
+    {
+      "repo": "harry2480/mirai-gikai",
+      "name": null,
+      "url": null,
+      "detected_at": "2026-10-03T18:34:55.278Z",
+      "stars": 0,
+      "pushed_at": "2026-08-27T23:01:20Z"
+    },
+    {
+      "repo": "N-Yama193/mirai-gikai",
+      "name": null,
+      "url": null,
+      "detected_at": "2026-10-03T18:34:55.278Z",
+      "stars": 0,
+      "pushed_at": "2026-09-03T09:12:46Z"
+    },
+    {
+      "repo": "Syogo-Suganoya/mirai-gikai",
+      "name": null,
+      "url": null,
+      "detected_at": "2026-10-03T18:34:55.278Z",
+      "stars": 0,
+      "pushed_at": "2026-07-17T05:51:43Z"
+    },
+    {
+      "repo": "Nagi-Inaba/mirai-gikai",
+      "name": null,
+      "url": null,
+      "detected_at": "2026-10-03T18:34:55.278Z",
+      "stars": 0,
+      "pushed_at": "2026-08-14T14:38:02Z"
+    },
+    {
+      "repo": "yasumorishima/mirai-gikai",
+      "name": null,
+      "url": null,
+      "detected_at": "2026-10-03T18:34:55.278Z",
+      "stars": 0,
+      "pushed_at": "2026-08-03T04:39:57Z"
+    },
+    {
+      "repo": "codeforjapan/saga-broadlistening",
+      "name": null,
+      "url": null,
+      "detected_at": "2026-10-03T18:34:55.278Z",
+      "stars": 0,
+      "pushed_at": "2026-10-01T02:52:47Z"
+    },
+    {
+      "repo": "taku3516/mirai-gikai",
+      "name": null,
+      "url": null,
+      "detected_at": "2026-10-03T18:34:55.278Z",
+      "stars": 1,
+      "pushed_at": "2026-07-07T16:54:27Z"
+    },
+    {
+      "repo": "yuito-it/mirai-gikai",
+      "name": null,
+      "url": "https://地方議会.com",
+      "detected_at": "2026-10-03T18:34:55.278Z",
+      "stars": 1,
+      "pushed_at": "2026-08-11T01:55:18Z"
+    },
+    {
+      "repo": "yooojih/mirai-gikai",
+      "name": null,
+      "url": null,
+      "detected_at": "2026-10-03T18:34:55.278Z",
+      "stars": 0,
+      "pushed_at": "2026-06-18T07:18:08Z"
+    },
+    {
+      "repo": "riku-labs/mirai-gikai-saitama-city",
+      "name": null,
+      "url": null,
+      "detected_at": "2026-10-03T18:34:55.278Z",
+      "stars": 0,
+      "pushed_at": "2026-07-21T00:53:20Z"
+    },
+    {
+      "repo": "yagiin/mirai-gikai-kusatsu",
+      "name": null,
+      "url": null,
+      "detected_at": "2026-10-03T18:34:55.278Z",
+      "stars": 1,
+      "pushed_at": "2026-09-21T06:44:53Z"
+    },
+    {
+      "repo": "taross-f/mirai-gikai-saitama",
+      "name": null,
+      "url": null,
+      "detected_at": "2026-10-03T18:34:55.278Z",
+      "stars": 1,
+      "pushed_at": "2026-05-23T14:46:54Z"
+    },
+    {
+      "repo": "sgm-j/202605ce",
+      "name": null,
+      "url": null,
+      "detected_at": "2026-10-03T18:34:55.278Z",
+      "stars": 0,
+      "pushed_at": "2026-05-19T14:58:27Z"
+    },
+    {
+      "repo": "goodmt-x19fs/mirai-gikai-base",
+      "name": null,
+      "url": null,
+      "detected_at": "2026-10-03T18:34:55.278Z",
+      "stars": 0,
+      "pushed_at": "2026-04-13T14:21:27Z"
+    },
+    {
+      "repo": "aoi/mirai-gikai-yufu",
+      "name": null,
+      "url": null,
+      "detected_at": "2026-10-03T18:34:55.278Z",
+      "stars": 0,
+      "pushed_at": "2026-04-10T13:05:17Z"
+    },
+    {
+      "repo": "hanedanews-netizen/mirai-gikai-otaku",
+      "name": null,
+      "url": null,
+      "detected_at": "2026-10-03T18:34:55.278Z",
+      "stars": 0,
+      "pushed_at": "2026-04-04T01:42:12Z"
+    },
+    {
+      "repo": "yukihoz/mirai-gikai",
+      "name": null,
+      "url": null,
+      "detected_at": "2026-10-03T18:34:55.278Z",
+      "stars": 0,
+      "pushed_at": "2026-09-07T14:56:08Z"
+    },
+    {
+      "repo": "seiichi3141/numazugikai",
+      "name": "沼津市",
+      "url": null,
+      "detected_at": "2026-10-03T18:34:55.278Z",
+      "stars": 1,
+      "pushed_at": "2026-09-18T07:50:03Z"
+    },
+    {
+      "repo": "dan-soncillan/chofu-gikai",
+      "name": null,
+      "url": null,
+      "detected_at": "2026-10-03T18:34:55.278Z",
+      "stars": 0,
+      "pushed_at": "2026-02-07T14:21:40Z"
+    },
+    {
+      "repo": "miyuki612/mirai-gikai",
+      "name": null,
+      "url": null,
+      "detected_at": "2026-10-03T18:34:55.278Z",
+      "stars": 0,
+      "pushed_at": "2026-01-11T13:48:31Z"
+    },
+    {
+      "repo": "yutoAb/mirai-gikai",
+      "name": null,
+      "url": null,
+      "detected_at": "2026-10-03T18:34:55.278Z",
+      "stars": 0,
+      "pushed_at": "2026-03-08T12:48:05Z"
+    },
+    {
+      "repo": "shinya-chigita/mirai-gikai",
+      "name": null,
+      "url": null,
+      "detected_at": "2026-10-03T18:34:55.278Z",
+      "stars": 1,
+      "pushed_at": "2026-01-07T03:56:20Z"
+    },
+    {
+      "repo": "kakakuni/mirai-gikai",
+      "name": null,
+      "url": null,
+      "detected_at": "2026-10-03T18:34:55.278Z",
+      "stars": 0,
+      "pushed_at": "2025-10-31T01:45:26Z"
+    },
+    {
+      "repo": "YasunariIguchi0219/mirai-gikai",
+      "name": null,
+      "url": null,
+      "detected_at": "2026-10-03T18:34:55.278Z",
+      "stars": 0,
+      "pushed_at": "2025-10-28T09:07:08Z"
+    },
+    {
+      "repo": "Hachiretsu/Deep_AI",
+      "name": null,
+      "url": null,
+      "detected_at": "2026-10-03T18:34:55.278Z",
+      "stars": 0,
+      "pushed_at": "2025-10-27T18:39:31Z"
+    },
+    {
+      "repo": "sanskruthiya/mirai-gikai-k",
+      "name": null,
+      "url": null,
+      "detected_at": "2026-10-03T18:34:55.278Z",
+      "stars": 0,
+      "pushed_at": "2025-10-23T02:51:04Z"
+    },
+    {
+      "repo": "Berry7028/mirai-gikai",
+      "name": null,
+      "url": null,
+      "detected_at": "2026-10-03T18:34:55.278Z",
+      "stars": 0,
+      "pushed_at": "2025-10-23T02:51:04Z"
+    },
+    {
+      "repo": "ryoma93/mirai-gikai",
+      "name": null,
+      "url": null,
+      "detected_at": "2026-10-03T18:34:55.278Z",
+      "stars": 0,
+      "pushed_at": "2025-10-22T07:22:49Z"
+    },
+    {
+      "repo": "wadachiaki/mirai-gikai",
+      "name": null,
+      "url": null,
+      "detected_at": "2026-10-03T18:34:55.278Z",
+      "stars": 0,
+      "pushed_at": "2025-10-22T02:25:30Z"
+    },
+    {
+      "repo": "y-temp4/mirai-gikai",
+      "name": null,
+      "url": null,
+      "detected_at": "2026-10-03T18:34:55.278Z",
+      "stars": 0,
+      "pushed_at": "2025-10-21T15:33:55Z"
+    },
+    {
+      "repo": "MAA39/mirai-gikai",
+      "name": null,
+      "url": null,
+      "detected_at": "2026-10-03T18:34:55.278Z",
+      "stars": 0,
+      "pushed_at": "2025-10-20T07:01:22Z"
+    },
+    {
+      "repo": "otashun/mirai-gikai",
+      "name": null,
+      "url": null,
+      "detected_at": "2026-10-03T18:34:55.278Z",
+      "stars": 0,
+      "pushed_at": "2025-10-20T03:55:04Z"
+    },
+    {
+      "repo": "newt0/mirai-gikai",
+      "name": null,
+      "url": null,
+      "detected_at": "2026-10-03T18:34:55.278Z",
+      "stars": 0,
+      "pushed_at": "2026-02-11T13:00:37Z"
+    },
+    {
+      "repo": "cm-AndoSadayoshi/mirai-gikai",
+      "name": null,
+      "url": null,
+      "detected_at": "2026-10-03T18:34:55.278Z",
+      "stars": 0,
+      "pushed_at": "2025-10-17T13:59:58Z"
+    },
+    {
+      "repo": "skanehira/mirai-gikai",
+      "name": null,
+      "url": null,
+      "detected_at": "2026-10-03T18:34:55.278Z",
+      "stars": 0,
+      "pushed_at": "2025-10-17T16:09:57Z"
+    },
+    {
+      "repo": "noritaka1166/mirai-gikai",
+      "name": null,
+      "url": null,
+      "detected_at": "2026-10-03T18:34:55.278Z",
+      "stars": 0,
+      "pushed_at": "2026-10-02T04:49:52Z"
+    },
+    {
+      "repo": "kazowakow-jpg/moriguchi-gikai",
+      "name": "沼津市",
+      "url": null,
+      "detected_at": "2026-10-03T18:34:55.278Z",
+      "stars": 0,
+      "pushed_at": "2026-09-12T01:36:48Z"
+    },
+    {
+      "repo": "Takahashi130/shinjuku-gikai-navi",
+      "name": null,
+      "url": null,
+      "detected_at": "2026-10-03T18:34:55.278Z",
+      "stars": 0,
+      "pushed_at": "2026-10-03T15:19:43Z"
+    },
+    {
+      "repo": "AFTTTjp/ishigaki-gikai-app",
+      "name": null,
+      "url": "https://ishigaki-gikai-app-web.vercel.app",
+      "detected_at": "2026-10-03T18:34:55.278Z",
+      "stars": 0,
+      "pushed_at": "2026-10-03T14:05:16Z"
+    },
+    {
+      "repo": "CatPersonOptimist/mirai-gikai-kuwana",
+      "name": "桑名市",
+      "url": "https://mirai-gikai-kuwana-web.vercel.app",
+      "detected_at": "2026-10-03T18:34:55.278Z",
+      "stars": 0,
+      "pushed_at": "2026-10-03T05:22:40Z"
+    },
+    {
+      "repo": "s-takahashi-hokkaido/dejimin-gikai",
+      "name": null,
+      "url": "https://project-5ki8w.vercel.app",
+      "detected_at": "2026-10-03T18:34:55.278Z",
+      "stars": 0,
+      "pushed_at": "2026-10-03T02:17:02Z"
+    },
+    {
+      "repo": "Suuuisui/mirai-gikai-tagawa",
+      "name": "田川市",
+      "url": null,
+      "detected_at": "2026-10-03T18:34:55.278Z",
+      "stars": 0,
+      "pushed_at": "2026-10-03T02:07:30Z"
+    },
+    {
+      "repo": "Onga-Mirai-Tech/Onga-Mirai-Gikai",
+      "name": "遠賀町",
+      "url": null,
+      "detected_at": "2026-10-03T18:34:55.278Z",
+      "stars": 1,
+      "pushed_at": "2026-10-01T21:43:03Z"
+    },
+    {
+      "repo": "csdkotsuka/matsuyama-mirai-gikai",
+      "name": null,
+      "url": "https://matsuyama-mirai-gikai-admin.vercel.app",
+      "detected_at": "2026-10-03T18:34:55.278Z",
+      "stars": 0,
+      "pushed_at": "2026-09-28T10:28:13Z"
+    },
+    {
+      "repo": "Doppelar/yoshiokacho",
+      "name": null,
+      "url": "https://www.town.yoshioka.lg.jp/gikai/kaigi/pdf/2_gijinittei1_r8_3t%20%282%29.pdf",
+      "detected_at": "2026-10-03T18:34:55.278Z",
+      "stars": 0,
+      "pushed_at": "2026-09-19T13:09:15Z"
+    },
+    {
+      "repo": "nagisora/mirai-gikai-shizuoka-light",
+      "name": null,
+      "url": "https://mirai-gikai-shizuoka-light-web.vercel.app",
+      "detected_at": "2026-10-03T18:34:55.278Z",
+      "stars": 0,
+      "pushed_at": "2026-06-16T13:19:47Z"
+    },
+    {
+      "repo": "team-mirai-volunteer/kokkai-join",
+      "name": null,
+      "url": "https://supabase.com/docs/guides/cli/getting-started",
+      "detected_at": "2026-10-03T18:34:55.278Z",
+      "stars": 3,
+      "pushed_at": "2025-11-25T10:02:10Z"
+    },
+    {
+      "repo": "masahiro-nagai/gikai",
+      "name": null,
+      "url": null,
+      "detected_at": "2026-10-03T18:34:55.278Z",
+      "stars": 0,
+      "pushed_at": "2025-11-02T09:07:01Z"
+    }
+  ],
   "rejected": []
 }
