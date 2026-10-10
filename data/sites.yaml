@@ -111,6 +111,19 @@
   status: active
   notes: "Operator display name and launch date are not yet verified."
 
+- id: tachikawa-shi
+  assembly_code5: "13202"
+  assembly_level: municipal
+  name: みらい議会＠立川市
+  url: https://mirai-gikai-tachikawa-web.vercel.app/
+  repo: https://github.com/purepu-hc/mirai-gikai-tachikawa
+  based_on: fork
+  launched_on: 2026-10-01
+  added_on: 2026-10-11
+  status: active
+  operator_x: https://x.com/miraigikai_tckw
+  notes: "Operator: ぷれ (@miraigikai_tckw)."
+
 - id: kawasaki-shi
   assembly_code5: "14130"
   assembly_level: municipal
@@ -140,7 +153,7 @@
   assembly_level: municipal
   name: みらい議会＠沼津市
   url: https://mirai-numazu.com/
-  repo: ~
+  repo: https://github.com/seiichi3141/numazugikai
   based_on: fork
   added_on: 2026-09-30
   status: active
@@ -157,6 +170,17 @@
   added_on: 2026-09-30
   status: active
   operator_x: https://x.com/ssuga620282
+  notes: "Operator display name and launch date are not yet verified."
+
+- id: kuwana-shi
+  assembly_code5: "24205"
+  assembly_level: municipal
+  name: みらい議会＠桑名市
+  url: https://mirai-gikai-kuwana-web.vercel.app/
+  repo: https://github.com/CatPersonOptimist/mirai-gikai-kuwana
+  based_on: fork
+  added_on: 2026-10-11
+  status: active
   notes: "Operator display name and launch date are not yet verified."
 
 - id: akitakata-shi
@@ -188,7 +212,7 @@
   assembly_level: municipal
   name: みらい議会＠田川市
   url: https://tagawa-gikai.jp/
-  repo: ~
+  repo: https://github.com/Suuuisui/mirai-gikai-tagawa
   based_on: fork
   added_on: 2026-09-30
   status: active
@@ -210,7 +234,7 @@
   assembly_level: municipal
   name: みらい議会＠大分市
   url: https://script.google.com/macros/s/AKfycbyizAr2Ula1osVJZV3OIMJy8fPO7A1wNGwW5nLTjrzSMbe5pYmTlemvqDDMLsLu7AUD/exec
-  repo: ~
+  repo: https://github.com/shiosasa/mirai-gikai-oitacity
   based_on: fork
   added_on: 2026-09-30
   status: active
@@ -222,7 +246,7 @@
   assembly_level: municipal
   name: みらい議会＠石垣市
   url: https://ishigaki-gikai-app-web-coral.vercel.app/
-  repo: ~
+  repo: https://github.com/AFTTTjp/ishigaki-gikai-app
   based_on: fork
   added_on: 2026-09-30
   status: active
@@ -236,7 +260,7 @@
   assembly_level: municipal
   name: みらい議会＠葉山町
   url: https://hayama-gikai-web.vercel.app/
-  repo: ~
+  repo: https://github.com/miuradaiki-kouenkai/hayama-gikai
   based_on: fork
   added_on: 2026-09-30
   status: active

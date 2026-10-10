@@ -25,7 +25,7 @@ Build, verify, automate, and deploy an unofficial civic-tech portal (みらい�
 ## 3. File Map (What Changed & Why)
 - `src/pages/index.astro`: Home page with headline metrics bar, interactive MapLibre choropleth, sortable 47-prefecture ranking table, and recent additions.
 - `src/pages/pref/[code].astro`: Dynamic detail route for each of the 47 prefectures featuring municipality-level MapLibre choropleth, covered/uncovered lists, and CTA.
-- `src/pages/sites.astro`: Searchable and filterable directory of all 21 registered local assembly sites.
+- `src/pages/sites.astro`: Searchable and filterable directory of all 23 registered local assembly sites.
 - `src/pages/about.astro` & `src/pages/submit.astro`: Methodology, data citations, inclusion criteria, and issue template submission.
 - `src/components/Map.astro` & `src/components/MunicipalityMap.astro`: Client-side MapLibre GL JS islands with TopoJSON boundary rendering, cooperative gestures, island jump buttons, and dark mode support.
 - `public/geo/prefectures.topojson`: Optimized national prefecture boundaries (<240 KB).

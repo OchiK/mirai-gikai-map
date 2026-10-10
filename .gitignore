@@ -22,3 +22,6 @@ data/raw/*
 
 # Test coverage output
 coverage/
+
+# Claude Code agent scratch space (checker reports, backups, sandboxed bot output)
+.claude/scratch/

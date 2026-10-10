@@ -4,6 +4,13 @@ All modifications, creations, and updates to the knowledge documents within this
 
 ---
 
+### [2026-10-11T05:50:00+09:00] - Add Kuwana & Tachikawa Sites, Backfill Repositories, Candidate Triage
+- **Action**: Registered two new live sites (桑名市 and 立川市), bringing total to 23 sites. Backfilled verified GitHub source repositories for 5 existing sites (沼津市, 田川市, 大分市, 石垣市, 葉山町). Triaged candidate queue and rejected 5 false positives.
+- **Files Modified**:
+  - `data/sites.yaml`: Added `kuwana-shi` (24205) and `tachikawa-shi` (13202); updated `repo` field for 5 existing sites.
+  - `data/candidates.json`: Pruned registered entries, added false positives to `rejected`.
+  - `README.md`, `_handoff.md`, `knowledge/handoff.md`: Updated site count from 21 to 23.
+
 ### [2026-10-01T20:45:00+09:00] - SEO Optimization for "みらい議会 まとめ"
 - **Action**: Enhanced SEO metadata, titles, descriptions, headings, structured data (Schema.org JSON-LD), and on-page directory search for "みらい議会 まとめ" queries.
 - **Files Modified**:

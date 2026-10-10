@@ -57,14 +57,6 @@
       "pushed_at": "2026-09-10T23:35:48Z"
     },
     {
-      "repo": "miuradaiki-kouenkai/hayama-gikai",
-      "name": "葉山町",
-      "url": null,
-      "detected_at": "2026-10-03T18:34:55.278Z",
-      "stars": 0,
-      "pushed_at": "2026-09-17T03:09:55Z"
-    },
-    {
       "repo": "harry2480/mirai-gikai",
       "name": null,
       "url": null,
@@ -119,14 +111,6 @@
       "detected_at": "2026-10-03T18:34:55.278Z",
       "stars": 1,
       "pushed_at": "2026-07-07T16:54:27Z"
-    },
-    {
-      "repo": "yuito-it/mirai-gikai",
-      "name": null,
-      "url": "https://地方議会.com",
-      "detected_at": "2026-10-03T18:34:55.278Z",
-      "stars": 1,
-      "pushed_at": "2026-08-11T01:55:18Z"
     },
     {
       "repo": "yooojih/mirai-gikai",
@@ -199,14 +183,6 @@
       "detected_at": "2026-10-03T18:34:55.278Z",
       "stars": 0,
       "pushed_at": "2026-09-07T14:56:08Z"
-    },
-    {
-      "repo": "seiichi3141/numazugikai",
-      "name": "沼津市",
-      "url": null,
-      "detected_at": "2026-10-03T18:34:55.278Z",
-      "stars": 1,
-      "pushed_at": "2026-09-18T07:50:03Z"
     },
     {
       "repo": "dan-soncillan/chofu-gikai",
@@ -369,38 +345,6 @@
       "pushed_at": "2026-10-03T15:19:43Z"
     },
     {
-      "repo": "AFTTTjp/ishigaki-gikai-app",
-      "name": null,
-      "url": "https://ishigaki-gikai-app-web.vercel.app",
-      "detected_at": "2026-10-03T18:34:55.278Z",
-      "stars": 0,
-      "pushed_at": "2026-10-03T14:05:16Z"
-    },
-    {
-      "repo": "CatPersonOptimist/mirai-gikai-kuwana",
-      "name": "桑名市",
-      "url": "https://mirai-gikai-kuwana-web.vercel.app",
-      "detected_at": "2026-10-03T18:34:55.278Z",
-      "stars": 0,
-      "pushed_at": "2026-10-03T05:22:40Z"
-    },
-    {
-      "repo": "s-takahashi-hokkaido/dejimin-gikai",
-      "name": null,
-      "url": "https://project-5ki8w.vercel.app",
-      "detected_at": "2026-10-03T18:34:55.278Z",
-      "stars": 0,
-      "pushed_at": "2026-10-03T02:17:02Z"
-    },
-    {
-      "repo": "Suuuisui/mirai-gikai-tagawa",
-      "name": "田川市",
-      "url": null,
-      "detected_at": "2026-10-03T18:34:55.278Z",
-      "stars": 0,
-      "pushed_at": "2026-10-03T02:07:30Z"
-    },
-    {
       "repo": "Onga-Mirai-Tech/Onga-Mirai-Gikai",
       "name": "遠賀町",
       "url": null,
@@ -433,45 +377,19 @@
       "pushed_at": "2026-06-16T13:19:47Z"
     },
     {
-      "repo": "team-mirai-volunteer/kokkai-join",
-      "name": null,
-      "url": "https://supabase.com/docs/guides/cli/getting-started",
-      "detected_at": "2026-10-03T18:34:55.278Z",
-      "stars": 3,
-      "pushed_at": "2025-11-25T10:02:10Z"
-    },
-    {
       "repo": "masahiro-nagai/gikai",
       "name": null,
       "url": null,
       "detected_at": "2026-10-03T18:34:55.278Z",
       "stars": 0,
       "pushed_at": "2025-11-02T09:07:01Z"
-    },
-    {
-      "repo": "shiosasa/mirai-gikai-oitacity",
-      "name": null,
-      "url": "https://mirai-gikai-oitacity-web.vercel.app",
-      "detected_at": "2026-10-10T19:09:35.659Z",
-      "stars": 0,
-      "pushed_at": "2026-10-10T08:28:39Z"
-    },
-    {
-      "repo": "Syogo-Suganoya/moshimo-seiji",
-      "name": null,
-      "url": "https://moshimo-seiji.vercel.app/",
-      "detected_at": "2026-10-10T19:09:35.659Z",
-      "stars": 0,
-      "pushed_at": "2026-10-09T03:47:15Z"
-    },
-    {
-      "repo": "team-mirai/okr-content",
-      "name": null,
-      "url": "https://example.com/gikai",
-      "detected_at": "2026-10-10T19:09:35.659Z",
-      "stars": 0,
-      "pushed_at": "2026-10-05T17:13:07Z"
     }
   ],
-  "rejected": []
+  "rejected": [
+    "Syogo-Suganoya/moshimo-seiji",
+    "team-mirai/okr-content",
+    "team-mirai-volunteer/kokkai-join",
+    "s-takahashi-hokkaido/dejimin-gikai",
+    "yuito-it/mirai-gikai"
+  ]
 }
