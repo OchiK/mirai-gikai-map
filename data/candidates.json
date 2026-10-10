@@ -447,6 +447,30 @@
       "detected_at": "2026-10-03T18:34:55.278Z",
       "stars": 0,
       "pushed_at": "2025-11-02T09:07:01Z"
+    },
+    {
+      "repo": "shiosasa/mirai-gikai-oitacity",
+      "name": null,
+      "url": "https://mirai-gikai-oitacity-web.vercel.app",
+      "detected_at": "2026-10-10T19:09:35.659Z",
+      "stars": 0,
+      "pushed_at": "2026-10-10T08:28:39Z"
+    },
+    {
+      "repo": "Syogo-Suganoya/moshimo-seiji",
+      "name": null,
+      "url": "https://moshimo-seiji.vercel.app/",
+      "detected_at": "2026-10-10T19:09:35.659Z",
+      "stars": 0,
+      "pushed_at": "2026-10-09T03:47:15Z"
+    },
+    {
+      "repo": "team-mirai/okr-content",
+      "name": null,
+      "url": "https://example.com/gikai",
+      "detected_at": "2026-10-10T19:09:35.659Z",
+      "stars": 0,
+      "pushed_at": "2026-10-05T17:13:07Z"
     }
   ],
   "rejected": []
