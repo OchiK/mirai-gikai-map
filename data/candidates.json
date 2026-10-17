@@ -383,6 +383,30 @@
       "detected_at": "2026-10-03T18:34:55.278Z",
       "stars": 0,
       "pushed_at": "2025-11-02T09:07:01Z"
+    },
+    {
+      "repo": "mirai-gikai-kasama-city/mirai-gikai-kasama-city",
+      "name": null,
+      "url": null,
+      "detected_at": "2026-10-17T17:47:38.631Z",
+      "stars": 0,
+      "pushed_at": "2026-10-13T00:26:25Z"
+    },
+    {
+      "repo": "Syogo-Suganoya/mirai-gikai-zenkoku",
+      "name": "全国地方議会",
+      "url": "https://mirai-gikai-zenkoku.vercel.app",
+      "detected_at": "2026-10-17T17:47:38.631Z",
+      "stars": 0,
+      "pushed_at": "2026-10-16T16:45:46Z"
+    },
+    {
+      "repo": "katsushi2441/khouan",
+      "name": null,
+      "url": "https://kurage.exbridge.jp/khouan.php/",
+      "detected_at": "2026-10-17T17:47:38.631Z",
+      "stars": 0,
+      "pushed_at": "2026-10-15T22:03:19Z"
     }
   ],
   "rejected": [
