@@ -119,6 +119,14 @@ describe('SEO and search metadata', () => {
     expect(html).toContain('みらい議会まとめ');
   });
 
+  it('renders home page with related project link to みらい議会＠全国地方議会', async () => {
+    const html = await container.renderToString(indexPage);
+    expect(html).toContain('関連プロジェクト');
+    expect(html).toContain('https://mirai-gikai-zenkoku.vercel.app/');
+    expect(html).toContain('みらい議会＠全国地方議会');
+    expect(html).toContain('外部プラットフォーム');
+  });
+
   it('renders sites directory with "掲載一覧・まとめ" in title and h1', async () => {
     const html = await container.renderToString(sitesPage);
     expect(html).toContain('<title>掲載一覧・まとめ | みらい議会マップ（非公式）</title>');

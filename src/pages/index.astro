@@ -6,6 +6,7 @@ import SiteCard from '../components/SiteCard.astro';
 import Layout from '../layouts/Layout.astro';
 import { loadMunicipalities, loadSites } from '../lib/data';
 import { calculateNationalMetrics, calculatePrefectureMetrics } from '../lib/metrics';
+import { ZENKOKU_GIKAI_URL } from '../lib/site';
 
 const sites = loadSites('data/sites.yaml');
 const municipalities = loadMunicipalities('data/municipalities.csv');
@@ -52,7 +53,31 @@ const recentSites = sites
       ))
     }
   </ul>
-  <p><a href="/sites">すべてのみらい議会掲載サイト・まとめ一覧を見る →</a></p>
+  <p class="all-sites-link">
+    <a href="/sites">すべてのみらい議会掲載サイト・まとめ一覧を見る →</a>
+  </p>
+
+  <section class="related-section">
+    <h2 class="section-title">関連プロジェクト</h2>
+    <div class="card related-card">
+      <div class="related-header">
+        <span class="badge badge-platform">外部プラットフォーム</span>
+        <h3 class="related-title">
+          <a href={ZENKOKU_GIKAI_URL} target="_blank" rel="noopener">
+            みらい議会＠全国地方議会<span aria-hidden="true"> ↗</span>
+          </a>
+        </h3>
+      </div>
+      <p class="related-desc">
+        全国の地方議会（都道府県・市区町村議会）の議案を集約し、AIによる解説やインタビューを通じて横断的に閲覧・探索できる有志のシビックテックプロジェクトです。
+      </p>
+      <div class="related-meta">
+        <a href={ZENKOKU_GIKAI_URL} class="related-link" target="_blank" rel="noopener">
+          mirai-gikai-zenkoku.vercel.app<span aria-hidden="true"> ↗</span>
+        </a>
+      </div>
+    </div>
+  </section>
 </Layout>
 
 <style>
@@ -84,6 +109,62 @@ const recentSites = sites
     margin: 0 0 1rem;
     padding: 0;
     list-style: none;
+  }
+
+  .all-sites-link {
+    margin: 0 0 2rem;
+  }
+
+  .related-section {
+    margin-top: 2.5rem;
+  }
+
+  .related-card {
+    padding: 1.25rem 1.5rem;
+    display: flex;
+    flex-direction: column;
+    gap: 0.5rem;
+    border-left: 4px solid var(--color-accent);
+  }
+
+  .related-header {
+    display: flex;
+    align-items: center;
+    gap: 0.75rem;
+    flex-wrap: wrap;
+  }
+
+  .badge-platform {
+    background: var(--color-info-bg);
+    color: var(--color-info-text);
+  }
+
+  .related-title {
+    margin: 0;
+    font-size: 1.1rem;
+  }
+
+  .related-title a {
+    color: var(--color-text);
+    text-decoration: none;
+  }
+
+  .related-title a:hover {
+    color: var(--color-accent);
+    text-decoration: underline;
+  }
+
+  .related-desc {
+    margin: 0;
+    font-size: 0.9rem;
+    color: var(--color-muted);
+    line-height: 1.6;
+    max-width: 75ch;
+  }
+
+  .related-meta {
+    font-size: 0.85rem;
+    margin-top: 0.25rem;
   }
 
   .visually-hidden {

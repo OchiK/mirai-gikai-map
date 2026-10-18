@@ -4,6 +4,13 @@ All modifications, creations, and updates to the knowledge documents within this
 
 ---
 
+### [2026-10-18T10:03:00+09:00] - Add Related Project Link to みらい議会＠全国地方議会
+- **Action**: Added a "関連プロジェクト" callout section to the home page linking to the nationwide multi-assembly reader platform `みらい議会＠全国地方議会` (`https://mirai-gikai-zenkoku.vercel.app/`).
+- **Files Modified**:
+  - `src/lib/site.ts`: Added `ZENKOKU_GIKAI_URL`.
+  - `src/pages/index.astro`: Added related projects section with badge and responsive styling.
+  - `tests/pages.test.ts`: Added automated test for related project link rendering.
+
 ### [2026-10-11T05:50:00+09:00] - Add Kuwana & Tachikawa Sites, Backfill Repositories, Candidate Triage
 - **Action**: Registered two new live sites (桑名市 and 立川市), bringing total to 23 sites. Backfilled verified GitHub source repositories for 5 existing sites (沼津市, 田川市, 大分市, 石垣市, 葉山町). Triaged candidate queue and rejected 5 false positives.
 - **Files Modified**:

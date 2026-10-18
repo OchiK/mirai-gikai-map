@@ -5,6 +5,7 @@ export const REPO_URL = 'https://github.com/OchiK/mirai-gikai-map';
 export const REGISTER_ISSUE_URL = `${REPO_URL}/issues/new?template=register-site.yml`;
 export const UPSTREAM_DIET_URL = 'https://gikai.team-mir.ai/';
 export const UPSTREAM_REPO_URL = 'https://github.com/team-mirai/mirai-gikai';
+export const ZENKOKU_GIKAI_URL = 'https://mirai-gikai-zenkoku.vercel.app/';
 export const N03_URL = 'https://nlftp.mlit.go.jp/ksj/';
 export const N03_TERMS_URL = 'https://nlftp.mlit.go.jp/ksj/other/agreement_02.html';
 export const MUNICIPALITY_GEO_SOURCE_URL = 'https://github.com/smartnews-smri/japan-topography';
