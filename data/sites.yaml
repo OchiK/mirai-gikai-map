@@ -233,13 +233,13 @@
   assembly_code5: "44201"
   assembly_level: municipal
   name: みらい議会＠大分市
-  url: https://script.google.com/macros/s/AKfycbyizAr2Ula1osVJZV3OIMJy8fPO7A1wNGwW5nLTjrzSMbe5pYmTlemvqDDMLsLu7AUD/exec
+  url: https://mirai-gikai-oitacity-wxga.vercel.app/
   repo: https://github.com/shiosasa/mirai-gikai-oitacity
   based_on: fork
   added_on: 2026-09-30
   status: active
   operator_x: https://x.com/shiopan_222
-  notes: "Hosted on Google Apps Script. Operator display name and launch date are not yet verified."
+  notes: "Moved from Google Apps Script to Vercel at the operator's request (issue #2, 2026-10-19); the site now calls itself みらいぎかいっち＠大分市. Launch date not yet verified."
 
 - id: ishigaki-shi
   assembly_code5: "47207"

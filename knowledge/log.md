@@ -4,6 +4,11 @@ All modifications, creations, and updates to the knowledge documents within this
 
 ---
 
+### [2026-10-21T12:20:00+09:00] - Update 大分市 Site URL (Issue #2)
+- **Action**: The operator (`shiosasa`) reported in issue #2 that the 大分市 site moved from Google Apps Script to Vercel. Updated `oita-shi` to the new URL (`https://mirai-gikai-oitacity-wxga.vercel.app/`, verified 200, title 「みらいぎかいっち＠大分市」). Kept the normalized `name`. The repo's GitHub homepage field (`mirai-gikai-oitacity-web.vercel.app`) returns 404 and was not used.
+- **Files Modified**:
+  - `data/sites.yaml`: Updated `oita-shi` `url` and `notes`.
+
 ### [2026-10-18T10:03:00+09:00] - Add Related Project Link to みらい議会＠全国地方議会
 - **Action**: Added a "関連プロジェクト" callout section to the home page linking to the nationwide multi-assembly reader platform `みらい議会＠全国地方議会` (`https://mirai-gikai-zenkoku.vercel.app/`).
 - **Files Modified**:
