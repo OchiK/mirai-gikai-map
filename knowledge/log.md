@@ -4,6 +4,11 @@ All modifications, creations, and updates to the knowledge documents within this
 
 ---
 
+### [2026-10-23T09:49:00+09:00] - Update 大分市 Site URL to Canonical Web Domain (Issue #2)
+- **Action**: The operator (`shiosasa`) reported in issue #2 that `https://mirai-gikai-oitacity-web.vercel.app/` is now live and requested unifying the URL to this canonical `-web` domain (verified 200). Updated `oita-shi` in `data/sites.yaml`.
+- **Files Modified**:
+  - `data/sites.yaml`: Updated `oita-shi` `url`.
+
 ### [2026-10-21T12:20:00+09:00] - Update 大分市 Site URL (Issue #2)
 - **Action**: The operator (`shiosasa`) reported in issue #2 that the 大分市 site moved from Google Apps Script to Vercel. Updated `oita-shi` to the new URL (`https://mirai-gikai-oitacity-wxga.vercel.app/`, verified 200, title 「みらいぎかいっち＠大分市」). Kept the normalized `name`. The repo's GitHub homepage field (`mirai-gikai-oitacity-web.vercel.app`) returns 404 and was not used.
 - **Files Modified**:

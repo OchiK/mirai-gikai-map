@@ -233,7 +233,7 @@
   assembly_code5: "44201"
   assembly_level: municipal
   name: みらい議会＠大分市
-  url: https://mirai-gikai-oitacity-wxga.vercel.app/
+  url: https://mirai-gikai-oitacity-web.vercel.app/
   repo: https://github.com/shiosasa/mirai-gikai-oitacity
   based_on: fork
   added_on: 2026-09-30
