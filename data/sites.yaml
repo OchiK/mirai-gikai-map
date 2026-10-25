@@ -136,6 +136,17 @@
   operator_x: https://x.com/GondowTakashi
   notes: "Operator display name and launch date are not yet verified."
 
+- id: sagamihara-shi
+  assembly_code5: "14150"
+  assembly_level: municipal
+  name: みらい議会＠相模原市
+  url: https://miraigikai-sagamihara.vercel.app/
+  repo: https://github.com/tauon-neutrino-ai/miraigikai-sagamihara
+  based_on: fork
+  added_on: 2026-10-26
+  status: active
+  notes: "Operator display name and launch date are not yet verified."
+
 - id: kusatsu-shi
   assembly_code5: "25206"
   assembly_level: municipal
@@ -182,6 +193,18 @@
   added_on: 2026-10-11
   status: active
   notes: "Operator display name and launch date are not yet verified."
+
+- id: hirakata-shi
+  assembly_code5: "27210"
+  assembly_level: municipal
+  name: みらい議会＠枚方市
+  url: https://mirai-gikai-hirakata-city-web-three.vercel.app/
+  repo: https://github.com/fuchan181-ui/mirai-gikai-hirakata-city
+  based_on: fork
+  added_on: 2026-10-26
+  status: active
+  operator_x: https://x.com/huchanmaru
+  notes: "Operator: @huchanmaru. Launch date not yet verified."
 
 - id: akitakata-shi
   assembly_code5: "34214"
