@@ -415,6 +415,22 @@
       "detected_at": "2026-10-24T17:56:35.390Z",
       "stars": 0,
       "pushed_at": "2026-10-23T09:45:12Z"
+    },
+    {
+      "repo": "msys825/mirai-gikai",
+      "name": null,
+      "url": null,
+      "detected_at": "2026-10-31T19:09:29.270Z",
+      "stars": 0,
+      "pushed_at": "2026-10-31T14:09:39Z"
+    },
+    {
+      "repo": "gkangjie482-art/ai-interview",
+      "name": null,
+      "url": "https://ai-interview-web-kappa.vercel.app",
+      "detected_at": "2026-10-31T19:09:29.270Z",
+      "stars": 0,
+      "pushed_at": "2026-10-30T04:10:03Z"
     }
   ],
   "rejected": [
