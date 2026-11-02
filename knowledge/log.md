@@ -4,6 +4,14 @@ All modifications, creations, and updates to the knowledge documents within this
 
 ---
 
+### [2026-11-02T09:50:00+09:00] - Add 墨田区 Site (みらい議会＠墨田区)
+- **Action**: Verified and registered the newly launched production site for 墨田区 (Tokyo Sumida City, 13107) operated by assembly member 井上ひろき (`https://mirai-gikai-sumida.gorisan.info/`, verified 200). Recorded initial health status in `data/status.json` and pruned `h-inoue1209/mirai-gikai-sumida` from `data/candidates.json`. Total registered sites increased from 25 to 26.
+- **Files Modified**:
+  - `data/sites.yaml`: Added `sumida-ku` (13107).
+  - `data/status.json`: Added initial status for `sumida-ku`.
+  - `data/candidates.json`: Pruned `h-inoue1209/mirai-gikai-sumida`.
+  - `_handoff.md`: Updated registered site count to 26.
+
 ### [2026-10-23T09:49:00+09:00] - Update 大分市 Site URL to Canonical Web Domain (Issue #2)
 - **Action**: The operator (`shiosasa`) reported in issue #2 that `https://mirai-gikai-oitacity-web.vercel.app/` is now live and requested unifying the URL to this canonical `-web` domain (verified 200). Updated `oita-shi` in `data/sites.yaml`.
 - **Files Modified**:

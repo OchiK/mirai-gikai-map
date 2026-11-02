@@ -47,6 +47,14 @@
     "repo_pushed_at": "2026-10-08T08:09:56Z",
     "status": "active"
   },
+  "sumida-ku": {
+    "http": 200,
+    "last_checked": "2026-11-02T00:41:47.000Z",
+    "last_ok": "2026-11-02T00:41:47.000Z",
+    "consecutive_failures": 0,
+    "repo_pushed_at": "2026-11-01T21:55:48Z",
+    "status": "active"
+  },
   "setagaya-ku": {
     "http": 200,
     "last_checked": "2026-10-12T00:07:52.062Z",

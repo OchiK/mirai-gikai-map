@@ -75,6 +75,19 @@
   status: active
   notes: "Operator display name and launch date are not yet verified."
 
+- id: sumida-ku
+  assembly_code5: "13107"
+  assembly_level: municipal
+  name: みらい議会＠墨田区
+  url: https://mirai-gikai-sumida.gorisan.info/
+  repo: https://github.com/h-inoue1209/mirai-gikai-sumida
+  based_on: fork
+  added_on: 2026-11-02
+  status: active
+  operator: 井上ひろき
+  operator_x: https://x.com/gorisan_it
+  notes: "Operator: 墨田区議会議員 井上ひろき (@gorisan_it). Launch date not yet verified."
+
 - id: setagaya-ku
   assembly_code5: "13112"
   assembly_level: municipal
