@@ -423,6 +423,38 @@
       "detected_at": "2026-10-31T19:09:29.270Z",
       "stars": 0,
       "pushed_at": "2026-10-30T04:10:03Z"
+    },
+    {
+      "repo": "hanae-sakiyama/mirai-gikai",
+      "name": null,
+      "url": null,
+      "detected_at": "2026-11-07T19:16:52.783Z",
+      "stars": 0,
+      "pushed_at": "2026-11-02T20:11:07Z"
+    },
+    {
+      "repo": "shiosasa/mirai-gikai-portal",
+      "name": null,
+      "url": null,
+      "detected_at": "2026-11-07T19:16:52.783Z",
+      "stars": 0,
+      "pushed_at": "2026-11-07T16:53:17Z"
+    },
+    {
+      "repo": "civictech-karatsu/mirai-gikai-karatsu",
+      "name": "唐津市",
+      "url": "https://civictech-karatsu.org/",
+      "detected_at": "2026-11-07T19:16:52.783Z",
+      "stars": 0,
+      "pushed_at": "2026-11-07T15:35:40Z"
+    },
+    {
+      "repo": "AbeYoshiJapan/mirai-gikai-sagamihara",
+      "name": "相模原市",
+      "url": "https://mirai-gikai-sagamihara.vercel.app",
+      "detected_at": "2026-11-07T19:16:52.783Z",
+      "stars": 0,
+      "pushed_at": "2026-11-07T01:41:45Z"
     }
   ],
   "rejected": [
