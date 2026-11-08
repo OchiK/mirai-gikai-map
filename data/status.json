@@ -175,6 +175,14 @@
     "repo_pushed_at": null,
     "status": "active"
   },
+  "karatsu-shi": {
+    "http": 200,
+    "last_checked": "2026-11-09T07:43:00.000Z",
+    "last_ok": "2026-11-09T07:43:00.000Z",
+    "consecutive_failures": 0,
+    "repo_pushed_at": "2026-11-07T15:35:40Z",
+    "status": "active"
+  },
   "oita-shi": {
     "http": 200,
     "last_checked": "2026-10-12T00:07:52.062Z",

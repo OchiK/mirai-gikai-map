@@ -4,6 +4,14 @@ All modifications, creations, and updates to the knowledge documents within this
 
 ---
 
+### [2026-11-09T07:45:00+09:00] - Add 唐津市 Site (みらい議会＠唐津市)
+- **Action**: Verified and registered the newly launched production site for 唐津市 (Saga Karatsu City, 41202) operated by シビックテック唐津 (`https://civictech-karatsu.org/mirai-gikai`, verified 200). Recorded initial health status in `data/status.json` and pruned `civictech-karatsu/mirai-gikai-karatsu` from `data/candidates.json`. Total registered sites increased from 26 to 27, marking the first site in Saga Prefecture (prefecture coverage now 15/47).
+- **Files Modified**:
+  - `data/sites.yaml`: Added `karatsu-shi` (41202).
+  - `data/status.json`: Added initial status for `karatsu-shi`.
+  - `data/candidates.json`: Pruned `civictech-karatsu/mirai-gikai-karatsu`.
+  - `_handoff.md`: Updated registered site count to 27.
+
 ### [2026-11-02T09:50:00+09:00] - Add 墨田区 Site (みらい議会＠墨田区)
 - **Action**: Verified and registered the newly launched production site for 墨田区 (Tokyo Sumida City, 13107) operated by assembly member 井上ひろき (`https://mirai-gikai-sumida.gorisan.info/`, verified 200). Recorded initial health status in `data/status.json` and pruned `h-inoue1209/mirai-gikai-sumida` from `data/candidates.json`. Total registered sites increased from 25 to 26.
 - **Files Modified**:

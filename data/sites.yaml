@@ -265,6 +265,19 @@
   status: active
   notes: "Operator display name and launch date are not yet verified."
 
+- id: karatsu-shi
+  assembly_code5: "41202"
+  assembly_level: municipal
+  name: みらい議会＠唐津市
+  url: https://civictech-karatsu.org/mirai-gikai
+  url_alt: https://civictech-karatsu.org/
+  repo: https://github.com/civictech-karatsu/mirai-gikai-karatsu
+  based_on: fork
+  added_on: 2026-11-09
+  status: active
+  operator: シビックテック唐津
+  notes: "Operator: シビックテック唐津. Launch date not yet verified."
+
 - id: oita-shi
   assembly_code5: "44201"
   assembly_level: municipal

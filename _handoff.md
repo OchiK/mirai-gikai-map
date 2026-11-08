@@ -1,5 +1,5 @@
 # Session State: Mirai Gikai Map (みらい議会マップ)
-**Date:** 2026-11-02
+**Date:** 2026-11-09
 
 ## 1. Objective Context
 Build, verify, automate, and deploy an unofficial civic-tech portal (みらい議会マップ) tracking and visualizing the rollout of local assembly AI "みらい議会" instances across Japan. The portal covers all 47 prefectures and 1,741 municipal assemblies with population and assembly coverage calculations.
@@ -15,14 +15,14 @@ Build, verify, automate, and deploy an unofficial civic-tech portal (みらい�
 ## 3. File Map (What Changed & Why)
 - `src/pages/index.astro`: Home page with headline metrics bar, interactive MapLibre choropleth, sortable 47-prefecture ranking table, and recent additions.
 - `src/pages/pref/[code].astro`: Dynamic detail route for each of the 47 prefectures featuring municipality-level MapLibre choropleth, covered/uncovered lists, and CTA.
-- `src/pages/sites.astro`: Searchable and filterable directory of all 26 registered local assembly sites.
+- `src/pages/sites.astro`: Searchable and filterable directory of all 27 registered local assembly sites.
 - `src/pages/about.astro` & `src/pages/submit.astro`: Methodology, data citations, inclusion criteria, and issue template submission.
 - `src/components/Map.astro` & `src/components/MunicipalityMap.astro`: Client-side MapLibre GL JS islands with TopoJSON boundary rendering, cooperative gestures, island jump buttons, and dark mode support.
 - `public/geo/prefectures.topojson`: Optimized national prefecture boundaries (<240 KB).
 - `public/geo/municipalities/*.topojson`: 47 per-prefecture municipality boundary files with designated-city wards dissolved into parent cities.
 - `scripts/healthcheck.ts` & `.github/workflows/healthcheck.yml`: Weekly site liveness and repo activity checker bot writing `data/status.json`.
 - `scripts/discover.ts` & `.github/workflows/discover.yml`: Weekly fork and repository discovery crawler writing `data/candidates.json` and managing GitHub issues.
-- `data/sites.yaml`: 26 active local assemblies registered, including newly confirmed site (墨田区).
+- `data/sites.yaml`: 27 active local assemblies registered, including newly confirmed sites (墨田区, 唐津市).
 - `astro.config.mjs`, `vercel.json`, `public/robots.txt`: Production deployment config for Vercel with automatic XML sitemap (`@astrojs/sitemap`) and robots.txt.
 - `README.md`, `LICENSE`, `.github/pull_request_template.md`: Open-source standards, MIT license, live CI badges, and PR guidelines.
 
