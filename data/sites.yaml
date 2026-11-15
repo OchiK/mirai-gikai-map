@@ -46,11 +46,24 @@
   assembly_level: municipal
   name: みらい議会＠所沢市
   url: https://mirai-gikai-tokorozawa.vercel.app/
-  repo: ~
+  repo: https://github.com/kenisehu/mirai-gikai-tokorozawa
   based_on: fork
   added_on: 2026-09-30
   status: active
   notes: "Operator display name and launch date are not yet verified."
+
+- id: kimitsu-shi
+  assembly_code5: "12225"
+  assembly_level: municipal
+  name: みらい議会＠君津市
+  url: https://mirai-gikai-kimitsu-web.vercel.app/
+  repo: https://github.com/otake-maker/mirai-gikai-kimitsu
+  based_on: fork
+  launched_on: 2026-10-25
+  added_on: 2026-11-16
+  status: active
+  operator: 大竹みちたか
+  notes: "Operator: 大竹みちたか (Instagram: @michitakaotake). Forked via Fukuoka City and Kawasaki City editions."
 
 - id: chuo-ku
   assembly_code5: "13102"
@@ -160,6 +173,29 @@
   status: active
   notes: "Operator display name and launch date are not yet verified."
 
+- id: sagamihara-shi-2
+  assembly_code5: "14150"
+  assembly_level: municipal
+  name: みらい議会＠相模原市（2）
+  url: https://mirai-gikai-sagamihara.vercel.app/
+  repo: https://github.com/AbeYoshiJapan/mirai-gikai-sagamihara
+  based_on: fork
+  added_on: 2026-11-16
+  status: active
+  notes: "Second independent instance for 相模原市 (forked via mirai-gikai-sumida; preset title: さがみはら市議会ナウ！). Operator display name and launch date are not yet verified."
+
+- id: komoro-shi
+  assembly_code5: "20208"
+  assembly_level: municipal
+  name: みらい議会＠小諸市
+  url: https://mirai-gikai-komoro-web.vercel.app/
+  repo: https://github.com/thunder-19900512/mirai-gikai-komoro
+  based_on: fork
+  added_on: 2026-11-16
+  status: active
+  operator: 山田雄司
+  notes: "Operator: 山田雄司. Launch date not yet verified."
+
 - id: kusatsu-shi
   assembly_code5: "25206"
   assembly_level: municipal
@@ -189,7 +225,7 @@
   assembly_level: municipal
   name: みらい議会＠名古屋市
   url: https://mirai-gikai-nagoya.vercel.app/
-  repo: ~
+  repo: https://github.com/Syogo-Suganoya/mirai-gikai-nagoya
   based_on: fork
   added_on: 2026-09-30
   status: active
@@ -218,6 +254,18 @@
   status: active
   operator_x: https://x.com/huchanmaru
   notes: "Operator: @huchanmaru. Launch date not yet verified."
+
+- id: takarazuka-shi
+  assembly_code5: "28214"
+  assembly_level: municipal
+  name: みらい議会＠宝塚市
+  url: https://mirai-gikai-takarazuka.vercel.app/
+  repo: https://github.com/calico-blanket/mirai-gikai-takarazuka
+  based_on: independent
+  launched_on: 2026-11-14
+  added_on: 2026-11-16
+  status: active
+  notes: "Single-file static HTML build modeled on みらい議会. Operator display name not yet verified."
 
 - id: akitakata-shi
   assembly_code5: "34214"
@@ -304,6 +352,18 @@
 
 # ── 町村 ─────────────────────────────────────────────────────────────────────
 
+- id: yoshioka-machi
+  assembly_code5: "10345"
+  assembly_level: municipal
+  name: みらい議会＠吉岡町
+  url: https://web-olive-ten-47.vercel.app/
+  repo: https://github.com/Doppelar/yoshiokacho
+  based_on: fork
+  launched_on: 2026-09-13
+  added_on: 2026-11-16
+  status: active
+  notes: "Operator display name not yet verified."
+
 - id: hayama-machi
   assembly_code5: "14301"
   assembly_level: municipal
@@ -314,6 +374,19 @@
   added_on: 2026-09-30
   status: active
   notes: "Operator display name and launch date are not yet verified."
+
+- id: onga-machi
+  assembly_code5: "40384"
+  assembly_level: municipal
+  name: みらい議会＠遠賀町
+  url: https://miraigikai.onga-mirai-tech.com/
+  repo: https://github.com/Onga-Mirai-Tech/Onga-Mirai-Gikai
+  based_on: independent
+  launched_on: 2026-10-19
+  added_on: 2026-11-16
+  status: active
+  operator_x: https://x.com/OngaMiraiTech
+  notes: "Independent static build with VOICES transcript ingestion and AI summaries. Operator display name not yet verified."
 
 - id: hirokawa-machi-fukuoka
   assembly_code5: "40544"

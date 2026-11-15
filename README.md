@@ -14,7 +14,7 @@
 
 - **全国マップ**: 都道府県ごとの議会カバー率・人口カバー率を塗り分け表示（MapLibre GL JS + TopoJSON）
 - **都道府県別ページ（47ページ）**: 市区町村単位のドリルダウンマップと、その都道府県内のサイト一覧
-- **サイトディレクトリ**: 登録済みの「みらい議会」サイト（現在23件）の一覧・検索
+- **サイトディレクトリ**: 登録済みの「みらい議会」サイト（現在33件）の一覧・検索
 - **ランキング**: 都道府県ごとの議会カバー率・人口カバー率ランキング
 - **掲載申請**: GitHub Issue テンプレートから新しいサイトの掲載を申請可能
 
@@ -65,7 +65,7 @@ pnpm dev
 | `pnpm build` | 型チェック（`astro check`）と静的ビルド |
 | `pnpm preview` | ビルド結果をローカルで確認 |
 | `pnpm validate` | `data/sites.yaml` のスキーマと自治体コードの整合性を検証 |
-| `pnpm test` | ユニットテストを実行（Vitest、128件） |
+| `pnpm test` | ユニットテストを実行（Vitest、165件） |
 | `pnpm lint` | Biome による lint / フォーマットチェック |
 | `pnpm typecheck` | `astro check` と `tsc --noEmit` |
 | `pnpm build:data` | 総務省の住民基本台帳人口・全国地方公共団体コードから `data/municipalities.csv` を再生成 |

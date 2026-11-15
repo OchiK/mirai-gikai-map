@@ -345,28 +345,12 @@
       "pushed_at": "2026-10-03T15:19:43Z"
     },
     {
-      "repo": "Onga-Mirai-Tech/Onga-Mirai-Gikai",
-      "name": "遠賀町",
-      "url": null,
-      "detected_at": "2026-10-03T18:34:55.278Z",
-      "stars": 1,
-      "pushed_at": "2026-10-01T21:43:03Z"
-    },
-    {
       "repo": "csdkotsuka/matsuyama-mirai-gikai",
       "name": null,
       "url": "https://matsuyama-mirai-gikai-admin.vercel.app",
       "detected_at": "2026-10-03T18:34:55.278Z",
       "stars": 0,
       "pushed_at": "2026-09-28T10:28:13Z"
-    },
-    {
-      "repo": "Doppelar/yoshiokacho",
-      "name": null,
-      "url": "https://www.town.yoshioka.lg.jp/gikai/kaigi/pdf/2_gijinittei1_r8_3t%20%282%29.pdf",
-      "detected_at": "2026-10-03T18:34:55.278Z",
-      "stars": 0,
-      "pushed_at": "2026-09-19T13:09:15Z"
     },
     {
       "repo": "nagisora/mirai-gikai-shizuoka-light",
@@ -441,14 +425,6 @@
       "pushed_at": "2026-11-07T16:53:17Z"
     },
     {
-      "repo": "AbeYoshiJapan/mirai-gikai-sagamihara",
-      "name": "相模原市",
-      "url": "https://mirai-gikai-sagamihara.vercel.app",
-      "detected_at": "2026-11-07T19:16:52.783Z",
-      "stars": 0,
-      "pushed_at": "2026-11-07T01:41:45Z"
-    },
-    {
       "repo": "minnonana/mirai-gikai",
       "name": null,
       "url": null,
@@ -473,36 +449,12 @@
       "pushed_at": "2026-11-11T05:29:42Z"
     },
     {
-      "repo": "calico-blanket/mirai-gikai-takarazuka",
-      "name": "宝塚市",
-      "url": "https://mirai-gikai-takarazuka.vercel.app",
-      "detected_at": "2026-11-14T19:47:38.137Z",
-      "stars": 0,
-      "pushed_at": "2026-11-14T13:34:09Z"
-    },
-    {
       "repo": "midou4371/miraigikai-matuyamasi",
       "name": null,
       "url": null,
       "detected_at": "2026-11-14T19:47:38.137Z",
       "stars": 0,
       "pushed_at": "2026-11-14T09:34:38Z"
-    },
-    {
-      "repo": "queria-io/dataset-mirai-gikai",
-      "name": null,
-      "url": "https://gikai.team-mir.ai/developers",
-      "detected_at": "2026-11-14T19:47:38.137Z",
-      "stars": 0,
-      "pushed_at": "2026-11-14T02:54:31Z"
-    },
-    {
-      "repo": "thunder-19900512/mirai-gikai-komoro",
-      "name": "小諸市",
-      "url": null,
-      "detected_at": "2026-11-14T19:47:38.137Z",
-      "stars": 0,
-      "pushed_at": "2026-11-10T21:31:51Z"
     }
   ],
   "rejected": [
@@ -510,6 +462,7 @@
     "team-mirai/okr-content",
     "team-mirai-volunteer/kokkai-join",
     "s-takahashi-hokkaido/dejimin-gikai",
-    "yuito-it/mirai-gikai"
+    "yuito-it/mirai-gikai",
+    "queria-io/dataset-mirai-gikai"
   ]
 }

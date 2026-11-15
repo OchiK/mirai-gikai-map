@@ -4,6 +4,14 @@ All modifications, creations, and updates to the knowledge documents within this
 
 ---
 
+### [2026-11-16T08:11:00+09:00] - Register 6 Local Sites & Backfill 2 Repo Links
+- **Action**: Pulled remote discovery commit `0dc1f7e` and registered 6 newly confirmed municipal sites (君津市 `kimitsu-shi`, 相模原市 2nd site `sagamihara-shi-2`, 小諸市 `komoro-shi`, 宝塚市 `takarazuka-shi`, 吉岡町 `yoshioka-machi`, 遠賀町 `onga-machi`), bringing total registered sites from 27 to 33 across 32 covered assemblies (29/1,741 municipalities and 3/47 prefectural assemblies) in 18/47 prefectures (newly covering 群馬県, 千葉県, 長野県, and 兵庫県). Backfilled `repo` URLs for `tokorozawa-shi` (`kenisehu/mirai-gikai-tokorozawa`) and `nagoya-shi` (`Syogo-Suganoya/mirai-gikai-nagoya`). Updated `data/status.json`, pruned the 5 registered candidate repos from `data/candidates.json`, and rejected `queria-io/dataset-mirai-gikai` (national Diet open-data export).
+- **Files Modified**:
+  - `data/sites.yaml`: Added 6 sites and backfilled 2 `repo` links (33 sites total).
+  - `data/status.json`: Added initial active status for the 6 new sites and updated `repo_pushed_at` for `tokorozawa-shi` and `nagoya-shi`.
+  - `data/candidates.json`: Pruned the 5 newly registered repos and rejected `queria-io/dataset-mirai-gikai`.
+  - `_handoff.md`, `knowledge/handoff.md`, `README.md`: Updated registered site count to 33 and test count to 165.
+
 ### [2026-11-09T07:45:00+09:00] - Add 唐津市 Site (みらい議会＠唐津市)
 - **Action**: Verified and registered the newly launched production site for 唐津市 (Saga Karatsu City, 41202) operated by シビックテック唐津 (`https://civictech-karatsu.org/mirai-gikai`, verified 200). Recorded initial health status in `data/status.json` and pruned `civictech-karatsu/mirai-gikai-karatsu` from `data/candidates.json`. Total registered sites increased from 26 to 27, marking the first site in Saga Prefecture (prefecture coverage now 15/47).
 - **Files Modified**:

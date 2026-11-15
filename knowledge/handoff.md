@@ -1,7 +1,7 @@
 ---
 type: Project Handover
 created: 2026-10-01T12:55:00+09:00
-modified: 2026-10-01T12:55:00+09:00
+modified: 2026-11-16T08:11:00+09:00
 resource: file:///Users/ken/antigravity/Mirai_gikai_map/knowledge/handoff.md
 tags:
   - handoff
@@ -9,7 +9,7 @@ tags:
 ---
 
 # Session State: Mirai Gikai Map (みらい議会マップ)
-**Date:** 2026-10-01
+**Date:** 2026-11-16
 
 ## 1. Objective Context
 Build, verify, automate, and deploy an unofficial civic-tech portal (みらい議会マップ) tracking and visualizing the rollout of local assembly AI "みらい議会" instances across Japan. The portal covers all 47 prefectures and 1,741 municipal assemblies with population and assembly coverage calculations.
@@ -25,7 +25,7 @@ Build, verify, automate, and deploy an unofficial civic-tech portal (みらい�
 ## 3. File Map (What Changed & Why)
 - `src/pages/index.astro`: Home page with headline metrics bar, interactive MapLibre choropleth, sortable 47-prefecture ranking table, and recent additions.
 - `src/pages/pref/[code].astro`: Dynamic detail route for each of the 47 prefectures featuring municipality-level MapLibre choropleth, covered/uncovered lists, and CTA.
-- `src/pages/sites.astro`: Searchable and filterable directory of all 23 registered local assembly sites.
+- `src/pages/sites.astro`: Searchable and filterable directory of all 33 registered local assembly sites.
 - `src/pages/about.astro` & `src/pages/submit.astro`: Methodology, data citations, inclusion criteria, and issue template submission.
 - `src/components/Map.astro` & `src/components/MunicipalityMap.astro`: Client-side MapLibre GL JS islands with TopoJSON boundary rendering, cooperative gestures, island jump buttons, and dark mode support.
 - `public/geo/prefectures.topojson`: Optimized national prefecture boundaries (<240 KB).
@@ -36,7 +36,7 @@ Build, verify, automate, and deploy an unofficial civic-tech portal (みらい�
 - `README.md`, `LICENSE`, `.github/pull_request_template.md`: Open-source standards, MIT license, live CI badges, and PR guidelines.
 
 ## 4. Pending Blockers & Known Issues
-- None. Full test suite (162 tests), Biome linter, TypeScript check, and static build pass cleanly with 0 errors.
+- None. Full test suite (165 tests), Biome linter, TypeScript check, and static build pass cleanly with 0 errors.
 - Production is live and verified on Vercel at `https://mirai-gikai-map.vercel.app/`.
 - Site ownership is verified on Google Search Console with `sitemap-index.xml` active.
 - Phase 5 optional extras (OGP social preview cards, public JSON API `/api/coverage.json`) remain available for future sessions if desired.
