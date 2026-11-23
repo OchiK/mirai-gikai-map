@@ -463,22 +463,6 @@
       "detected_at": "2026-11-21T20:48:42.909Z",
       "stars": 0,
       "pushed_at": "2026-11-19T05:17:02Z"
-    },
-    {
-      "repo": "Doppelar/mirai-gikai-maebashi",
-      "name": "前橋市",
-      "url": "https://muse.ai/s/mirai-gikai-maebashi-shi-xixn6oxd5kh9cxk/-YH3T0WZJ_7GYS7hQleRGRScO5wr2f5wo-B1GayEiW4",
-      "detected_at": "2026-11-21T20:48:42.909Z",
-      "stars": 0,
-      "pushed_at": "2026-11-21T02:52:29Z"
-    },
-    {
-      "repo": "shichuanlongma233-lab/ai-interview",
-      "name": null,
-      "url": "https://aistudio.google.com/apikey",
-      "detected_at": "2026-11-21T20:48:42.909Z",
-      "stars": 0,
-      "pushed_at": "2026-11-16T11:25:10Z"
     }
   ],
   "rejected": [
@@ -487,6 +471,7 @@
     "team-mirai-volunteer/kokkai-join",
     "s-takahashi-hokkaido/dejimin-gikai",
     "yuito-it/mirai-gikai",
-    "queria-io/dataset-mirai-gikai"
+    "queria-io/dataset-mirai-gikai",
+    "shichuanlongma233-lab/ai-interview"
   ]
 }

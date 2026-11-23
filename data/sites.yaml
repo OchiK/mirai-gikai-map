@@ -41,6 +41,18 @@
 
 # ── 市区 ─────────────────────────────────────────────────────────────────────
 
+- id: maebashi-shi
+  assembly_code5: "10201"
+  assembly_level: municipal
+  name: みらい議会＠前橋市
+  url: https://muse.ai/s/mirai-gikai-maebashi-shi-xixn6oxd5kh9cxk/-YH3T0WZJ_7GYS7hQleRGRScO5wr2f5wo-B1GayEiW4
+  repo: https://github.com/Doppelar/mirai-gikai-maebashi
+  based_on: independent
+  launched_on: 2026-11-21
+  added_on: 2026-11-23
+  status: active
+  notes: "Operator display name not yet verified. Standalone static HTML exported from Muse workspace covering Reiwa 8 sessions."
+
 - id: tokorozawa-shi
   assembly_code5: "11208"
   assembly_level: municipal

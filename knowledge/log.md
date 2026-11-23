@@ -4,6 +4,14 @@ All modifications, creations, and updates to the knowledge documents within this
 
 ---
 
+### [2026-11-23T15:45:00+09:00] - Add 前橋市 Site & Candidate Triage
+- **Action**: Verified and registered the newly launched site for 前橋市 (Gunma Maebashi City, 10201) created by `Doppelar` (`https://muse.ai/s/mirai-gikai-maebashi-shi-xixn6oxd5kh9cxk/-YH3T0WZJ_7GYS7hQleRGRScO5wr2f5wo-B1GayEiW4`, verified HTTP 200, title 「みらい議会＠前橋市」). Recorded initial health status in `data/status.json` and pruned `Doppelar/mirai-gikai-maebashi` from `data/candidates.json`. Rejected false-positive candidate `shichuanlongma233-lab/ai-interview` (unrelated multilingual AI interview tool). Total registered sites increased from 33 to 34 (33 unique covered assemblies across 18/47 prefectures).
+- **Files Modified**:
+  - `data/sites.yaml`: Added `maebashi-shi` (10201).
+  - `data/status.json`: Added initial status for `maebashi-shi`.
+  - `data/candidates.json`: Pruned `Doppelar/mirai-gikai-maebashi` and added `shichuanlongma233-lab/ai-interview` to rejected list.
+  - `_handoff.md`, `knowledge/handoff.md`, `README.md`: Updated registered site count to 34.
+
 ### [2026-11-16T08:11:00+09:00] - Register 6 Local Sites & Backfill 2 Repo Links
 - **Action**: Pulled remote discovery commit `0dc1f7e` and registered 6 newly confirmed municipal sites (君津市 `kimitsu-shi`, 相模原市 2nd site `sagamihara-shi-2`, 小諸市 `komoro-shi`, 宝塚市 `takarazuka-shi`, 吉岡町 `yoshioka-machi`, 遠賀町 `onga-machi`), bringing total registered sites from 27 to 33 across 32 covered assemblies (29/1,741 municipalities and 3/47 prefectural assemblies) in 18/47 prefectures (newly covering 群馬県, 千葉県, 長野県, and 兵庫県). Backfilled `repo` URLs for `tokorozawa-shi` (`kenisehu/mirai-gikai-tokorozawa`) and `nagoya-shi` (`Syogo-Suganoya/mirai-gikai-nagoya`). Updated `data/status.json`, pruned the 5 registered candidate repos from `data/candidates.json`, and rejected `queria-io/dataset-mirai-gikai` (national Diet open-data export).
 - **Files Modified**:
